@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://buywy4juikwgc"]
+
+[ext_resource type="Texture2D" uid="uid://doj7d58m0txkm" path="res://icon.svg" id="1_th87o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sgp6g"]
+size = Vector2(6, 20)
+
+[node name="Segment" type="RigidBody2D"]
+mass = 0.1
+linear_damp_mode = 1
+linear_damp = 1000.0
+angular_damp_mode = 1
+angular_damp = 1000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.046875, 0.15625)
+texture = ExtResource("1_th87o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_sgp6g")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="."]
+position = Vector2(0, -10)
+node_a = NodePath("..")
