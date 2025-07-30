@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://be473fkjewddj"]
+
+[ext_resource type="Script" uid="uid://00n4kvs1h3nt" path="res://scripts/player.gd" id="1_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://doj7d58m0txkm" path="res://icon.svg" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://bfuu4c4qs8520" path="res://scripts/main.gd" id="1_sugp2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
+size = Vector2(14, 14)
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_sugp2")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("1_0wfyh")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(3, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_o5qli")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="Rope" type="Line2D" parent="."]
+width = 5.0

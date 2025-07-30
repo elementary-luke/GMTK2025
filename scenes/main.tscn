@@ -23,10 +23,5 @@ texture = ExtResource("1_o5qli")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("RectangleShape2D_0wfyh")
 
-[node name="Segments" type="Node2D" parent="."]
-
-[node name="Start" type="StaticBody2D" parent="."]
-position = Vector2(0, 48)
-
-[node name="PinJoint2D4" type="PinJoint2D" parent="Start"]
-node_b = NodePath("..")
+[node name="Rope" type="Line2D" parent="."]
+width = 2.0
