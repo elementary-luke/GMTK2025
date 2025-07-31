@@ -2,7 +2,7 @@ extends Node2D
 
 @export var room_scene = preload("res://scenes/rooms/room1.tscn")
 @export var room_size := Vector2i(512, 512)
-@export var generation_radius := 1  # Adjust as needed
+@export var generation_radius := 2  # Adjust as needed
 @export var cleanup_radius := 3     # Adjust as needed
 
 var spawned_rooms := {}

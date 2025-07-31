@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var move = Vector2(0.0, 0.0)
-var speed = 2.0
+var speed = 20.0
 var segments = []
 var player_correction = Vector2(0, 0)
 var last = Vector2(0, 0)
