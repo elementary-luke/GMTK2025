@@ -1,0 +1,45 @@
+[gd_resource type="TileSet" load_steps=3 format=3 uid="uid://b1ddii456iy1j"]
+
+[ext_resource type="Texture2D" uid="uid://dypcah5vm5qkd" path="res://sprites/Environment/Base Spritesheet/base_spritesheet.png" id="1_qp2yk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_81yw3"]
+texture = ExtResource("1_qp2yk")
+0:0/size_in_atlas = Vector2i(3, 3)
+0:0/0 = 0
+0:3/size_in_atlas = Vector2i(3, 3)
+0:3/0 = 0
+0:6/size_in_atlas = Vector2i(2, 2)
+0:6/0 = 0
+0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -4, 8, -4, 8, 16, -8, 16)
+0:8/size_in_atlas = Vector2i(2, 2)
+0:8/0 = 0
+3:8/size_in_atlas = Vector2i(2, 2)
+3:8/0 = 0
+5:8/size_in_atlas = Vector2i(3, 2)
+5:8/0 = 0
+5:6/size_in_atlas = Vector2i(3, 2)
+5:6/0 = 0
+2:6/size_in_atlas = Vector2i(3, 1)
+2:6/0 = 0
+2:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-20, -4, 20, -4, 20, 4, 20, 4, -20, 4)
+4:3/0 = 0
+5:3/0 = 0
+5:4/0 = 0
+6:4/0 = 0
+6:5/0 = 0
+4:4/0 = 0
+4:5/0 = 0
+5:5/0 = 0
+6:3/0 = 0
+8:3/0 = 0
+10:3/0 = 0
+8:5/size_in_atlas = Vector2i(2, 2)
+8:5/0 = 0
+8:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+11:5/0 = 0
+4:0/0 = 0
+
+[resource]
+physics_layer_0/collision_layer = 4
+physics_layer_0/collision_mask = 3
+sources/0 = SubResource("TileSetAtlasSource_81yw3")
