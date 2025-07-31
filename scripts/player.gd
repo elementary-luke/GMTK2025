@@ -12,6 +12,7 @@ func _ready():
 	Global.Player = self
 
 func update(delta: float) -> void:
+	Global.player_position = global_position
 	
 	var intent = Vector2.ZERO
 	intent.x = int(Input.is_action_pressed("right")) - int(Input.is_action_pressed("left"))
