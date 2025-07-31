@@ -165,3 +165,16 @@ func query_bodies_in_polygon(points) -> Array:
 	params.collision_mask = 1 << 1
 
 	return get_world_2d().direct_space_state.intersect_shape(params)
+	
+func get_nearest_point(pos):
+	var closest_point = Vector2.ZERO
+	var min_dist_sq = INF
+	var min_d_index = 0
+
+	for i in range(1, segments.size() - 2):
+		var d = pos.distance_squared_to(segments[i].pos)
+		if d < min_dist_sq:
+			min_dist_sq = d
+			min_d_index = i
+
+	return min_d_index
