@@ -1,0 +1,63 @@
+[gd_scene load_steps=14 format=3 uid="uid://dlmoy264lxf4f"]
+
+[ext_resource type="Script" uid="uid://cd7ml6dhvb4wg" path="res://grass_chunks.gd" id="1_in5lo"]
+[ext_resource type="Texture2D" uid="uid://c5xs5c86gu06m" path="res://sprites/Environment/Big Chunks/chunk1.png" id="2_s8q46"]
+[ext_resource type="Texture2D" uid="uid://b84v1mlur3yxg" path="res://sprites/Environment/Big Chunks/chunk2.png" id="3_ujco1"]
+[ext_resource type="Texture2D" uid="uid://cb4lmm1q7b2w5" path="res://sprites/Environment/Big Chunks/chunk3.png" id="4_bgp5l"]
+[ext_resource type="Texture2D" uid="uid://rfuetl02gtw6" path="res://sprites/Environment/Big Chunks/chunk4.png" id="5_l17gm"]
+[ext_resource type="Texture2D" uid="uid://6yohpc6t1rbc" path="res://sprites/Environment/Big Chunks/chunk5.png" id="6_3ljf2"]
+[ext_resource type="Texture2D" uid="uid://crl1qch5ywi6n" path="res://sprites/Environment/Big Chunks/chunk6.png" id="7_n0kel"]
+[ext_resource type="Texture2D" uid="uid://b2pw08os55dfd" path="res://sprites/Environment/Big Chunks/chunk7.png" id="8_bxx2p"]
+[ext_resource type="Texture2D" uid="uid://b5mcw3bnp15kp" path="res://sprites/Environment/Big Chunks/chunk8.png" id="9_pjvgt"]
+[ext_resource type="Texture2D" uid="uid://cthoda6kjt7f8" path="res://sprites/Environment/Big Chunks/chunk9.png" id="10_at0d7"]
+[ext_resource type="Texture2D" uid="uid://d3qtjdano0eem" path="res://sprites/Environment/Big Chunks/chunk10.png" id="11_3f6re"]
+[ext_resource type="Texture2D" uid="uid://ddvqvqbhmylxl" path="res://sprites/Environment/Big Chunks/chunk11.png" id="12_bdrnn"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5kwhl"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_s8q46")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_ujco1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_bgp5l")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_l17gm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_3ljf2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_n0kel")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_bxx2p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_pjvgt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_at0d7")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_3f6re")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_bdrnn")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_in5lo")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_5kwhl")
+frame = 2
+frame_progress = 0.481946

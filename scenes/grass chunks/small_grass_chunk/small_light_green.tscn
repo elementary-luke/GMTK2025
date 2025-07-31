@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://bri8c6v2s11xe"]
+
+[ext_resource type="Script" uid="uid://cd7ml6dhvb4wg" path="res://grass_chunks.gd" id="1_ovfw6"]
+[ext_resource type="Texture2D" uid="uid://bjm58672u6dlq" path="res://sprites/Environment/Little Chunks/Light Green/lightgreen1.png" id="2_ovfw6"]
+[ext_resource type="Texture2D" uid="uid://0nnpo78au4w6" path="res://sprites/Environment/Little Chunks/Light Green/lightgreen2.png" id="3_4n8js"]
+[ext_resource type="Texture2D" uid="uid://dnnokm5lhcvuy" path="res://sprites/Environment/Little Chunks/Light Green/lightgreen3.png" id="4_lcl5v"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p4bax"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ovfw6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_4n8js")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_lcl5v")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="LightGreen" type="Node2D"]
+script = ExtResource("1_ovfw6")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_p4bax")
