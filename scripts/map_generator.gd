@@ -1,9 +1,11 @@
 extends Node2D
 
-@export var room_scene = preload("res://scenes/rooms/room1.tscn")
+var room_scene : PackedScene
 @export var room_size := Vector2i(512, 512)
 @export var generation_radius := 2  # Adjust as needed
 @export var cleanup_radius := 3     # Adjust as needed
+
+var room_num = 3
 
 var spawned_rooms := {}
 var last_room := Vector2i(-9999, -9999)  # ensure first spawn triggers
@@ -28,6 +30,15 @@ func generate_rooms_around(center: Vector2i):
 				spawn_room(coords)
 
 func spawn_room(coords: Vector2i):
+	var rand = randi_range(1, room_num)
+	
+	if rand == 1:
+		room_scene = preload("res://scenes/rooms/room1.tscn")
+	if rand == 2:
+		room_scene = preload("res://scenes/rooms/room2.tscn")
+	if rand == 3:
+		room_scene = preload("res://scenes/rooms/room3.tscn")
+	
 	var room = room_scene.instantiate()
 	room.position = coords * room_size
 	add_child(room)
