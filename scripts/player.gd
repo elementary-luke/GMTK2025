@@ -1,11 +1,12 @@
 extends CharacterBody2D
 
 var move = Vector2(0.0, 0.0)
-var speed = 80.0
+var speed = 200.0
 var segments = []
 var player_correction = Vector2(0, 0)
 var casting_rope = false
 var moving = false
+var no_move = false
 
 func _ready():
 	Global.Player = self
@@ -24,8 +25,7 @@ func update(delta: float) -> void:
 		
 	if casting_rope:
 		var to_end = global_position.distance_to(segments[-2].pos)
-		
-		if Input.is_action_pressed("main_action") && to_end >= Global.Rope.seg_len * 0.8:
+		if Input.is_action_pressed("main_action") && to_end >= Global.Rope.seg_len:#&& Global.Rope.get_rope_length() >= Global.Rope.max_length():
 			Global.Rope.add_segment()
 	else:
 		
@@ -35,5 +35,8 @@ func update(delta: float) -> void:
 				Global.Rope.add_segment()
 			casting_rope = true
 	
-	velocity = move_step
-	move_and_slide() 
+	if !no_move:
+		velocity = move_step
+		move_and_slide() 
+	
+	no_move = false
