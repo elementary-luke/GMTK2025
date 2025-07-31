@@ -1,10 +1,9 @@
 extends Node2D
 var segments = []
-var seg_len = 10.0
+var seg_len = 5.0
 var start_nsegments = 10
 var start_pos = Vector2(0.0, 0.0)
 var segments_in_loop = 10
-var collision_radius = 2.0
 
 func _ready() -> void:
 	Global.Rope = self
@@ -13,7 +12,6 @@ func _ready() -> void:
 			#var inst = Segment.new()
 			#inst.initialise(Vector2(0.0, 0.0))
 			#segments.insert(0, inst)
-			
 func max_length():
 	return seg_len * segments.size()
 
@@ -90,28 +88,22 @@ func simulate():
 
 func resolve_collisions():
 	var space_state = get_world_2d().direct_space_state
-	var shape = CircleShape2D.new()
-	shape.radius = collision_radius  # Adjust based on rope thickness
 
 	for seg in segments:
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = seg.pos
+		query.collision_mask = 1 << 2  # Replace with your wall collision layer
 		
-		var shape_query = PhysicsShapeQueryParameters2D.new()
-		shape_query.shape = shape
-		shape_query.transform.origin = seg.pos
-		shape_query.collision_mask = 1 << 2  # Use your wall layer
-		
-		var result = space_state.intersect_shape(shape_query)
+		var result = space_state.intersect_point(query)
 		if result:
 			#var position = result.position
 			# Push the segment slightly out of the wall
 			seg.pos = seg.old_pos #position + normal * 5.0
 
 func apply_distance_constraints():
-	segments[0].pos = start_pos
-	if get_rope_length() > max_length():
-		Global.Player.global_position = segments[-1].pos
-	else:
-		segments[-1].pos = Global.Player.global_position
+	var first_seg = segments[0]
+	first_seg.pos = start_pos
+	segments[-1].pos = Global.Player.global_position
 	
 	#if segments[-1].pos.distance_to(Global.Player.global_position) > seg_len:
 		#var offset = (segments[-1].pos - Global.Player.global_position).normalized() * seg_len
@@ -232,9 +224,3 @@ func cut(cut_index):
 			segments[i].scissor.seg_index  = i
 		
 	start_pos = segments[0].pos
-
-func get_rope_length() -> float:
-	var length := 0.0
-	for i in range(segments.size() - 1):
-		length += segments[i].pos.distance_to(segments[i + 1].pos)
-	return length
