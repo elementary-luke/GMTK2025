@@ -4,6 +4,7 @@ var seg_len = 10.0
 var start_nsegments = 10
 var start_pos = Vector2(0.0, 0.0)
 var segments_in_loop = 10
+var collision_radius = 2.0
 
 func _ready() -> void:
 	Global.Rope = self
@@ -90,7 +91,7 @@ func simulate():
 func resolve_collisions():
 	var space_state = get_world_2d().direct_space_state
 	var shape = CircleShape2D.new()
-	shape.radius = 2.0  # Adjust based on rope thickness
+	shape.radius = collision_radius  # Adjust based on rope thickness
 
 	for seg in segments:
 		
