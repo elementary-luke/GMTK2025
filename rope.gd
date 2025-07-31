@@ -182,10 +182,13 @@ func cut(cut_index):
 	Global.show_cut_line(segments.slice(0, cut_index + 1).map(func(x): return x.pos))
 
 	for i in range(0, cut_index + 1):
-		if segments[i].scissor != null:
-			segments[i].scissor.reset()
+		if segments[0].scissor != null:
+			segments[0].scissor.reset()
+		
+		if i != cut_index:
+			segments.remove_at(0)
 			
-	segments = segments.slice(cut_index)
+	#segments = segments.slice(cut_index)
 	for i in range(0, len(segments)):
 		if segments[i].scissor != null:
 			segments[i].scissor.seg_index  = i

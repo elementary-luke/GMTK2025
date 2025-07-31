@@ -40,8 +40,8 @@ func reset():
 	attached = false
 	cut = 0.0
 	$LookTimer.start(0.2)
-	$Sprite2D.modulate.g = 0.0
-	$Sprite2D.modulate.b = 0.0
+	$Sprite2D.modulate.g = 1.0
+	$Sprite2D.modulate.b = 1.0
 
 func _on_look_timer_timeout() -> void:
 	if !attached:
