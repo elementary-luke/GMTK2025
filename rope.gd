@@ -37,7 +37,7 @@ func handle_intersection():
 	if j - i > segments_in_loop:
 		$Loop.points = $Line.points.slice(i, j)
 		Global.Player.casting_rope = false
-		$CutLine.points = $Line.points.slice(0, i + 1) + $Line.points.slice(j)
+		Global.show_cut_line($Line.points.slice(0, i + 1) + $Line.points.slice(j))
 		$Line.clear_points()
 		segments.clear()
 		
@@ -74,7 +74,6 @@ func simulate():
 	if Global.Player.moving:
 		for i in range(0, 20):
 			apply_distance_constraints()
-		
 		
 		for i in range(0, 20):
 			apply_smoothing_constraints()
@@ -173,8 +172,22 @@ func get_nearest_point(pos):
 
 	for i in range(1, segments.size() - 2):
 		var d = pos.distance_squared_to(segments[i].pos)
-		if d < min_dist_sq:
+		if d < min_dist_sq && segments[i].scissor == null:
 			min_dist_sq = d
 			min_d_index = i
 
 	return min_d_index
+
+func cut(cut_index):
+	Global.show_cut_line(segments.slice(0, cut_index + 1).map(func(x): return x.pos))
+
+	for i in range(0, cut_index + 1):
+		if segments[i].scissor != null:
+			segments[i].scissor.reset()
+			
+	segments = segments.slice(cut_index)
+	for i in range(0, len(segments)):
+		if segments[i].scissor != null:
+			segments[i].scissor.seg_index  = i
+		
+	start_pos = segments[0].pos

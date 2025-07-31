@@ -3,6 +3,7 @@ class_name Segment
 
 var pos
 var old_pos
+var scissor = null
 
 func initialise(p : Vector2):
 	self.pos = p

@@ -23,7 +23,7 @@ func update(delta: float) -> void:
 	var move_step = move_dir * speed
 		
 	if casting_rope:
-		var anchor_pos = segments[0].pos
+		var anchor_pos = Global.Rope.start_pos
 		
 
 		var new_pos = global_position + move_step

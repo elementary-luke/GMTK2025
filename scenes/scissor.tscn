@@ -18,8 +18,8 @@ texture = ExtResource("2_sx31p")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_sugp2")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="LookTimer" type="Timer" parent="."]
 wait_time = 0.2
 autostart = true
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="LookTimer" to="." method="_on_look_timer_timeout"]
