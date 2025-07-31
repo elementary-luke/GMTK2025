@@ -37,6 +37,7 @@ func handle_intersection():
 	if j - i > segments_in_loop:
 		$Loop.points = $Line.points.slice(i, j)
 		Global.Player.casting_rope = false
+		$CutLine.points = $Line.points.slice(0, i + 1) + $Line.points.slice(j)
 		$Line.clear_points()
 		segments.clear()
 		
