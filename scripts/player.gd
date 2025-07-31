@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 var move = Vector2(0.0, 0.0)
-var speed = 80.0
+var speed = 160.0
 var segments = []
 var player_correction = Vector2(0, 0)
 var casting_rope = false
@@ -19,9 +19,32 @@ func update(delta: float) -> void:
 	
 	moving = intent != Vector2.ZERO
 	
+	if moving:
+		var angle = intent.angle()
+		var anim_name := ""
+		
+		if abs(intent.x) > abs(intent.y):
+			if intent.x > 0:
+				anim_name = "run_side"
+				$AnimatedSprite2D.flip_h = false
+			if intent.x < 0:
+				anim_name = "run_side"
+				$AnimatedSprite2D.flip_h = true
+		else:
+			if intent.y > 0:
+				anim_name = "run_forward"
+				$AnimatedSprite2D.flip_h = false
+			if intent.y < 0:
+				anim_name = "run_back"
+				$AnimatedSprite2D.flip_h = true
+		
+		$AnimatedSprite2D.play(anim_name)
+	else:
+		$AnimatedSprite2D.stop()
+	
 	var move_dir = intent.normalized()
 	var move_step = move_dir * speed
-		
+	
 	if casting_rope:
 		var to_end = global_position.distance_to(segments[-2].pos)
 		
