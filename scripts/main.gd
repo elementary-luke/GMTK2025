@@ -4,7 +4,7 @@ var segments = []
 var seg_len = 5.0
 var start_nsegments = 10
 var start_pos = Vector2(0.0, 0.0)
-var segments_in_loop = 40
+var segments_in_loop = 20
 
 func _ready():
 	Global.Root = self
@@ -36,7 +36,7 @@ func handle_intersection():
 	var j = ip[1] + 1
 	if j - i > segments_in_loop:
 		$Line2D.points = $Rope.points.slice(i, j)
-		print(query_bodies_in_polygon($Line2D.points))
+		#print(query_bodies_in_polygon($Line2D.points))
 
 func draw_rope():
 	var draw_points = segments.map(func(a): return a.pos) #+ [$Player.global_position]
