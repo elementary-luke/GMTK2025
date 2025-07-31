@@ -33,8 +33,8 @@ func _physics_process(delta: float) -> void:
 
 		position += arc_move
 	
-	var to_end = global_position.distance_to(segments[-1].pos)
-	if Input.is_action_pressed("main_action") && to_end >= Global.Root.seg_len * 0.8:
+	var to_end = global_position.distance_to(segments[-2].pos)
+	if Input.is_action_pressed("main_action") && to_end >= Global.Root.seg_len * 1.1:
 		Global.Root.add_segment()
 		last = global_position
 	
