@@ -8,6 +8,7 @@ var cut = 0.0
 var cut_time = 4.0
 
 func _physics_process(delta: float) -> void:
+	
 	var segments = Global.Rope.segments
 	if Global.Player.casting_rope:
 		if seg_index != null:

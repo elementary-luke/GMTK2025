@@ -1,0 +1,60 @@
+[gd_scene load_steps=7 format=3 uid="uid://be473fkjewddj"]
+
+[ext_resource type="Script" uid="uid://00n4kvs1h3nt" path="res://scripts/player.gd" id="1_0wfyh"]
+[ext_resource type="Texture2D" uid="uid://doj7d58m0txkm" path="res://icon.svg" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://bfuu4c4qs8520" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="Script" uid="uid://eb2gj4txc8t" path="res://rope.gd" id="4_jyhfs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
+size = Vector2(14, 14)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_sugp2")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+collision_mask = 6
+script = ExtResource("1_0wfyh")
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+zoom = Vector2(3, 3)
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_o5qli")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="Rope" type="Node2D" parent="."]
+script = ExtResource("4_jyhfs")
+
+[node name="Line" type="Line2D" parent="Rope"]
+width = 2.0
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Loop" type="Line2D" parent="Rope"]
+closed = true
+width = 2.0
+default_color = Color(1, 0, 0, 1)
+
+[node name="ScissorTimer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(-57, 2)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("1_o5qli")
+
+[connection signal="timeout" from="ScissorTimer" to="." method="_on_scissor_timer_timeout"]

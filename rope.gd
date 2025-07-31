@@ -71,16 +71,35 @@ func simulate():
 		seg.pos += velo
 		seg.pos.y += 0.0
 	
+	resolve_collisions()
+	
 	if Global.Player.moving:
 		for i in range(0, 20):
 			apply_distance_constraints()
+			resolve_collisions()
 		
 		for i in range(0, 20):
 			apply_smoothing_constraints()
+			resolve_collisions()
 		
 	#if (segments[-1].pos - $Player.global_position).length() > seg_len:
 		#add_segment()
-	
+	resolve_collisions()
+
+func resolve_collisions():
+	var space_state = get_world_2d().direct_space_state
+
+	for seg in segments:
+		var query = PhysicsPointQueryParameters2D.new()
+		query.position = seg.pos
+		query.collision_mask = 1 << 2  # Replace with your wall collision layer
+		
+		var result = space_state.intersect_point(query)
+		if result:
+			#var position = result.position
+			# Push the segment slightly out of the wall
+			seg.pos = seg.old_pos #position + normal * 5.0
+
 func apply_distance_constraints():
 	var first_seg = segments[0]
 	first_seg.pos = start_pos
@@ -170,7 +189,10 @@ func get_nearest_point(pos):
 	var min_dist_sq = INF
 	var min_d_index = 0
 
-	for i in range(1, segments.size() - 2):
+	for i in range(0, segments.size() - 1):
+		
+		if (i == 0 || i == segments.size() - 1) && len(segments) > 2:
+			continue
 		var d = pos.distance_squared_to(segments[i].pos)
 		if d < min_dist_sq && segments[i].scissor == null:
 			min_dist_sq = d
@@ -179,14 +201,22 @@ func get_nearest_point(pos):
 	return min_d_index
 
 func cut(cut_index):
+	if cut_index == segments.size() - 2 || cut_index == segments.size() - 1:
+		segments.clear()
+		Global.Player.casting_rope = false
+		$Line.clear_points()
+		return
+		
 	Global.show_cut_line(segments.slice(0, cut_index + 1).map(func(x): return x.pos))
 
 	for i in range(0, cut_index + 1):
 		if segments[0].scissor != null:
 			segments[0].scissor.reset()
-		
+	
 		if i != cut_index:
 			segments.remove_at(0)
+		else:
+			segments[0].scissor = null
 			
 	#segments = segments.slice(cut_index)
 	for i in range(0, len(segments)):
