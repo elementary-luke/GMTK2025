@@ -13,6 +13,6 @@ func _physics_process(delta: float) -> void:
 
 func _on_scissor_timer_timeout() -> void:
 	var inst = scissor.instantiate()
-	inst.global_position.x = $Player.global_position.x + randf_range(-100.0, 100.0)
-	inst.global_position.y = $Player.global_position.y + randf_range(-100.0, 100.0)
+	inst.global_position.x = $Player.global_position.x + randf_range(-50.0, 50.0)
+	inst.global_position.y = $Player.global_position.y + randf_range(-50.0, 50.0)
 	add_child(inst)

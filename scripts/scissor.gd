@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 			else:
 				look_at(Global.Rope.segments[seg_index].pos)
 				var diff = Global.Rope.segments[seg_index].pos - global_position
-				if diff.length() < speed * 3.0:
+				if diff.length() < 5.0:
 					attached = true
 				else:
 					global_position += diff.normalized() * speed
