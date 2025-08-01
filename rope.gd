@@ -1,6 +1,6 @@
 extends Node2D
 var segments = []
-var seg_len = 15.0
+var seg_len = 10.0
 var start_nsegments = 10
 var start_pos = Vector2(0.0, 0.0)
 var segments_in_loop = 10
@@ -80,11 +80,13 @@ func simulate():
 	if Global.Player.moving:
 		for i in range(0, rope_phy_iterations):
 			apply_distance_constraints()
-			resolve_collisions()
+			if i % 5 == 0:
+				resolve_collisions()
 		
 		for i in range(0, rope_phy_iterations):
 			apply_smoothing_constraints()
-			resolve_collisions()
+			if i % 5 == 0:
+				resolve_collisions()
 		
 	resolve_collisions()
 
