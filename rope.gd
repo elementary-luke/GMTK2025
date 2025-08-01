@@ -9,10 +9,6 @@ var collision_radius = 2.0
 func _ready() -> void:
 	Global.Rope = self
 	$Line.texture_mode = Line2D.LINE_TEXTURE_TILE
-	#for i in range(0, start_nsegments):
-			#var inst = Segment.new()
-			#inst.initialise(Vector2(0.0, 0.0))
-			#segments.insert(0, inst)
 			
 func max_length():
 	return seg_len * segments.size()
@@ -84,8 +80,6 @@ func simulate():
 			apply_smoothing_constraints()
 			resolve_collisions()
 		
-	#if (segments[-1].pos - $Player.global_position).length() > seg_len:
-		#add_segment()
 	resolve_collisions()
 
 func resolve_collisions():

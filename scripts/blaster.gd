@@ -24,7 +24,7 @@ func _physics_process(delta: float) -> void:
 		var show_pos = focus_point + (focus_point - global_position).normalized() * 3000.0
 		
 		$Line2D.global_position = Vector2(0.0, 0.0)
-		$Line2D.points = [global_position, lerp($Line2D.points[1], show_pos, 0.8)]
+		$Line2D.points = [global_position, lerp($Line2D.points[1], show_pos, 0.9)]
 
 func _on_charge_up_timer_timeout() -> void:
 	$Line2D.default_color = Color(1.0, 0.0, 0.0)
@@ -35,7 +35,14 @@ func _on_charge_up_timer_timeout() -> void:
 	$Line2D.global_position = Vector2(0.0, 0.0)
 	$Line2D.points = [global_position, show_pos]
 	
-	await get_tree().create_timer(warning_time).timeout
+	await get_tree().create_timer(warning_time / 4.0).timeout
+	$Line2D.hide()
+	await get_tree().create_timer(warning_time / 4.0).timeout
+	$Line2D.show()
+	await get_tree().create_timer(warning_time / 4.0).timeout
+	$Line2D.hide()
+	await get_tree().create_timer(warning_time / 4.0).timeout
+	$Line2D.show()
 	
 	var inst = bullet.instantiate()
 	inst.position = global_position
