@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 			if attached:
 				if seg_index + 1< segments.size():
 					look_at(segments[seg_index + 1].pos)
-					rotation += deg_to_rad(90.0)
+					rotation += deg_to_rad(0.0)
 					global_position = segments[seg_index].pos
 					cut += delta
 					if cut > cut_time:
