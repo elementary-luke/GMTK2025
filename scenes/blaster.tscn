@@ -1,11 +1,61 @@
-[gd_scene load_steps=5 format=3 uid="uid://b32auitqhhbtd"]
+[gd_scene load_steps=12 format=3 uid="uid://5ulr54qdr2vu"]
 
 [ext_resource type="Script" uid="uid://d3n6utwhe0sgp" path="res://scripts/blaster.gd" id="1_2f31d"]
-[ext_resource type="Texture2D" uid="uid://doj7d58m0txkm" path="res://icon.svg" id="2_8oy20"]
+[ext_resource type="Texture2D" uid="uid://cufm27qh5lwki" path="res://sprites/Enemies/CarrotBlaster/walk_front.png" id="2_2f31d"]
 [ext_resource type="Texture2D" uid="uid://ea05hjqk0yr6" path="res://sprites/dashed_line.png" id="3_towk8"]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_8oy20"]
+atlas = ExtResource("2_2f31d")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_towk8"]
+atlas = ExtResource("2_2f31d")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_crvqn"]
+atlas = ExtResource("2_2f31d")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_geg22"]
+atlas = ExtResource("2_2f31d")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4l64w"]
+atlas = ExtResource("2_2f31d")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_75s5s"]
+atlas = ExtResource("2_2f31d")
+region = Rect2(160, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k1sea"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8oy20")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_towk8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_crvqn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_geg22")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4l64w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_75s5s")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tipki"]
-size = Vector2(16, 18)
+size = Vector2(16, 21)
 
 [node name="Blaster" type="CharacterBody2D"]
 z_index = 4
@@ -20,14 +70,13 @@ autostart = true
 [node name="ChargeUpTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -7)
-shape = SubResource("RectangleShape2D_tipki")
-
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -11)
-scale = Vector2(0.125, 0.2)
-texture = ExtResource("2_8oy20")
+sprite_frames = SubResource("SpriteFrames_k1sea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8.5)
+shape = SubResource("RectangleShape2D_tipki")
 
 [node name="Line2D" type="Line2D" parent="."]
 z_index = 5
