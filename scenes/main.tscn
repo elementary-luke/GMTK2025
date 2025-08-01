@@ -14,7 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://c5od1or6yp2a5" path="res://sprites/Player/run_side.png" id="6_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://d0v5n6264rp7k" path="res://sprites/Player/idle_side.png" id="6_ya4ey"]
 [ext_resource type="Texture2D" uid="uid://de80c1b2be8o" path="res://sprites/Player/player_shadow.png" id="8_85g3d"]
-[ext_resource type="PackedScene" path="res://scenes/blaster.tscn" id="15_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://b32auitqhhbtd" path="res://scenes/blaster.tscn" id="15_jkv2x"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dnhof"]
 atlas = ExtResource("5_eb6dy")
@@ -537,7 +537,8 @@ position_smoothing_enabled = true
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(0, -2)
 sprite_frames = SubResource("SpriteFrames_a8y0u")
-animation = &"idle_back"
+animation = &"idle_forward"
+frame_progress = 0.47769
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 position = Vector2(0, 7.5)

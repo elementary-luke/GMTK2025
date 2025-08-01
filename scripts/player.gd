@@ -39,6 +39,8 @@ func update(delta: float) -> void:
 	if moving:
 		var angle = intent.angle()
 	
+	play_anim(intent)
+	
 	var move_dir = intent.normalized()
 	move_step = move_dir * speed
 		
@@ -71,30 +73,30 @@ func play_anim(intent):
 				anim_name = "run_side"
 				$AnimatedSprite2D.flip_h = true
 				last_dir = "left"
-			else:
-				if intent.y > 0:
-					anim_name = "run_forward"
-					$AnimatedSprite2D.flip_h = false
-					last_dir = "forward"
-				if intent.y < 0:
-					anim_name = "run_back"
-					$AnimatedSprite2D.flip_h = true
-					last_dir = "back"
 		else:
-			if last_dir == "forward":
-				anim_name = "idle_forward"
+			if intent.y > 0:
+				anim_name = "run_forward"
 				$AnimatedSprite2D.flip_h = false
-			if last_dir == "right":
-				anim_name = "idle_side"
-				$AnimatedSprite2D.flip_h = false
-			if last_dir == "left":
-				anim_name = "idle_side"
+				last_dir = "forward"
+			if intent.y < 0:
+				anim_name = "run_back"
 				$AnimatedSprite2D.flip_h = true
-			if last_dir == "back":
-				anim_name = "idle_back"
-				$AnimatedSprite2D.flip_h = true
+				last_dir = "back"
+	else:
+		if last_dir == "forward":
+			anim_name = "idle_forward"
+			$AnimatedSprite2D.flip_h = false
+		if last_dir == "right":
+			anim_name = "idle_side"
+			$AnimatedSprite2D.flip_h = false
+		if last_dir == "left":
+			anim_name = "idle_side"
+			$AnimatedSprite2D.flip_h = true
+		if last_dir == "back":
+			anim_name = "idle_back"
+			$AnimatedSprite2D.flip_h = true
 		
-		$AnimatedSprite2D.play(anim_name)
+	$AnimatedSprite2D.play(anim_name)
 
 func stun():
 	if can_be_stunned:
