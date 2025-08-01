@@ -1,0 +1,13 @@
+extends CharacterBody2D
+
+var dir = Vector2(1.0, 0.0)
+var speed = 5.0 # change in blaster
+
+func _physics_process(delta: float) -> void:
+	look_at(dir)
+	var coll = move_and_collide(dir * speed)
+	if coll:
+		queue_free()
+		var body = coll.get_collider()
+		if body == Global.Player:
+			body.stun()
