@@ -59,5 +59,3 @@ script = ExtResource("1_in5lo")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_5kwhl")
-frame = 2
-frame_progress = 0.481946

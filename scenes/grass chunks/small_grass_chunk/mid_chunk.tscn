@@ -1,0 +1,46 @@
+[gd_scene load_steps=8 format=3 uid="uid://bfj4up08uxv3n"]
+
+[ext_resource type="Script" uid="uid://cd7ml6dhvb4wg" path="res://grass_chunks.gd" id="1_lklyc"]
+[ext_resource type="Texture2D" uid="uid://bkf8dfvs58sad" path="res://sprites/Environment/Mid Chunks/mid_chunk.png" id="2_ac6o3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ebott"]
+atlas = ExtResource("2_ac6o3")
+region = Rect2(0, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lklyc"]
+atlas = ExtResource("2_ac6o3")
+region = Rect2(80, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uo5ef"]
+atlas = ExtResource("2_ac6o3")
+region = Rect2(160, 0, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_45mw5"]
+atlas = ExtResource("2_ac6o3")
+region = Rect2(240, 0, 80, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p4bax"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ebott")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lklyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uo5ef")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_45mw5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MidChunks" type="Node2D"]
+script = ExtResource("1_lklyc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_p4bax")

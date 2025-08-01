@@ -7,6 +7,10 @@ var player_correction = Vector2(0, 0)
 var casting_rope = false
 var moving = false
 
+var last_dir : String = "forward"
+
+var anim_name := ""
+
 func _ready():
 	Global.Player = self
 
@@ -21,26 +25,40 @@ func update(delta: float) -> void:
 	
 	if moving:
 		var angle = intent.angle()
-		var anim_name := ""
 		
 		if abs(intent.x) > abs(intent.y):
 			if intent.x > 0:
 				anim_name = "run_side"
 				$AnimatedSprite2D.flip_h = false
+				last_dir = "right"
 			if intent.x < 0:
 				anim_name = "run_side"
 				$AnimatedSprite2D.flip_h = true
+				last_dir = "left"
 		else:
 			if intent.y > 0:
 				anim_name = "run_forward"
 				$AnimatedSprite2D.flip_h = false
+				last_dir = "forward"
 			if intent.y < 0:
 				anim_name = "run_back"
 				$AnimatedSprite2D.flip_h = true
-		
-		$AnimatedSprite2D.play(anim_name)
+				last_dir = "back"
 	else:
-		$AnimatedSprite2D.stop()
+		if last_dir == "forward":
+			anim_name = "idle_forward"
+			$AnimatedSprite2D.flip_h = false
+		if last_dir == "right":
+			anim_name = "idle_side"
+			$AnimatedSprite2D.flip_h = false
+		if last_dir == "left":
+			anim_name = "idle_side"
+			$AnimatedSprite2D.flip_h = true
+		if last_dir == "back":
+			anim_name = "idle_back"
+			$AnimatedSprite2D.flip_h = true
+	
+	$AnimatedSprite2D.play(anim_name)
 	
 	var move_dir = intent.normalized()
 	var move_step = move_dir * speed

@@ -9,8 +9,7 @@ func _ready():
 func _physics_process(delta: float) -> void:
 	$Player.update(delta)
 	$Rope.update(delta)
-
-
+	
 func _on_scissor_timer_timeout() -> void:
 	var inst = scissor.instantiate()
 	inst.global_position.x = $Player.global_position.x + randf_range(-50.0, 50.0)

@@ -1,0 +1,62 @@
+[gd_scene load_steps=10 format=3 uid="uid://buru8t84t8jlx"]
+
+[ext_resource type="Texture2D" uid="uid://cxwltodmcgeil" path="res://sprites/Enemies/PeaShooter/attack_side.png" id="1_ie068"]
+[ext_resource type="Script" uid="uid://dfecyyar3qt8t" path="res://scripts/peashooter.gd" id="1_mjqhc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjqhc"]
+atlas = ExtResource("1_ie068")
+region = Rect2(0, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phtx6"]
+atlas = ExtResource("1_ie068")
+region = Rect2(28, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruxbe"]
+atlas = ExtResource("1_ie068")
+region = Rect2(56, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw47f"]
+atlas = ExtResource("1_ie068")
+region = Rect2(84, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yb8m"]
+atlas = ExtResource("1_ie068")
+region = Rect2(112, 0, 28, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ebij7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjqhc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phtx6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruxbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw47f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yb8m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie068"]
+size = Vector2(8, 18)
+
+[node name="Node2D" type="CharacterBody2D"]
+collision_layer = 2
+script = ExtResource("1_mjqhc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, -2)
+sprite_frames = SubResource("SpriteFrames_ebij7")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ie068")
