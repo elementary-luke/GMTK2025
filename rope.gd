@@ -110,6 +110,7 @@ func apply_distance_constraints():
 	segments[0].pos = start_pos
 	if get_rope_length() > max_length():
 		Global.Player.global_position = segments[-1].pos
+		Global.Player.no_move = true
 	else:
 		segments[-1].pos = Global.Player.global_position
 	
