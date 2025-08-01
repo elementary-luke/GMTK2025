@@ -1,9 +1,10 @@
 extends Node2D
 var segments = []
-var seg_len = 10.0
+var seg_len = 15.0
 var start_nsegments = 10
 var start_pos = Vector2(0.0, 0.0)
 var segments_in_loop = 10
+var rope_phy_iterations = 20
 var collision_radius = 2.0
 var intersection_counter = 0
 var intersection_max = 10
@@ -77,11 +78,11 @@ func simulate():
 	resolve_collisions()
 	
 	if Global.Player.moving:
-		for i in range(0, 5):
+		for i in range(0, rope_phy_iterations):
 			apply_distance_constraints()
 			resolve_collisions()
 		
-		for i in range(0, 5):
+		for i in range(0, rope_phy_iterations):
 			apply_smoothing_constraints()
 			resolve_collisions()
 		

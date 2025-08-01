@@ -499,31 +499,35 @@ script = ExtResource("1_sugp2")
 [node name="MapGenerator" type="Node2D" parent="."]
 script = ExtResource("2_o6xl0")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="."]
 offset = Vector2(256, 144)
 transform = Transform2D(1, 0, 0, 1, 256, 144)
 
-[node name="Sidebars" type="Sprite2D" parent="CanvasLayer"]
+[node name="Sidebars" type="Sprite2D" parent="UI"]
 texture = ExtResource("2_tefeu")
 
-[node name="RopeAmmoBar" type="Sprite2D" parent="CanvasLayer"]
+[node name="RopeAmmoBar" type="Sprite2D" parent="UI"]
 position = Vector2(161.5, -119)
 texture = ExtResource("4_trceg")
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+[node name="Sprite2D" type="Sprite2D" parent="UI"]
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer"]
-offset_left = 76.0
-offset_top = -124.0
-offset_right = 116.0
+[node name="AmmoLabel" type="RichTextLabel" parent="UI"]
+offset_left = 50.0
+offset_top = -125.0
+offset_right = 115.0
 offset_bottom = -114.0
 theme_override_fonts/normal_font = ExtResource("5_a8y0u")
 theme_override_font_sizes/normal_font_size = 8
-bbcode_enabled = true
-text = "[center]100m"
+text = "100m"
+horizontal_alignment = 2
+vertical_alignment = 1
 
-[node name="Polygon2D" type="Polygon2D" parent="CanvasLayer"]
-position = Vector2(118, -125)
+[node name="AmmoPivot" type="Node2D" parent="UI"]
+position = Vector2(118, -119)
+
+[node name="AmmoPoly" type="Polygon2D" parent="UI/AmmoPivot"]
+position = Vector2(0, -6)
 polygon = PackedVector2Array(0, 0, 0, 11, 87, 11, 87, 0)
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
@@ -566,6 +570,7 @@ default_color = Color(1, 0, 0, 1)
 
 [node name="ScissorTimer" type="Timer" parent="."]
 wait_time = 5.0
+autostart = true
 
 [node name="Blaster" parent="." instance=ExtResource("15_jkv2x")]
 position = Vector2(108, 157)

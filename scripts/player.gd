@@ -14,6 +14,9 @@ var stun_invincibility_dur = 0.5
 var can_be_stunned = true
 var last = Vector2(0, 0)
 var can_extend = false
+var rope_left : float = 100
+var max_rope : float = 100
+var min_rope_segments = 2
 
 var anim_name = "idle_forward"
 var last_dir = "forward"
@@ -47,17 +50,21 @@ func update(delta: float) -> void:
 		
 	if casting_rope:
 		var to_end = global_position.distance_to(segments[-2].pos)
-		if to_end >= Global.Rope.seg_len and can_extend:#&& Global.Rope.get_rope_length() >= Global.Rope.max_length():
+		if to_end >= Global.Rope.seg_len and can_extend and rope_left > 0:#&& Global.Rope.get_rope_length() >= Global.Rope.max_length():
 			Global.Rope.add_segment()
+			rope_left -= 1
+			rope_left = max(rope_left, 0)
 			
 		if Input.is_action_just_pressed("main_action"):
 			can_extend = !can_extend
 		
 	else:
 		Global.Rope.start_pos = global_position
-		if Input.is_action_just_pressed("main_action"):
-			for i in range(0, 5):
+		if Input.is_action_just_pressed("main_action") and rope_left > min_rope_segments:
+			for i in range(0, min_rope_segments):
 				Global.Rope.add_segment()
+				rope_left -= min_rope_segments
+				rope_left = max(rope_left, 0)
 			casting_rope = true
 			can_extend = true
 	
@@ -66,6 +73,13 @@ func update(delta: float) -> void:
 	move_and_slide() 
 	
 	no_move = false
+	
+	var percentage_left = rope_left / max_rope
+	var bar = Global.Root.get_node("UI/AmmoPivot")
+	bar.scale.x = lerp(bar.scale.x, percentage_left, 0.8)
+	var label = Global.Root.get_node("UI/AmmoLabel")
+	label.text = str(int(lerp(0, 100, percentage_left))) + "m"
+	
 
 func play_anim(intent):
 	if moving:
