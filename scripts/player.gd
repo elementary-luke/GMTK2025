@@ -40,8 +40,15 @@ func update(delta: float) -> void:
 	
 	moving = intent != Vector2.ZERO
 
+	var walk_player = $WalkSoundPlayer
+	
 	if moving:
 		var angle = intent.angle()
+		if not walk_player.playing:
+			walk_player.play()
+	else:
+		if walk_player.playing:
+			walk_player.stop()
 	
 	play_anim(intent)
 	
