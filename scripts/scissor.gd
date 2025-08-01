@@ -6,7 +6,12 @@ var attached = false
 var speed = 40.0
 var cut = 0.0
 var cut_time = 4.0
+var chew_dir = 1
 
+func _ready():
+	if randi_range(0, 1) == 0:
+		chew_dir = -1
+	
 func _physics_process(delta: float) -> void:
 	var segments = Global.Rope.segments
 	if Global.Player.casting_rope:
@@ -14,7 +19,8 @@ func _physics_process(delta: float) -> void:
 			if attached:
 				if seg_index + 1< segments.size():
 					look_at(segments[seg_index + 1].pos)
-					rotation += deg_to_rad(0.0)
+					if chew_dir == 1:
+						rotation += deg_to_rad(180.0)
 					global_position = segments[seg_index].pos
 					cut += delta
 					if cut > cut_time:
