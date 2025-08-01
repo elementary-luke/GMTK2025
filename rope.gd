@@ -5,6 +5,8 @@ var start_nsegments = 10
 var start_pos = Vector2(0.0, 0.0)
 var segments_in_loop = 10
 var collision_radius = 2.0
+var intersection_counter = 0
+var intersection_max = 10
 
 func _ready() -> void:
 	Global.Rope = self
@@ -22,7 +24,10 @@ func update(delta: float) -> void:
 	if Global.Player.casting_rope:
 		simulate()
 		draw_rope()
-		handle_intersection()
+		intersection_counter += 1
+		if intersection_counter > intersection_max:
+			handle_intersection()
+			intersection_counter = 0
 	
 
 func handle_intersection():
@@ -72,11 +77,11 @@ func simulate():
 	resolve_collisions()
 	
 	if Global.Player.moving:
-		for i in range(0, 20):
+		for i in range(0, 5):
 			apply_distance_constraints()
 			resolve_collisions()
 		
-		for i in range(0, 20):
+		for i in range(0, 5):
 			apply_smoothing_constraints()
 			resolve_collisions()
 		

@@ -566,7 +566,6 @@ default_color = Color(1, 0, 0, 1)
 
 [node name="ScissorTimer" type="Timer" parent="."]
 wait_time = 5.0
-autostart = true
 
 [node name="Blaster" parent="." instance=ExtResource("15_jkv2x")]
 position = Vector2(108, 157)
