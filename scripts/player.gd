@@ -13,6 +13,7 @@ var stun_time = 1.0
 var stun_invincibility_dur = 0.5
 var can_be_stunned = true
 var last = Vector2(0, 0)
+var can_extend = false
 
 var anim_name = "idle_forward"
 var last_dir = "forward"
@@ -46,15 +47,19 @@ func update(delta: float) -> void:
 		
 	if casting_rope:
 		var to_end = global_position.distance_to(segments[-2].pos)
-		if Input.is_action_pressed("main_action") && to_end >= Global.Rope.seg_len:#&& Global.Rope.get_rope_length() >= Global.Rope.max_length():
+		if to_end >= Global.Rope.seg_len and can_extend:#&& Global.Rope.get_rope_length() >= Global.Rope.max_length():
 			Global.Rope.add_segment()
-	else:
+			
+		if Input.is_action_just_pressed("main_action"):
+			can_extend = !can_extend
 		
+	else:
 		Global.Rope.start_pos = global_position
 		if Input.is_action_just_pressed("main_action"):
 			for i in range(0, 5):
 				Global.Rope.add_segment()
 			casting_rope = true
+			can_extend = true
 	
 	velocity = move_step
 	

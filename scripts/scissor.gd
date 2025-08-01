@@ -8,7 +8,6 @@ var cut = 0.0
 var cut_time = 4.0
 
 func _physics_process(delta: float) -> void:
-	
 	var segments = Global.Rope.segments
 	if Global.Player.casting_rope:
 		if seg_index != null:
@@ -32,6 +31,8 @@ func _physics_process(delta: float) -> void:
 						segments[seg_index].scissor = self
 					else:
 						velocity = diff.normalized() * speed
+						look_at(position + velocity)
+						rotation -= deg_to_rad(90)
 						move_and_slide()
 	else:
 		reset()
