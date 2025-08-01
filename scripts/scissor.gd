@@ -3,7 +3,7 @@ extends CharacterBody2D
 var target = null
 var seg_index = null
 var attached = false
-var speed = 0.2
+var speed = 40.0
 var cut = 0.0
 var cut_time = 4.0
 
@@ -31,7 +31,8 @@ func _physics_process(delta: float) -> void:
 						attached = true
 						segments[seg_index].scissor = self
 					else:
-						global_position += diff.normalized() * speed
+						velocity = diff.normalized() * speed
+						move_and_slide()
 	else:
 		reset()
 
