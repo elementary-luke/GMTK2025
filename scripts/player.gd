@@ -55,8 +55,7 @@ func update(delta: float) -> void:
 		var to_end = global_position.distance_to(segments[-2].pos)
 		if to_end >= Global.Rope.seg_len and can_extend and rope_left > 0:#&& Global.Rope.get_rope_length() >= Global.Rope.max_length():
 			Global.Rope.add_segment()
-			rope_left -= 1
-			rope_left = max(rope_left, 0)
+			reduce_rope(1)
 			
 		if Input.is_action_just_pressed("main_action"):
 			can_extend = !can_extend
@@ -66,8 +65,7 @@ func update(delta: float) -> void:
 		if Input.is_action_just_pressed("main_action") and rope_left > min_rope_segments:
 			for i in range(0, min_rope_segments):
 				Global.Rope.add_segment()
-				rope_left -= min_rope_segments
-				rope_left = max(rope_left, 0)
+				reduce_rope(1)
 			casting_rope = true
 			can_extend = true
 	
@@ -147,4 +145,3 @@ func reduce_rope(amount):
 	if rope_left == 0:
 		$AnimatedSprite2D.play("idle_forward")
 		Global.Root.end_game()
-		
