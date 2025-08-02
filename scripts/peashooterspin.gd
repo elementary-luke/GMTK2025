@@ -40,7 +40,7 @@ func _on_timer_timeout() -> void:
 			d = -1.0
 			dir = PI
 		
-		for i in range(0, 7):
+		for i in range(0, 8):
 			var bullet = bullet_scn.instantiate()
 			bullet.global_position = global_position
 			bullet.dir = dir
@@ -50,6 +50,6 @@ func _on_timer_timeout() -> void:
 			
 			await get_tree().create_timer(0.08).timeout #0.08
 			$AnimatedSprite2D.frame += 1
-			
+		
 		$AnimatedSprite2D.play("default")
 	$Timer.start()
