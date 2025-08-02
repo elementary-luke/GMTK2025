@@ -18,6 +18,7 @@ func _physics_process(delta: float) -> void:
 		if (Global.player_position - global_position).length() < 300.0:
 			var bullet = load("res://scenes/enemies/enemy_bullet.tscn").instantiate()
 			bullet.global_position = global_position
+			bullet.dir = (Global.player_position - global_position).angle()
 			get_tree().current_scene.add_child(bullet)
 			
 	if global_position.x > Global.player_position.x:

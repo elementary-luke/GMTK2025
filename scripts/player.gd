@@ -6,7 +6,6 @@ var segments = []
 var player_correction = Vector2(0, 0)
 var casting_rope = false
 var moving = false
-var no_move = false
 var move_step = Vector2(0.0, 0.0)
 var stunned = false
 var stun_invincibility_dur = 0.5
@@ -33,9 +32,6 @@ func update(delta: float) -> void:
 	intent.y = int(Input.is_action_pressed("down")) - int(Input.is_action_pressed("up"))
 	
 	if stunned:
-		intent = Vector2.ZERO
-	
-	if no_move:
 		intent = Vector2.ZERO
 	
 	moving = intent != Vector2.ZERO
@@ -78,8 +74,6 @@ func update(delta: float) -> void:
 	velocity = move_step
 	
 	move_and_slide() 
-	
-	no_move = false
 	
 
 func play_anim(intent):

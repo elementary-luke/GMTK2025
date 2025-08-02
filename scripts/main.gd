@@ -27,12 +27,12 @@ func _on_scissor_timer_timeout() -> void:
 func ui():
 	var percentage_left = $Player.rope_left / $Player.max_rope
 	var bar = $UI/AmmoPivot
-	bar.scale.x = lerp(bar.scale.x, percentage_left, 0.4)
+	bar.scale.x = lerp(bar.scale.x, percentage_left, 0.1)
 	var label = $UI/AmmoLabel
 	var amount_meters = ceil(lerp(0, 100, percentage_left))
-	rope_shown = ceil(lerp(rope_shown, amount_meters, 0.4))
+	rope_shown = ceil(lerp(rope_shown, amount_meters, 0.1))
 	#print(percentage_left, rope_shown, amount_meters)
 	label.text = str(int(rope_shown)) + "m"
 	
-	score_shown = ceil(lerp(score_shown, Global.score, 0.4))
+	score_shown = ceil(lerp(score_shown, Global.score, 0.1))
 	$UI/ScoreLabel.text = str(int(score_shown))

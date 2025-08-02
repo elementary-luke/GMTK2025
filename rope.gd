@@ -50,10 +50,12 @@ func handle_intersection():
 		
 		segments.clear()
 		
+		
 		var bodies = query_bodies_in_polygon($Line.points.slice(i, j))
-		for b in query_bodies_in_polygon($Line.points.slice(i, j)):
+		for b in bodies:
 			var body = b["collider"]
 			if body:
+				Global.score += body.rope_value * len(bodies)
 				body.die()
 		
 		$Line.clear_points()
@@ -125,7 +127,6 @@ func apply_distance_constraints():
 	segments[0].pos = start_pos
 	if get_rope_length() > max_length():
 		Global.Player.global_position = segments[-1].pos
-		Global.Player.no_move = true
 	else:
 		segments[-1].pos = Global.Player.global_position
 	
@@ -133,17 +134,17 @@ func apply_distance_constraints():
 		#var offset = (segments[-1].pos - Global.Player.global_position).normalized() * seg_len
 		#segments[-1].pos = Global.Player.global_position + offset
 	
-	for i in range(0, len(segments) - 1):
+	for i in range(len(segments) - 2, -1, -1 ):
 		var a = segments[i]
 		var b = segments[i + 1]
 	
 		var delta = b.pos - a.pos
 		var dist  = delta.length()
-		if dist == 0: 
-			continue
+		#if dist <= 0.001:
+			#break
 		var error = dist - seg_len
-		if i == len(segments) - 2 and segments[i].pos.distance_to(segments[i + 1].pos) <= seg_len:
-			error = dist - segments[i].pos.distance_to(segments[i + 1].pos)
+		if i == len(segments) - 2 and a.pos.distance_to(b.pos) <= seg_len:
+			error = dist - a.pos.distance_to(b.pos)
 			
 		var n = delta / dist
 		var corr  = n * (error * 0.5)
@@ -185,7 +186,7 @@ func self_intersecting():
 			if i == 0 and j == seg_count - 1:
 				continue
 				
-			if segments[j].pos == segments[j].old_pos && segments[j + 1].pos == segments[j + 1].old_pos:
+			if segments[i].pos == segments[i].old_pos && segments[i + 1].pos == segments[i + 1].old_pos && segments[j].pos == segments[j].old_pos && segments[j + 1].pos == segments[j + 1].old_pos:
 				continue
 			
 			var b1 = segments[j].pos

@@ -25,12 +25,12 @@ func _physics_process(delta: float) -> void:
 			
 		var show_pos = focus_point + (focus_point - global_position).normalized() * 3000.0
 		
-		$TerrainCast.target_position = Vector2(show_pos)
+		$TerrainCast.target_position = Vector2(show_pos - $TerrainCast.global_position)
 		$TerrainCast.force_raycast_update()
 		if $TerrainCast.is_colliding():
 			show_pos = $TerrainCast.get_collision_point()
 		$Line2D.global_position = Vector2(0.0, 0.0)
-		$Line2D.points = [global_position, lerp($Line2D.points[1], show_pos, 0.9)]
+		$Line2D.points = [global_position, show_pos]
 
 func _on_charge_up_timer_timeout() -> void:
 	$Line2D.default_color = Color(1.0, 0.0, 0.0)
@@ -39,7 +39,7 @@ func _on_charge_up_timer_timeout() -> void:
 
 	var show_pos = focus_point + (focus_point - global_position).normalized() * 3000.0
 	
-	$TerrainCast.target_position = Vector2(show_pos)
+	$TerrainCast.target_position = Vector2(show_pos - $TerrainCast.global_position)
 	$TerrainCast.force_raycast_update()
 	if $TerrainCast.is_colliding():
 		show_pos = $TerrainCast.get_collision_point()
@@ -76,6 +76,12 @@ func _on_rest_timer_timeout() -> void:
 	if global_position.distance_to(Global.Player.global_position) < 300.0:
 		$Line2D.global_position = Vector2(0.0, 0.0)
 		focus_point = Global.Player.global_position
+		
+		$TerrainCast.target_position = Vector2(focus_point - $TerrainCast.global_position)
+		$TerrainCast.force_raycast_update()
+		if $TerrainCast.is_colliding():
+			focus_point = $TerrainCast.get_collision_point()
+		
 		$Line2D.points = [global_position, focus_point]
 		charging_up = true
 		$ChargeUpTimer.start()

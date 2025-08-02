@@ -1,0 +1,70 @@
+[gd_scene load_steps=10 format=3 uid="uid://dn3q2af72x1yf"]
+
+[ext_resource type="Script" uid="uid://dom68l1d3454u" path="res://scripts/peashooterspin.gd" id="1_xb24s"]
+[ext_resource type="Texture2D" uid="uid://cxwltodmcgeil" path="res://sprites/Enemies/PeaShooter/attack_side.png" id="2_x1d2d"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjqhc"]
+atlas = ExtResource("2_x1d2d")
+region = Rect2(0, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_phtx6"]
+atlas = ExtResource("2_x1d2d")
+region = Rect2(28, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ruxbe"]
+atlas = ExtResource("2_x1d2d")
+region = Rect2(56, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yw47f"]
+atlas = ExtResource("2_x1d2d")
+region = Rect2(84, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8yb8m"]
+atlas = ExtResource("2_x1d2d")
+region = Rect2(112, 0, 28, 25)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ebij7"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjqhc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_phtx6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ruxbe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yw47f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8yb8m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ie068"]
+size = Vector2(8, 18)
+
+[node name="PeaShooterSpin" type="CharacterBody2D"]
+z_index = 5
+collision_layer = 2
+script = ExtResource("1_xb24s")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-2, -2)
+sprite_frames = SubResource("SpriteFrames_ebij7")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ie068")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
