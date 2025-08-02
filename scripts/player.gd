@@ -77,49 +77,60 @@ func update(delta: float) -> void:
 	
 
 func play_anim(intent):
-	if moving:
-		if abs(intent.x) > abs(intent.y):
-			if intent.x > 0:
-				anim_name = "run_side"
-				$AnimatedSprite2D.flip_h = false
-				last_dir = "right"
-			if intent.x < 0:
-				anim_name = "run_side"
-				$AnimatedSprite2D.flip_h = true
-				last_dir = "left"
+	if !stunned:
+		if moving:
+			if abs(intent.x) > abs(intent.y):
+				if intent.x > 0:
+					anim_name = "run_side"
+					$AnimatedSprite2D.flip_h = false
+					last_dir = "right"
+				if intent.x < 0:
+					anim_name = "run_side"
+					$AnimatedSprite2D.flip_h = true
+					last_dir = "left"
+			else:
+				if intent.y > 0:
+					anim_name = "run_forward"
+					$AnimatedSprite2D.flip_h = false
+					last_dir = "forward"
+				if intent.y < 0:
+					anim_name = "run_back"
+					$AnimatedSprite2D.flip_h = true
+					last_dir = "back"
 		else:
-			if intent.y > 0:
-				anim_name = "run_forward"
+			if last_dir == "forward":
+				anim_name = "idle_forward"
 				$AnimatedSprite2D.flip_h = false
-				last_dir = "forward"
-			if intent.y < 0:
-				anim_name = "run_back"
+			if last_dir == "right":
+				anim_name = "idle_side"
+				$AnimatedSprite2D.flip_h = false
+			if last_dir == "left":
+				anim_name = "idle_side"
 				$AnimatedSprite2D.flip_h = true
-				last_dir = "back"
-	else:
-		if last_dir == "forward":
-			anim_name = "idle_forward"
-			$AnimatedSprite2D.flip_h = false
-		if last_dir == "right":
-			anim_name = "idle_side"
-			$AnimatedSprite2D.flip_h = false
-		if last_dir == "left":
-			anim_name = "idle_side"
-			$AnimatedSprite2D.flip_h = true
-		if last_dir == "back":
-			anim_name = "idle_back"
-			$AnimatedSprite2D.flip_h = true
-		
-	$AnimatedSprite2D.play(anim_name)
+			if last_dir == "back":
+				anim_name = "idle_back"
+				$AnimatedSprite2D.flip_h = true
+			
+		$AnimatedSprite2D.play(anim_name)
 
 func stun(time):
 	if can_be_stunned:
 		can_be_stunned = false
 		stunned = true
+		$ShakeTimer.start()
+		$AudioStreamPlayer2D.play()
+		$AnimatedSprite2D.play("frozen")
 		await get_tree().create_timer(time).timeout
+		$ShakeTimer.stop()
 		stunned = false
 		await get_tree().create_timer(stun_invincibility_dur).timeout
 		can_be_stunned = true
+		
+func _on_shake_timer_timeout() -> void:
+	var random_vector = Vector2(randf_range(0,2), randf_range(0,2))
+	position += random_vector
+	await get_tree().create_timer(0.02).timeout
+	position -= random_vector
 
 func add_rope(amount):
 	rope_left += amount

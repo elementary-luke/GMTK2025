@@ -7,6 +7,7 @@ var previous_frame = -1
 
 var rope_value = 10.0
 
+var dead = false
 
 func _ready() -> void:
 	pass
@@ -29,5 +30,9 @@ func _physics_process(delta: float) -> void:
 	previous_frame = current_frame
 
 func die():
+	dead = true
 	Global.Player.add_rope(rope_value)
+	$AnimatedSprite2D.play("death")
+	await get_tree().create_timer(0.6).timeout
+	visible = false
 	queue_free()
