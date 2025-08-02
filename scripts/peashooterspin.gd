@@ -19,6 +19,9 @@ func _physics_process(delta: float) -> void:
 			$AnimatedSprite2D.flip_h = true
 		else:
 			$AnimatedSprite2D.flip_h = false
+	
+	if global_position.distance_to(Global.player_position) > Global.despawn_distance:
+		queue_free()
 		
 func die():
 	if Global.Player.rope_left > 0:
@@ -47,5 +50,6 @@ func _on_timer_timeout() -> void:
 			
 			await get_tree().create_timer(0.08).timeout #0.08
 			$AnimatedSprite2D.frame += 1
+			
 		$AnimatedSprite2D.play("default")
-		$Timer.start()
+	$Timer.start()

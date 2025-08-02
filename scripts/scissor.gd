@@ -66,6 +66,9 @@ func _physics_process(delta: float) -> void:
 			look_at(position + velocity)
 			rotation -= deg_to_rad(90)
 			move_and_slide()
+			
+	if global_position.distance_to(Global.player_position) > Global.despawn_distance:
+		queue_free()
 
 func _on_idle_timer_timeout() -> void:
 	if idling:

@@ -1,9 +1,121 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0nt6gtupcods"]
+[gd_scene load_steps=7 format=3 uid="uid://c0nt6gtupcods"]
 
-[ext_resource type="Script" uid="uid://c5fltp5hwjp0y" path="res://scripts/controls.gd" id="1_vj8vg"]
+[ext_resource type="Script" uid="uid://d2imit610bjrb" path="res://scripts/end_screen.gd" id="1_6e1uj"]
+[ext_resource type="Texture2D" uid="uid://bv5dhsaui7r0u" path="res://sprites/UI/parallax_bg.png" id="2_plosh"]
+[ext_resource type="FontFile" uid="uid://cyrm1nyigmmk0" path="res://fonts/FONT.ttf" id="3_jc7ji"]
+
+[sub_resource type="Animation" id="Animation_g3eks"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, 144)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(256, -144)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-256, -144)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-256, 144)]
+}
+
+[sub_resource type="Animation" id="Animation_4ytvr"]
+resource_name = "background_scroll"
+length = 12.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Node2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(256, 144), Vector2(768, 432)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Node2D2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(256, -144), Vector2(768, 144)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Node2D3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-256, -144), Vector2(256, 144)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Node2D4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 12),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-256, 144), Vector2(256, 432)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v86rl"]
+_data = {
+&"RESET": SubResource("Animation_g3eks"),
+&"background_scroll": SubResource("Animation_4ytvr")
+}
 
 [node name="EndScreen" type="Node2D"]
-script = ExtResource("1_vj8vg")
+script = ExtResource("1_6e1uj")
 
 [node name="Button" type="Button" parent="."]
 offset_left = 212.0
@@ -11,5 +123,64 @@ offset_top = 216.0
 offset_right = 313.0
 offset_bottom = 256.0
 text = "menu"
+
+[node name="ParallaxBG" type="Node2D" parent="."]
+z_index = -1
+scale = Vector2(2, 2)
+
+[node name="Node2D" type="Sprite2D" parent="ParallaxBG"]
+position = Vector2(256, 144)
+texture = ExtResource("2_plosh")
+
+[node name="Node2D2" type="Sprite2D" parent="ParallaxBG"]
+position = Vector2(256, -144)
+texture = ExtResource("2_plosh")
+
+[node name="Node2D3" type="Sprite2D" parent="ParallaxBG"]
+position = Vector2(-256, -144)
+texture = ExtResource("2_plosh")
+
+[node name="Node2D4" type="Sprite2D" parent="ParallaxBG"]
+position = Vector2(-256, 144)
+texture = ExtResource("2_plosh")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ParallaxBG"]
+libraries = {
+&"": SubResource("AnimationLibrary_v86rl")
+}
+autoplay = "background_scroll"
+
+[node name="Score" type="RichTextLabel" parent="."]
+offset_left = 171.0
+offset_top = 83.0
+offset_right = 356.0
+offset_bottom = 106.0
+theme_override_fonts/normal_font = ExtResource("3_jc7ji")
+theme_override_font_sizes/normal_font_size = 8
+text = "100m"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RopeUsed" type="RichTextLabel" parent="."]
+offset_left = 162.0
+offset_top = 105.0
+offset_right = 359.0
+offset_bottom = 126.0
+theme_override_fonts/normal_font = ExtResource("3_jc7ji")
+theme_override_font_sizes/normal_font_size = 8
+text = "100m"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="TimeAlive" type="RichTextLabel" parent="."]
+offset_left = 147.0
+offset_top = 135.0
+offset_right = 372.0
+offset_bottom = 160.0
+theme_override_fonts/normal_font = ExtResource("3_jc7ji")
+theme_override_font_sizes/normal_font_size = 8
+text = "100m"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

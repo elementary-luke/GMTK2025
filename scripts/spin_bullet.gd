@@ -28,4 +28,5 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func die():
+	bullet_speed = 0.0
 	$AnimationPlayer.play("FadeOut")

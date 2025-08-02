@@ -2,8 +2,8 @@ extends CharacterBody2D
 
 var starting_position : Vector2
 var dir : float
-var stun_time = 0.4
-var rope_dmg = 4
+var stun_time = 0.0
+var rope_dmg = 5
 
 var bullet_speed = 1.0
 
@@ -28,4 +28,5 @@ func _physics_process(delta: float) -> void:
 			queue_free()
 
 func die():
+	bullet_speed = 0.0
 	$AnimationPlayer.play("FadeOut")

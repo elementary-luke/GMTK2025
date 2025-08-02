@@ -113,13 +113,20 @@ func play_anim(intent):
 
 func stun(time, rope_reduction):
 	if can_be_stunned:
+		
+		Global.Root.ammo_red()
+		reduce_rope(rope_reduction)
+		Global.Root.hit_label(rope_reduction)
+		
+		$AudioStreamPlayer2D.play()
+		
+		if time == 0.0:
+			return
+			
 		can_be_stunned = false
 		stunned = true
 		$ShakeTimer.start()
-		$AudioStreamPlayer2D.play()
 		$AnimatedSprite2D.play("frozen")
-		Global.Root.ammo_red()
-		reduce_rope(rope_reduction)
 		
 		await get_tree().create_timer(time).timeout
 		$ShakeTimer.stop()

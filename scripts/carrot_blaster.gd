@@ -24,6 +24,9 @@ func _physics_process(delta: float) -> void:
 		play_anim()
 	velocity = SPEED * dir
 	move_and_slide()
+	
+	if global_position.distance_to(Global.player_position) > Global.despawn_distance:
+		queue_free()
 
 func play_anim():
 	if abs(dir.x) > abs(dir.y):
@@ -78,11 +81,15 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 			$AnimatedSprite2D.flip_h = true
 
 		await get_tree().create_timer(0.45).timeout
-
-		var bullet = bullet_scn.instantiate()
-		bullet.dir = (Global.player_position - global_position).angle()
-		bullet.global_position = global_position
-		get_tree().current_scene.add_child(bullet)
+		
+		var spread_ang = deg_to_rad(30)
+		var ang = (Global.player_position - global_position).angle() - spread_ang / 3.0
+		for i in range(0, 3):
+			var bullet = bullet_scn.instantiate()
+			bullet.dir = ang
+			bullet.global_position = global_position
+			get_tree().current_scene.add_child(bullet)
+			ang += spread_ang / 3.0
 
 		attacking = false
 

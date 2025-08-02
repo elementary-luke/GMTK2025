@@ -29,6 +29,8 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = false
 	
 	previous_frame = current_frame
+	if global_position.distance_to(Global.player_position) > Global.despawn_distance:
+		queue_free()
 
 func die():
 	dead = true

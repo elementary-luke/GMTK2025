@@ -1,6 +1,7 @@
 extends Node2D
 
 var scissor = preload("res://scenes/enemies/scissor.tscn")
+var hit_label_scn = preload("res://scenes/dissapearing_label.tscn")
 var rope_shown = 0.0
 var score_shown = 0.0
 
@@ -42,18 +43,29 @@ func ui():
 
 
 func ammo_red():
-	$UI/AmmoPivot/AmmoPoly.modulate.g = 0.0
-	$UI/AmmoPivot/AmmoPoly.modulate.b = 0.0
+	$UI/AmmoPivot/AmmoPoly.modulate = Color8(226, 54, 54)
 
 func end_game():
 	Global.Rope.cut(Global.Rope.segments.size() - 1)
 	get_tree().call_group("Enemy", "die")
-	
 	get_tree().call_group("Bullet", "die")
 	$ScissorTimer.stop()
 	await get_tree().create_timer(1.0).timeout
+	get_tree().create_tween()
+	var tween = get_tree().create_tween()
+	tween.tween_property($Player/Shadow, "scale", Vector2(0, 0), 0.2)
 	$Player/AnimatedSprite2D.play("death")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
 	if $Player.rope_left <= 0:
 		get_tree().change_scene_to_file("res://scenes/end_screen.tscn")
+
+func hit_label(dmg):
+	var size = 1.0
+	size = lerp(1.0, 1.5, dmg / 10.0)
+	var inst = hit_label_scn.instantiate()
+	inst.global_position = $Player.global_position - Vector2(0.0, lerp(15, 25, dmg / 10.0))
+	inst.modulate = Color8(226, 54, 54)
+	inst.scale = Vector2(size, size)
+	inst.get_node("Label").text = "-%s" % dmg
+	add_child(inst)

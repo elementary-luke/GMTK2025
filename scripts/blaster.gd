@@ -31,6 +31,22 @@ func _physics_process(delta: float) -> void:
 			show_pos = $TerrainCast.get_collision_point()
 		$Line2D.global_position = Vector2(0.0, 0.0)
 		$Line2D.points = [global_position, show_pos]
+		
+	if $Sprite2D.animation not in ["attack_side", "attack_front", "attack_back"]:
+		var diff = (Global.Player.global_position - global_position)
+		$Sprite2D.flip_h = false
+		if abs(diff.x) > abs(diff.y):
+			if diff.x < 0:
+				$Sprite2D.flip_h = true
+			$Sprite2D.play("idle_side")
+		else:
+			if diff.y >= 0:
+				$Sprite2D.play("idle_front")
+			else:
+				$Sprite2D.play("idle_back")
+	
+	if global_position.distance_to(Global.player_position) > Global.despawn_distance:
+		queue_free()
 
 func _on_charge_up_timer_timeout() -> void:
 	$Line2D.default_color = Color(1.0, 0.0, 0.0)
@@ -46,6 +62,19 @@ func _on_charge_up_timer_timeout() -> void:
 	$Line2D.global_position = Vector2(0.0, 0.0)
 	$Line2D.points = [global_position, show_pos]
 	
+	var ediff = (Global.Player.global_position - global_position)
+	$Sprite2D.flip_h = false
+	
+	if abs(ediff.x) > abs(ediff.y):
+		if ediff.x < 0:
+			$Sprite2D.flip_h = true
+			$Sprite2D.play("attack_side")
+	else:
+		if ediff.y >= 0:
+			$Sprite2D.play("attack_front")
+		else:
+			$Sprite2D.play("attack_back")
+	
 	await get_tree().create_timer(warning_time / 4.0).timeout
 	$Line2D.hide()
 	await get_tree().create_timer(warning_time / 4.0).timeout
@@ -54,17 +83,18 @@ func _on_charge_up_timer_timeout() -> void:
 	$Line2D.hide()
 	await get_tree().create_timer(warning_time / 4.0).timeout
 	$Line2D.show()
+
 	
 	var inst = bullet_scn.instantiate()
 	inst.position = global_position
-
-
+	
 	inst.dir = (focus_point - global_position).normalized()
 	inst.speed = bullet_speed
 
 	Global.Root.add_child(inst)
 	
 	var time = (focus_point - global_position).length() / (bullet_speed * 60.0)
+	
 	await get_tree().create_timer(time).timeout
 	
 	$Line2D.default_color = Color(1.0, 1.0, 1.0)
@@ -122,3 +152,11 @@ func die():
 		Global.Player.add_rope(rope_value)
 
 	queue_free()
+
+
+func _on_sprite_2d_animation_finished() -> void:
+	if $Sprite2D.animation not in ["attack_back", "attack_front", "attack_side"]:
+		return
+	
+	$Sprite2D.play("idle_front")
+		
