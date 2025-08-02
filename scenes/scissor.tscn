@@ -3,6 +3,9 @@
 [ext_resource type="Script" uid="uid://ccow0ccnycu0g" path="res://scripts/scissor.gd" id="1_j3cs6"]
 [ext_resource type="Texture2D" uid="uid://0q1t131w76bw" path="res://sprites/Enemies/MouseSnipper/mouse_snipper_spritesheet.png" id="2_j3cs6"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(8.33333, 20.6667)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_sx31p"]
 atlas = ExtResource("2_j3cs6")
 region = Rect2(0, 0, 32, 32)
@@ -67,9 +70,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
-size = Vector2(8.33333, 20.6667)
-
 [node name="Scissor" type="CharacterBody2D" groups=["scissor"]]
 z_index = 4
 y_sort_enabled = true
@@ -78,17 +78,30 @@ collision_layer = 2
 collision_mask = 4
 script = ExtResource("1_j3cs6")
 
-[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-7.86805e-07, -9)
-sprite_frames = SubResource("SpriteFrames_sydhx")
-autoplay = "default"
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-6.99382e-07, -8)
+position = Vector2(-6.99381e-07, -8)
 shape = SubResource("RectangleShape2D_sugp2")
 
 [node name="LookTimer" type="Timer" parent="."]
 wait_time = 0.2
 autostart = true
 
+[node name="IdleTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="CutBarPivot" type="Node2D" parent="."]
+visible = false
+position = Vector2(7.99998, 6.00002)
+
+[node name="CutBar" type="Polygon2D" parent="CutBarPivot"]
+color = Color(1, 0.384314, 0.392157, 1)
+polygon = PackedVector2Array(0, -2, -18, -2, -18, 2, 0, 2)
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-7.86806e-07, -9)
+sprite_frames = SubResource("SpriteFrames_sydhx")
+autoplay = "default"
+
 [connection signal="timeout" from="LookTimer" to="." method="_on_look_timer_timeout"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]

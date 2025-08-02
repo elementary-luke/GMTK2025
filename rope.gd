@@ -80,12 +80,12 @@ func simulate():
 	if Global.Player.moving:
 		for i in range(0, rope_phy_iterations):
 			apply_distance_constraints()
-			if i % 5 == 0:
+			if i % 10 == 0:
 				resolve_collisions()
 		
 		for i in range(0, rope_phy_iterations):
 			apply_smoothing_constraints()
-			if i % 5 == 0:
+			if i % 10 == 0:
 				resolve_collisions()
 		
 	resolve_collisions()
@@ -198,14 +198,14 @@ func query_bodies_in_polygon(points) -> Array:
 func get_nearest_point(pos):
 	var closest_point = Vector2.ZERO
 	var min_dist_sq = INF
-	var min_d_index = 0
+	var min_d_index = -1
 
 	for i in range(0, segments.size() - 1):
 		
 		if (i == 0 || i == segments.size() - 1) && len(segments) > 2:
 			continue
 		var d = pos.distance_squared_to(segments[i].pos)
-		if d < min_dist_sq && segments[i].scissor == null:
+		if d < min_dist_sq && segments[i].scissor == null and segments[i - 1].scissor == null and segments[i + 1].scissor == null:
 			min_dist_sq = d
 			min_d_index = i
 
@@ -213,6 +213,9 @@ func get_nearest_point(pos):
 
 func cut(cut_index):
 	if cut_index == segments.size() - 2 || cut_index == segments.size() - 1:
+		for i in segments:
+			if i.scissor != null:
+				i.scissor.reset()
 		segments.clear()
 		Global.Player.casting_rope = false
 		$Line.clear_points()

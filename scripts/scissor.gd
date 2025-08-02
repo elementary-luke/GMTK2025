@@ -7,10 +7,14 @@ var speed = 40.0
 var cut = 0.0
 var cut_time = 4.0
 var chew_dir = 1
+var idling = false
+var idle_dir = Vector2(0, 0)
 
 func _ready():
 	if randi_range(0, 1) == 0:
 		chew_dir = -1
+	
+	reset()
 	
 func _physics_process(delta: float) -> void:
 	var segments = Global.Rope.segments
@@ -25,23 +29,51 @@ func _physics_process(delta: float) -> void:
 					cut += delta
 					if cut > cut_time:
 						Global.Rope.cut(seg_index)
+						reset()
 					else:
-						$Sprite2D.modulate.g = 1.0 - cut / cut_time
-						$Sprite2D.modulate.b = 1.0 - cut / cut_time
+						$CutBarPivot.global_rotation = 0.0
+						$CutBarPivot.global_position = $CollisionShape2D.global_position + Vector2(0, -20.0)
+						$CutBarPivot/CutBar.color.g = 1 - cut / cut_time
+						$CutBarPivot/CutBar.color.b = 1 - cut / cut_time
+						$CutBarPivot.scale.x = cut / cut_time
 			else:
 				if seg_index < segments.size():
 					look_at(segments[seg_index].pos)
 					var diff = segments[seg_index].pos - global_position
 					if diff.length() < 5.0 && segments[seg_index].scissor == null:
+						$CutBarPivot.scale.x = 0.0
+						$CutBarPivot.show()
 						attached = true
 						segments[seg_index].scissor = self
 					else:
-						velocity = diff.normalized() * speed
+						velocity = diff.normalized() * speed * 0.6
 						look_at(position + velocity)
 						rotation -= deg_to_rad(90)
 						move_and_slide()
 	else:
-		reset()
+		if !idling:
+			look_smwhr_new()
+			idling = true
+			$IdleTimer.start(randf_range(1.0, 3.0))
+		elif idle_dir != Vector2.ZERO:
+			velocity = idle_dir * speed
+			look_at(position + velocity)
+			rotation -= deg_to_rad(90)
+			move_and_slide()
+
+func _on_idle_timer_timeout() -> void:
+	if idling:
+		idle_dir = Vector2(0, 0)
+	else:
+		return
+		
+	await get_tree().create_timer(randf_range(0.5, 2.0)).timeout
+	if idling:
+		look_smwhr_new()
+		$IdleTimer.start(randf_range(1.0, 5.0))
+
+func look_smwhr_new():
+	idle_dir = Vector2(1.0, 0.0).rotated(randf_range(0, 2 * PI))
 
 func reset():
 	target = null
@@ -49,9 +81,10 @@ func reset():
 	attached = false
 	cut = 0.0
 	$LookTimer.start(0.2)
-	$Sprite2D.modulate.g = 1.0
-	$Sprite2D.modulate.b = 1.0
+	$CutBarPivot.hide()
 
 func _on_look_timer_timeout() -> void:
 	if !attached:
-		seg_index = Global.Rope.get_nearest_point(global_position)
+		var si = Global.Rope.get_nearest_point(global_position)
+		if si != -1:
+			seg_index = si

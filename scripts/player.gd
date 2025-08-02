@@ -14,8 +14,8 @@ var stun_invincibility_dur = 0.5
 var can_be_stunned = true
 var last = Vector2(0, 0)
 var can_extend = false
-var rope_left : float = 100
-var max_rope : float = 100
+var rope_left : float = 300
+var max_rope : float = 300
 var min_rope_segments = 2
 
 var anim_name = "idle_forward"
