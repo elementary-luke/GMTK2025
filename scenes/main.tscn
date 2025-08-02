@@ -20,7 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://dsjyasruj72uu" path="res://sounds/sfx/ice effects/Ice Attack 08.wav" id="16_0ld40"]
 [ext_resource type="AudioStream" uid="uid://dq717q6ttgf2i" path="res://sounds/sfx/grass_walking.wav" id="16_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://c1ae22bap0hcf" path="res://scenes/enemies/carrot_blaster.tscn" id="17_muem4"]
-[ext_resource type="PackedScene" uid="uid://dn3q2af72x1yf" path="res://scenes/enemies/peashooterspin.tscn" id="21_yc10j"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/peashooterspin.tscn" id="21_yc10j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mlv25"]
 atlas = ExtResource("7_gqmmt")
