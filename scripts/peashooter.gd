@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var bullet_scn = preload("res://scenes/enemies/peashooter_bullet.tscn")
+var bullet_scn = preload("res://scenes/projectiles/peashooter_bullet.tscn")
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
@@ -32,7 +32,9 @@ func _physics_process(delta: float) -> void:
 
 func die():
 	dead = true
-	Global.Player.add_rope(rope_value)
+	if Global.Player.rope_left > 0:
+		Global.Player.add_rope(rope_value)
+		
 	$AnimatedSprite2D.play("death")
 	await get_tree().create_timer(0.6).timeout
 	visible = false

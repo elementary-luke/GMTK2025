@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dn3q2af72x1yf"]
+[gd_scene load_steps=19 format=3 uid="uid://dn3q2af72x1yf"]
 
 [ext_resource type="Script" uid="uid://dom68l1d3454u" path="res://scripts/peashooterspin.gd" id="1_xb24s"]
 [ext_resource type="Texture2D" uid="uid://cxwltodmcgeil" path="res://sprites/Enemies/PeaShooter/attack_side.png" id="2_x1d2d"]
+[ext_resource type="Texture2D" uid="uid://bsokodmlcynrk" path="res://sprites/Enemies/SpinShooter/attack_spin.png" id="3_x1d2d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mjqhc"]
 atlas = ExtResource("2_x1d2d")
@@ -22,6 +23,38 @@ region = Rect2(84, 0, 28, 25)
 [sub_resource type="AtlasTexture" id="AtlasTexture_8yb8m"]
 atlas = ExtResource("2_x1d2d")
 region = Rect2(112, 0, 28, 25)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wehfo"]
+atlas = ExtResource("3_x1d2d")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsl40"]
+atlas = ExtResource("3_x1d2d")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ij4lf"]
+atlas = ExtResource("3_x1d2d")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v2ruh"]
+atlas = ExtResource("3_x1d2d")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hfhbv"]
+atlas = ExtResource("3_x1d2d")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e18aw"]
+atlas = ExtResource("3_x1d2d")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1hv7x"]
+atlas = ExtResource("3_x1d2d")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gxbmk"]
+atlas = ExtResource("3_x1d2d")
+region = Rect2(224, 0, 32, 48)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ebij7"]
 animations = [{
@@ -44,18 +77,47 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wehfo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsl40")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ij4lf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v2ruh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hfhbv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e18aw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1hv7x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gxbmk")
+}],
+"loop": true,
+"name": &"spin",
+"speed": 12.5
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ie068"]
 size = Vector2(8, 18)
 
-[node name="PeaShooterSpin" type="CharacterBody2D"]
+[node name="SpinShooter" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 5
 collision_layer = 2
 script = ExtResource("1_xb24s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, -2)
+position = Vector2(0, -13)
 sprite_frames = SubResource("SpriteFrames_ebij7")
 autoplay = "default"
 
@@ -63,7 +125,7 @@ autoplay = "default"
 shape = SubResource("RectangleShape2D_ie068")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 4.0
 one_shot = true
 autostart = true
 

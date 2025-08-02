@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var bullet_scn = preload("res://scenes/enemies/blaster_bullet.tscn")
+var bullet_scn = preload("res://scenes/projectiles/blaster_bullet.tscn")
 var bullet_speed = 10.0
 var charging_up = false
 var warning_time = 0.2
@@ -118,5 +118,7 @@ func predicted_player_position():
 	return player_pos + player_vel * t
 
 func die():
-	Global.Player.add_rope(rope_value)
+	if Global.Player.rope_left > 0:
+		Global.Player.add_rope(rope_value)
+
 	queue_free()

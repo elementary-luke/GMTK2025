@@ -10,6 +10,7 @@ var chew_dir = 1
 var idling = false
 var idle_dir = Vector2(0, 0)
 var rope_value = 1.0
+var dead = false
 
 func _ready():
 	if randi_range(0, 1) == 0:
@@ -18,6 +19,9 @@ func _ready():
 	reset()
 	
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
+	
 	var segments = Global.Rope.segments
 	if Global.Player.casting_rope:
 		if seg_index != null:
@@ -92,5 +96,11 @@ func _on_look_timer_timeout() -> void:
 			seg_index = si
 
 func die():
-	Global.Player.add_rope(rope_value)
+	reset()
+	dead = true
+	if Global.Player.rope_left > 0:
+		Global.Player.add_rope(rope_value)
+	rotation = 0
+	$Sprite2D.play("death")
+	await get_tree().create_timer(0.6).timeout
 	queue_free()

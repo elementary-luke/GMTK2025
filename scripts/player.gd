@@ -143,4 +143,8 @@ func add_rope(amount):
 
 func reduce_rope(amount):
 	rope_left -= amount
-	rope_left = max(rope_left, 0)
+	rope_left = max(rope_left, 0.0)
+	if rope_left == 0:
+		$AnimatedSprite2D.play("idle_forward")
+		Global.Root.end_game()
+		

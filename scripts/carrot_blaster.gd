@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 50.0
-var bullet_scn = preload("res://scenes/enemies/carrot_bullet.tscn")
+var bullet_scn = preload("res://scenes/projectiles/carrot_bullet.tscn")
 var rope_value = 10.0
 var dir: Vector2
 var last_dir: String
@@ -46,7 +46,9 @@ func play_anim():
 
 func die():
 	dead = true
-	Global.Player.add_rope(rope_value)
+	if Global.Player.rope_left > 0:
+		Global.Player.add_rope(rope_value)
+		
 	$AnimatedSprite2D.play("death")
 	await get_tree().create_timer(0.6).timeout
 	visible = false

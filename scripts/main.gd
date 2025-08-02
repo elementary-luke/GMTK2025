@@ -1,6 +1,6 @@
 extends Node2D
 
-var scissor = preload("res://scenes/scissor.tscn")
+var scissor = preload("res://scenes/enemies/scissor.tscn")
 var rope_shown = 0.0
 var score_shown = 0.0
 
@@ -14,8 +14,9 @@ func _ready():
 	
 
 func _physics_process(delta: float) -> void:
-	$Player.update(delta)
-	$Rope.update(delta)
+	if $Player.rope_left > 0:
+		$Player.update(delta)
+		$Rope.update(delta)
 	ui()
 	
 func _on_scissor_timer_timeout() -> void:
@@ -30,11 +31,11 @@ func ui():
 	bar.scale.x = lerp(bar.scale.x, percentage_left, 0.1)
 	var label = $UI/AmmoLabel
 	#var amount_meters = ceil(lerp(0, 100, percentage_left))
-	rope_shown = ceil(lerp(rope_shown, $Player.rope_left , 0.1))
+	rope_shown = lerp(rope_shown, $Player.rope_left , 0.1)
 	#print(percentage_left, rope_shown, amount_meters)
 	label.text = str(int(rope_shown)) + "m"
 	
-	score_shown = ceil(lerp(score_shown, Global.score, 0.1))
+	score_shown = lerp(score_shown, Global.score, 0.1)
 	$UI/ScoreLabel.text = str(int(score_shown))
 	$UI/AmmoPivot/AmmoPoly.modulate.g = lerp($UI/AmmoPivot/AmmoPoly.modulate.g, 1.0, 0.2)
 	$UI/AmmoPivot/AmmoPoly.modulate.b = lerp($UI/AmmoPivot/AmmoPoly.modulate.b, 1.0, 0.2)
@@ -43,3 +44,16 @@ func ui():
 func ammo_red():
 	$UI/AmmoPivot/AmmoPoly.modulate.g = 0.0
 	$UI/AmmoPivot/AmmoPoly.modulate.b = 0.0
+
+func end_game():
+	Global.Rope.cut(Global.Rope.segments.size() - 1)
+	get_tree().call_group("Enemy", "die")
+	
+	get_tree().call_group("Bullet", "die")
+	$ScissorTimer.stop()
+	await get_tree().create_timer(1.0).timeout
+	$Player/AnimatedSprite2D.play("death")
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $Player.rope_left <= 0:
+		get_tree().change_scene_to_file("res://scenes/end_screen.tscn")

@@ -16,11 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://cseltjirnmygs" path="res://sprites/Player/frozen.png" id="7_dp3eg"]
 [ext_resource type="Texture2D" uid="uid://0ea0jqdkoo5a" path="res://sprites/Player/death.png" id="7_gqmmt"]
 [ext_resource type="Texture2D" uid="uid://de80c1b2be8o" path="res://sprites/Player/player_shadow.png" id="8_85g3d"]
-[ext_resource type="PackedScene" uid="uid://5ulr54qdr2vu" path="res://scenes/blaster.tscn" id="15_jkv2x"]
+[ext_resource type="PackedScene" uid="uid://5ulr54qdr2vu" path="res://scenes/enemies/blaster.tscn" id="15_jkv2x"]
 [ext_resource type="AudioStream" uid="uid://dsjyasruj72uu" path="res://sounds/sfx/ice effects/Ice Attack 08.wav" id="16_0ld40"]
 [ext_resource type="AudioStream" uid="uid://dq717q6ttgf2i" path="res://sounds/sfx/grass_walking.wav" id="16_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://c1ae22bap0hcf" path="res://scenes/enemies/carrot_blaster.tscn" id="17_muem4"]
-[ext_resource type="PackedScene" uid="uid://dn3q2af72x1yf" path="res://scenes/enemies/peashooterspin.tscn" id="21_yc10j"]
+[ext_resource type="PackedScene" uid="uid://dn3q2af72x1yf" path="res://scenes/enemies/spinshooter.tscn" id="21_yc10j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mlv25"]
 atlas = ExtResource("7_gqmmt")
@@ -641,6 +641,7 @@ script = ExtResource("1_0wfyh")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
 position_smoothing_enabled = true
+position_smoothing_speed = 3.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(-1, -9)
@@ -651,7 +652,7 @@ animation = &"idle_forward"
 position = Vector2(-1, 0.5)
 shape = SubResource("RectangleShape2D_0wfyh")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
+[node name="Shadow" type="Sprite2D" parent="Player"]
 z_index = -1
 position = Vector2(-1, 15)
 texture = ExtResource("8_85g3d")
@@ -693,5 +694,6 @@ position = Vector2(244, 96)
 [node name="PeaShooterSpin" parent="." instance=ExtResource("21_yc10j")]
 position = Vector2(196, 143)
 
+[connection signal="animation_finished" from="Player/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="Player/ShakeTimer" to="Player" method="_on_shake_timer_timeout"]
 [connection signal="timeout" from="ScissorTimer" to="." method="_on_scissor_timer_timeout"]

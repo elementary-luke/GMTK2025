@@ -351,9 +351,10 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ie068"]
 size = Vector2(12, 19)
 
-[node name="CarrotBlastor" type="CharacterBody2D"]
+[node name="CarrotBlastor" type="CharacterBody2D" groups=["Enemy"]]
 z_index = 1
 collision_layer = 2
+collision_mask = 4
 script = ExtResource("1_7l2yr")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

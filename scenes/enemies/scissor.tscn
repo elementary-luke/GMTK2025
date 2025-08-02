@@ -1,11 +1,48 @@
-[gd_scene load_steps=26 format=3 uid="uid://d1ruqbij17k4j"]
+[gd_scene load_steps=36 format=3 uid="uid://d1ruqbij17k4j"]
 
 [ext_resource type="Script" uid="uid://ccow0ccnycu0g" path="res://scripts/scissor.gd" id="1_j3cs6"]
 [ext_resource type="Texture2D" uid="uid://0q1t131w76bw" path="res://sprites/Enemies/MouseSnipper/mouse_snipper_spritesheet.png" id="2_j3cs6"]
+[ext_resource type="Texture2D" uid="uid://c8p3p38pxbeuf" path="res://sprites/Enemies/MouseSnipper/mouse_death.png" id="2_nwjt2"]
 [ext_resource type="Texture2D" uid="uid://f1puc7k26vb0" path="res://sprites/Enemies/MouseSnipper/reload_bar.png" id="3_sx31p"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
 size = Vector2(8.33333, 20.6667)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_27fx8"]
+atlas = ExtResource("2_nwjt2")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4kg6"]
+atlas = ExtResource("2_nwjt2")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b0ycr"]
+atlas = ExtResource("2_nwjt2")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hbxjd"]
+atlas = ExtResource("2_nwjt2")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1b7mr"]
+atlas = ExtResource("2_nwjt2")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2nh3y"]
+atlas = ExtResource("2_nwjt2")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fl5g8"]
+atlas = ExtResource("2_nwjt2")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srmm6"]
+atlas = ExtResource("2_nwjt2")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31bpc"]
+atlas = ExtResource("2_nwjt2")
+region = Rect2(256, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sx31p"]
 atlas = ExtResource("2_j3cs6")
@@ -41,6 +78,38 @@ region = Rect2(224, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sydhx"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_27fx8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4kg6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b0ycr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hbxjd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1b7mr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2nh3y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fl5g8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srmm6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31bpc")
+}],
+"loop": true,
+"name": &"death",
+"speed": 10.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_sx31p")
@@ -156,7 +225,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Scissor" type="CharacterBody2D" groups=["scissor"]]
+[node name="Scissor" type="CharacterBody2D" groups=["Enemy", "scissor"]]
 z_index = 4
 y_sort_enabled = true
 rotation = 3.14159
@@ -179,7 +248,10 @@ one_shot = true
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-7.86806e-07, -9)
 sprite_frames = SubResource("SpriteFrames_sydhx")
+animation = &"death"
 autoplay = "default"
+frame = 6
+frame_progress = 0.760998
 
 [node name="ProgressBar" type="AnimatedSprite2D" parent="."]
 position = Vector2(8, 6)

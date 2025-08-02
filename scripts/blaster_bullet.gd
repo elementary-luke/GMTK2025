@@ -16,3 +16,6 @@ func _physics_process(delta: float) -> void:
 	
 	if global_position.distance_to(Global.player_position) > Global.despawn_distance:
 		queue_free()
+
+func die():
+	$AnimationPlayer.play("FadeOut")

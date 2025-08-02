@@ -104,7 +104,7 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ie068"]
 size = Vector2(8, 18)
 
-[node name="PeaShooter" type="CharacterBody2D"]
+[node name="PeaShooter" type="CharacterBody2D" groups=["Enemy"]]
 collision_layer = 2
 script = ExtResource("1_mjqhc")
 
