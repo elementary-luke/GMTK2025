@@ -13,12 +13,13 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-			
-	if global_position.x > Global.player_position.x:
-		$AnimatedSprite2D.flip_h = true
-	else:
-		$AnimatedSprite2D.flip_h = false
 	
+	if $AnimatedSprite2D.animation != "spin":
+		if global_position.x > Global.player_position.x:
+			$AnimatedSprite2D.flip_h = true
+		else:
+			$AnimatedSprite2D.flip_h = false
+		
 func die():
 	if Global.Player.rope_left > 0:
 		Global.Player.add_rope(rope_value)
@@ -31,15 +32,20 @@ func _on_timer_timeout() -> void:
 		$AnimatedSprite2D.play("spin")
 		$AnimatedSprite2D.frame = 0
 		$AnimatedSprite2D.pause()
-		$AnimatedSprite2D.scale.x = -1.0
-		for i in range(0, 8):
-			await get_tree().create_timer(0.08).timeout
+		var d = 1.0
+		if $AnimatedSprite2D.flip_h:
+			d = -1.0
+			dir = PI
+		
+		for i in range(0, 7):
 			var bullet = bullet_scn.instantiate()
 			bullet.global_position = global_position
 			bullet.dir = dir
 			get_tree().current_scene.add_child(bullet)
+			
+			dir += 0.25 * PI * d
+			
+			await get_tree().create_timer(0.08).timeout #0.08
 			$AnimatedSprite2D.frame += 1
-			dir += 0.25 * PI
-		$AnimatedSprite2D.scale.x = 1.0
 		$AnimatedSprite2D.play("default")
 		$Timer.start()
