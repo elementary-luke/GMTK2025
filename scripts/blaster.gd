@@ -68,7 +68,7 @@ func _on_charge_up_timer_timeout() -> void:
 	if abs(ediff.x) > abs(ediff.y):
 		if ediff.x < 0:
 			$Sprite2D.flip_h = true
-			$Sprite2D.play("attack_side")
+		$Sprite2D.play("attack_side")
 	else:
 		if ediff.y >= 0:
 			$Sprite2D.play("attack_front")
