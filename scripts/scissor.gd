@@ -21,6 +21,7 @@ func _physics_process(delta: float) -> void:
 	if Global.Player.casting_rope:
 		if seg_index != null:
 			if attached:
+				$ProgressBar.visible = true
 				if seg_index + 1< segments.size():
 					look_at(segments[seg_index + 1].pos)
 					if chew_dir == 1:
@@ -31,12 +32,18 @@ func _physics_process(delta: float) -> void:
 						Global.Rope.cut(seg_index)
 						reset()
 					else:
-						$CutBarPivot.global_rotation = 0.0
-						$CutBarPivot.global_position = $CollisionShape2D.global_position + Vector2(0, -20.0)
-						$CutBarPivot/CutBar.color.g = 1 - cut / cut_time
-						$CutBarPivot/CutBar.color.b = 1 - cut / cut_time
-						$CutBarPivot.scale.x = cut / cut_time
+						var progress = cut / cut_time
+						var frame = clamp(round(progress * 10), 0, 10)
+						$ProgressBar.global_rotation = 0.0
+						$ProgressBar.global_position = $CollisionShape2D.global_position + Vector2(0, -20.0)
+						#$CutBarPivot/CutBar.color.g = 1 - cut / cut_time
+						#$CutBarPivot/CutBar.color.b = 1 - cut / cut_time
+						#$CutBarPivot.scale.x = cut / cut_time
+						$ProgressBar.frame = frame
+						
+						print(cut/cut_time)
 			else:
+				$ProgressBar.visible = false
 				if seg_index < segments.size():
 					look_at(segments[seg_index].pos)
 					var diff = segments[seg_index].pos - global_position
@@ -54,6 +61,7 @@ func _physics_process(delta: float) -> void:
 		if !idling:
 			look_smwhr_new()
 			idling = true
+			$ProgressBar.visible = false
 			$IdleTimer.start(randf_range(1.0, 3.0))
 		elif idle_dir != Vector2.ZERO:
 			velocity = idle_dir * speed
