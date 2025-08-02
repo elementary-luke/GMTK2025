@@ -9,13 +9,12 @@ var moving = false
 var no_move = false
 var move_step = Vector2(0.0, 0.0)
 var stunned = false
-var stun_time = 1.0
 var stun_invincibility_dur = 0.5
 var can_be_stunned = true
 var last = Vector2(0, 0)
 var can_extend = false
-var rope_left : float = 300
-var max_rope : float = 300
+var rope_left = 150.0
+var max_rope = 150.0
 var min_rope_segments = 2
 
 var anim_name = "idle_forward"
@@ -25,6 +24,7 @@ func _ready():
 	Global.Player = self
 
 func update(delta: float) -> void:
+	Global.time_lived += delta
 	Global.player_position = global_position
 	
 	var intent = Vector2.ZERO
@@ -81,12 +81,6 @@ func update(delta: float) -> void:
 	
 	no_move = false
 	
-	var percentage_left = rope_left / max_rope
-	var bar = Global.Root.get_node("UI/AmmoPivot")
-	bar.scale.x = lerp(bar.scale.x, percentage_left, 0.8)
-	var label = Global.Root.get_node("UI/AmmoLabel")
-	label.text = str(int(lerp(0, 100, percentage_left))) + "m"
-	
 
 func play_anim(intent):
 	if moving:
@@ -124,11 +118,15 @@ func play_anim(intent):
 		
 	$AnimatedSprite2D.play(anim_name)
 
-func stun():
+func stun(time):
 	if can_be_stunned:
 		can_be_stunned = false
 		stunned = true
-		await get_tree().create_timer(stun_time).timeout
+		await get_tree().create_timer(time).timeout
 		stunned = false
 		await get_tree().create_timer(stun_invincibility_dur).timeout
 		can_be_stunned = true
+
+func add_rope(amount):
+	rope_left += amount
+	rope_left = min(rope_left, max_rope)

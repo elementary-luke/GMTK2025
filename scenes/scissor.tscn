@@ -176,15 +176,6 @@ autostart = true
 wait_time = 5.0
 one_shot = true
 
-[node name="CutBarPivot" type="Node2D" parent="."]
-visible = false
-position = Vector2(7.99998, 6.00002)
-
-[node name="CutBar" type="Polygon2D" parent="CutBarPivot"]
-visible = false
-color = Color(1, 0.384314, 0.392157, 1)
-polygon = PackedVector2Array(0, -2, -18, -2, -18, 2, 0, 2)
-
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-7.86806e-07, -9)
 sprite_frames = SubResource("SpriteFrames_sydhx")

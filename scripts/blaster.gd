@@ -6,6 +6,8 @@ var charging_up = false
 var warning_time = 0.2
 var pred_move_speed = 10.0
 var focus_point = Vector2(0, 0)
+var attack_range = 500.0
+var rope_value = 10.0
 
 func _ready() -> void:
 	focus_point = Global.Player.global_position
@@ -23,6 +25,10 @@ func _physics_process(delta: float) -> void:
 			
 		var show_pos = focus_point + (focus_point - global_position).normalized() * 3000.0
 		
+		$TerrainCast.target_position = Vector2(show_pos)
+		$TerrainCast.force_raycast_update()
+		if $TerrainCast.is_colliding():
+			show_pos = $TerrainCast.get_collision_point()
 		$Line2D.global_position = Vector2(0.0, 0.0)
 		$Line2D.points = [global_position, lerp($Line2D.points[1], show_pos, 0.9)]
 
@@ -32,6 +38,11 @@ func _on_charge_up_timer_timeout() -> void:
 
 
 	var show_pos = focus_point + (focus_point - global_position).normalized() * 3000.0
+	
+	$TerrainCast.target_position = Vector2(show_pos)
+	$TerrainCast.force_raycast_update()
+	if $TerrainCast.is_colliding():
+		show_pos = $TerrainCast.get_collision_point()
 	$Line2D.global_position = Vector2(0.0, 0.0)
 	$Line2D.points = [global_position, show_pos]
 	
@@ -57,13 +68,20 @@ func _on_charge_up_timer_timeout() -> void:
 	await get_tree().create_timer(time).timeout
 	
 	$Line2D.default_color = Color(1.0, 1.0, 1.0)
-	$Line2D.points = [Vector2(0, 0), Vector2(0, 0)]
+	$Line2D.hide()
 	
 	$RestTimer.start()
 
 func _on_rest_timer_timeout() -> void:
-	charging_up = true
-	$ChargeUpTimer.start()
+	if global_position.distance_to(Global.Player.global_position) < 300.0:
+		$Line2D.global_position = Vector2(0.0, 0.0)
+		focus_point = Global.Player.global_position
+		$Line2D.points = [global_position, focus_point]
+		charging_up = true
+		$ChargeUpTimer.start()
+		$Line2D.show()
+	else:
+		$RestTimer.start()
 	
 
 func predicted_player_position():
@@ -92,3 +110,7 @@ func predicted_player_position():
 		t = 0.0  # fallback to immediate shot
 
 	return player_pos + player_vel * t
+
+func die():
+	Global.Player.add_rope(rope_value)
+	queue_free()

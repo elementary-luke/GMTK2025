@@ -5,6 +5,9 @@ const JUMP_VELOCITY = -400.0
 
 var previous_frame = -1
 
+var rope_value = 10.0
+
+
 func _ready() -> void:
 	pass
 
@@ -23,3 +26,7 @@ func _physics_process(delta: float) -> void:
 		$AnimatedSprite2D.flip_h = false
 	
 	previous_frame = current_frame
+
+func die():
+	Global.Player.add_rope(rope_value)
+	queue_free()

@@ -3,7 +3,7 @@ var segments = []
 var seg_len = 10.0
 var start_nsegments = 10
 var start_pos = Vector2(0.0, 0.0)
-var segments_in_loop = 10
+var segments_in_loop = 8
 var rope_phy_iterations = 20
 var collision_radius = 2.0
 var intersection_counter = 0
@@ -17,6 +17,7 @@ func max_length():
 	return seg_len * segments.size()
 
 func add_segment():
+	Global.rope_used += 1
 	var inst = Segment.new()
 	inst.initialise(Global.Player.global_position)
 	segments.append(inst)
@@ -39,16 +40,26 @@ func handle_intersection():
 	var i = ip[0]
 	var j = ip[1] + 2
 	if j - i > segments_in_loop:
-		$Loop.points = $Line.points.slice(i, j)
 		Global.Player.casting_rope = false
+		Global.show_cut_line($Line.points.slice(i, j + 1))
 		Global.show_cut_line($Line.points.slice(0, i + 1) + $Line.points.slice(j))
-		$Line.clear_points()
+		
+		for s in segments:
+			if s.scissor != null:
+				s.scissor.reset()
+		
 		segments.clear()
 		
-		for b in query_bodies_in_polygon($Loop.points):
+		var bodies = query_bodies_in_polygon($Line.points.slice(i, j))
+		for b in query_bodies_in_polygon($Line.points.slice(i, j)):
 			var body = b["collider"]
 			if body:
-				body.queue_free()
+				body.die()
+		
+		$Line.clear_points()
+		
+		Global.Player.add_rope(j - i)
+		
 
 func draw_rope():
 	var draw_points = segments.map(func(a): return a.pos)
@@ -80,12 +91,12 @@ func simulate():
 	if Global.Player.moving:
 		for i in range(0, rope_phy_iterations):
 			apply_distance_constraints()
-			if i % 10 == 0:
+			if i % 5 == 0:
 				resolve_collisions()
 		
 		for i in range(0, rope_phy_iterations):
 			apply_smoothing_constraints()
-			if i % 10 == 0:
+			if i % 5 == 0:
 				resolve_collisions()
 		
 	resolve_collisions()
@@ -96,6 +107,8 @@ func resolve_collisions():
 	shape.radius = collision_radius  # Adjust based on rope thickness
 
 	for seg in segments:
+		if seg.pos == seg.old_pos:
+			continue
 		
 		var shape_query = PhysicsShapeQueryParameters2D.new()
 		shape_query.shape = shape
@@ -171,6 +184,10 @@ func self_intersecting():
 			# If rope is open, also skip the very last vs. first segment
 			if i == 0 and j == seg_count - 1:
 				continue
+				
+			if segments[j].pos == segments[j].old_pos && segments[j + 1].pos == segments[j + 1].old_pos:
+				continue
+			
 			var b1 = segments[j].pos
 			var b2 = segments[j + 1].pos
 			

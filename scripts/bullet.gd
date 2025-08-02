@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 var dir = Vector2(1.0, 0.0)
 var speed = 5.0 # change in blaster
+var stun_time = 1.0
 
 func _physics_process(delta: float) -> void:
 	look_at(dir)
@@ -10,4 +11,4 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		var body = coll.get_collider()
 		if body == Global.Player:
-			body.stun()
+			body.stun(stun_time)

@@ -9,6 +9,7 @@ var cut_time = 4.0
 var chew_dir = 1
 var idling = false
 var idle_dir = Vector2(0, 0)
+var rope_value = 1.0
 
 func _ready():
 	if randi_range(0, 1) == 0:
@@ -36,20 +37,13 @@ func _physics_process(delta: float) -> void:
 						var frame = clamp(round(progress * 10), 0, 10)
 						$ProgressBar.global_rotation = 0.0
 						$ProgressBar.global_position = $CollisionShape2D.global_position + Vector2(0, -20.0)
-						#$CutBarPivot/CutBar.color.g = 1 - cut / cut_time
-						#$CutBarPivot/CutBar.color.b = 1 - cut / cut_time
-						#$CutBarPivot.scale.x = cut / cut_time
 						$ProgressBar.frame = frame
-						
-						print(cut/cut_time)
 			else:
 				$ProgressBar.visible = false
 				if seg_index < segments.size():
 					look_at(segments[seg_index].pos)
 					var diff = segments[seg_index].pos - global_position
 					if diff.length() < 5.0 && segments[seg_index].scissor == null:
-						$CutBarPivot.scale.x = 0.0
-						$CutBarPivot.show()
 						attached = true
 						segments[seg_index].scissor = self
 					else:
@@ -89,10 +83,14 @@ func reset():
 	attached = false
 	cut = 0.0
 	$LookTimer.start(0.2)
-	$CutBarPivot.hide()
+	$ProgressBar.hide()
 
 func _on_look_timer_timeout() -> void:
 	if !attached:
 		var si = Global.Rope.get_nearest_point(global_position)
 		if si != -1:
 			seg_index = si
+
+func die():
+	Global.Player.add_rope(rope_value)
+	queue_free()
