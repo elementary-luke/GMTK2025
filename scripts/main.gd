@@ -29,10 +29,17 @@ func ui():
 	var bar = $UI/AmmoPivot
 	bar.scale.x = lerp(bar.scale.x, percentage_left, 0.1)
 	var label = $UI/AmmoLabel
-	var amount_meters = ceil(lerp(0, 100, percentage_left))
-	rope_shown = ceil(lerp(rope_shown, amount_meters, 0.1))
+	#var amount_meters = ceil(lerp(0, 100, percentage_left))
+	rope_shown = ceil(lerp(rope_shown, $Player.rope_left , 0.1))
 	#print(percentage_left, rope_shown, amount_meters)
 	label.text = str(int(rope_shown)) + "m"
 	
 	score_shown = ceil(lerp(score_shown, Global.score, 0.1))
 	$UI/ScoreLabel.text = str(int(score_shown))
+	$UI/AmmoPivot/AmmoPoly.modulate.g = lerp($UI/AmmoPivot/AmmoPoly.modulate.g, 1.0, 0.2)
+	$UI/AmmoPivot/AmmoPoly.modulate.b = lerp($UI/AmmoPivot/AmmoPoly.modulate.b, 1.0, 0.2)
+
+
+func ammo_red():
+	$UI/AmmoPivot/AmmoPoly.modulate.g = 0.0
+	$UI/AmmoPivot/AmmoPoly.modulate.b = 0.0

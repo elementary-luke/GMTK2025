@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dav7cfea6hwnc"]
 
-[ext_resource type="Script" uid="uid://bcdci8wo7nsex" path="res://scripts/bullet.gd" id="1_y25gk"]
-[ext_resource type="Texture2D" uid="uid://becuafk43s22g" path="res://sprites/Enemies/orange_bullet.png" id="2_y25gk"]
+[ext_resource type="Script" uid="uid://bcdci8wo7nsex" path="res://scripts/blaster_bullet.gd" id="1_uw2es"]
+[ext_resource type="Texture2D" uid="uid://becuafk43s22g" path="res://sprites/Enemies/orange_bullet.png" id="2_ws26a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85g3d"]
 size = Vector2(10, 10)
@@ -9,10 +9,10 @@ size = Vector2(10, 10)
 [node name="Bullet" type="CharacterBody2D"]
 collision_layer = 8
 collision_mask = 5
-script = ExtResource("1_y25gk")
+script = ExtResource("1_uw2es")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_y25gk")
+texture = ExtResource("2_ws26a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_85g3d")

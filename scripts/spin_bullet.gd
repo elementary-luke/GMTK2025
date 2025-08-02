@@ -3,6 +3,7 @@ extends CharacterBody2D
 var starting_position : Vector2
 var dir : float
 var stun_time = 0.4
+var rope_dmg = 3
 
 var bullet_speed = 1.0
 
@@ -21,4 +22,7 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		var body = coll.get_collider()
 		if body == Global.Player:
-			body.stun(stun_time)
+			body.stun(stun_time, rope_dmg)
+	
+	if global_position.distance_to(Global.player_position) > Global.despawn_distance:
+		queue_free()

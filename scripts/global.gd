@@ -4,6 +4,8 @@ var Root
 var Player
 var Rope
 
+
+var despawn_distance = 500.0 # how far away a bullet is before it despawns
 var score = 0.0
 var rope_used = 0.0
 var time_lived = 0.0

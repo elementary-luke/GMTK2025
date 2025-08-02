@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var bullet = preload("res://scenes/bullet.tscn")
+var bullet_scn = preload("res://scenes/enemies/blaster_bullet.tscn")
 var bullet_speed = 10.0
 var charging_up = false
 var warning_time = 0.2
@@ -55,7 +55,7 @@ func _on_charge_up_timer_timeout() -> void:
 	await get_tree().create_timer(warning_time / 4.0).timeout
 	$Line2D.show()
 	
-	var inst = bullet.instantiate()
+	var inst = bullet_scn.instantiate()
 	inst.position = global_position
 
 
@@ -91,7 +91,7 @@ func _on_rest_timer_timeout() -> void:
 	
 
 func predicted_player_position():
-	var inst = bullet.instantiate()
+	var inst = bullet_scn.instantiate()
 	inst.position = global_position
 
 	var p = Global.Player

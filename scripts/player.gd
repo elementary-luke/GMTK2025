@@ -113,18 +113,23 @@ func play_anim(intent):
 			
 		$AnimatedSprite2D.play(anim_name)
 
-func stun(time):
+func stun(time, rope_reduction):
 	if can_be_stunned:
 		can_be_stunned = false
 		stunned = true
 		$ShakeTimer.start()
 		$AudioStreamPlayer2D.play()
 		$AnimatedSprite2D.play("frozen")
+		Global.Root.ammo_red()
+		reduce_rope(rope_reduction)
+		
 		await get_tree().create_timer(time).timeout
 		$ShakeTimer.stop()
 		stunned = false
 		await get_tree().create_timer(stun_invincibility_dur).timeout
 		can_be_stunned = true
+		
+		
 		
 func _on_shake_timer_timeout() -> void:
 	var random_vector = Vector2(randf_range(0,2), randf_range(0,2))
@@ -135,3 +140,7 @@ func _on_shake_timer_timeout() -> void:
 func add_rope(amount):
 	rope_left += amount
 	rope_left = min(rope_left, max_rope)
+
+func reduce_rope(amount):
+	rope_left -= amount
+	rope_left = max(rope_left, 0)

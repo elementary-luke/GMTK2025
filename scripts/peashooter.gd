@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+var bullet_scn = preload("res://scenes/enemies/peashooter_bullet.tscn")
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
@@ -17,7 +18,7 @@ func _physics_process(delta: float) -> void:
 
 	if current_frame == 4 and previous_frame != 4:
 		if (Global.player_position - global_position).length() < 300.0:
-			var bullet = load("res://scenes/enemies/enemy_bullet.tscn").instantiate()
+			var bullet = bullet_scn.instantiate()
 			bullet.global_position = global_position
 			bullet.dir = (Global.player_position - global_position).angle()
 			get_tree().current_scene.add_child(bullet)

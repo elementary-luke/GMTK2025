@@ -1,5 +1,6 @@
 extends CharacterBody2D
 
+var bullet_scn = preload("res://scenes/enemies/spin_bullet.tscn")
 const SPEED = 300.0
 const JUMP_VELOCITY = -400.0
 
@@ -28,7 +29,7 @@ func _on_timer_timeout() -> void:
 		var dir = randf_range(0.0, 2*PI)
 		for i in range(0, 10):
 			await get_tree().create_timer(0.03).timeout
-			var bullet = load("res://scenes/enemies/spin_bullet.tscn").instantiate()
+			var bullet = bullet_scn.instantiate()
 			bullet.global_position = global_position
 			bullet.dir = dir
 			get_tree().current_scene.add_child(bullet)

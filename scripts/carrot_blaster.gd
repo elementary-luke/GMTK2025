@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const SPEED = 50.0
-
+var bullet_scn = preload("res://scenes/enemies/carrot_bullet.tscn")
 var rope_value = 10.0
 var dir: Vector2
 var last_dir: String
@@ -77,7 +77,8 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 
 		await get_tree().create_timer(0.45).timeout
 
-		var bullet = load("res://scenes/enemies/enemy_bullet.tscn").instantiate()
+		var bullet = bullet_scn.instantiate()
+		bullet.dir = (Global.player_position - global_position).angle()
 		bullet.global_position = global_position
 		get_tree().current_scene.add_child(bullet)
 
