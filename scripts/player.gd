@@ -15,6 +15,7 @@ var can_extend = false
 var rope_left = 150.0 # 150sda
 var max_rope = 150.0 # 150sda
 var min_rope_segments = 2
+var frames_without_extension = 0
 
 var anim_name = "idle_forward"
 var last_dir = "forward"
@@ -29,7 +30,7 @@ func update(delta: float) -> void:
 	if rope_left <= 0 && !casting_rope:
 		Global.Root.end_game()
 		return
-		
+	
 	Global.time_lived += delta
 	
 	var intent = Vector2.ZERO
@@ -62,6 +63,9 @@ func update(delta: float) -> void:
 		if to_end >= Global.Rope.seg_len and can_extend and rope_left > 0:#&& Global.Rope.get_rope_length() >= Global.Rope.max_length():
 			Global.Rope.add_segment()
 			reduce_rope(1)
+			frames_without_extension = 0
+			if !$RopeNoise.playing:
+					$RopeNoise.play()
 			
 		if Input.is_action_just_pressed("main_action"):
 			can_extend = !can_extend
@@ -72,9 +76,17 @@ func update(delta: float) -> void:
 			for i in range(0, min_rope_segments):
 				Global.Rope.add_segment()
 				reduce_rope(1)
+				frames_without_extension = 0
+				if !$RopeNoise.playing:
+					$RopeNoise.play()
 			casting_rope = true
 			can_extend = true
 	
+	
+	frames_without_extension += 1
+	if frames_without_extension > 60 && $RopeNoise.playing:
+		$RopeNoise.stop()
+		
 	velocity = move_step
 	
 	move_and_slide() 

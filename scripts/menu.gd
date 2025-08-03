@@ -75,10 +75,12 @@ func reset_player():
 
 func _on_texture_button_pressed() -> void:
 	$Cover.get_node("AnimationPlayer").play("FadeOut")
+	$Button.play()
 	await get_tree().create_timer(0.3).timeout
 	get_tree().change_scene_to_file("res://scenes/main.tscn")
 
 func _on_control_button_pressed() -> void:
 	$Cover.get_node("AnimationPlayer").play("FadeOut")
+	$Button.play()
 	await get_tree().create_timer(0.3).timeout
 	get_tree().change_scene_to_file("res://scenes/controls.tscn")

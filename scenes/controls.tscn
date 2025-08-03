@@ -1,12 +1,16 @@
-[gd_scene load_steps=11 format=3 uid="uid://b5ofx8cvd3fpi"]
+[gd_scene load_steps=15 format=3 uid="uid://b5ofx8cvd3fpi"]
 
 [ext_resource type="Script" uid="uid://c5fltp5hwjp0y" path="res://scripts/controls.gd" id="1_jlst0"]
 [ext_resource type="Texture2D" uid="uid://csypn85gfjd0q" path="res://sprites/UI/mini_credits.png" id="3_jlst0"]
-[ext_resource type="Texture2D" uid="uid://dkfi4rpqtrpuh" path="res://sprites/UI/control_bg_panel.png" id="4_dloai"]
-[ext_resource type="Texture2D" uid="uid://cyvwka68qrlao" path="res://sprites/UI/instructions_and_controls_text.png" id="5_k6bol"]
+[ext_resource type="Texture2D" uid="uid://mutpfum03t8g" path="res://sprites/UI/panel1.png" id="3_t622t"]
+[ext_resource type="Texture2D" uid="uid://c44al3se7vkjn" path="res://sprites/UI/panel2.png" id="4_vwfca"]
+[ext_resource type="Texture2D" uid="uid://dd7plmcebjcj1" path="res://sprites/UI/panel3.png" id="5_niyus"]
 [ext_resource type="Texture2D" uid="uid://shx5fbtv7nmo" path="res://sprites/UI/back_button.png" id="6_dloai"]
 [ext_resource type="PackedScene" uid="uid://ks4j05jgr3ky" path="res://scenes/cover.tscn" id="7_k6bol"]
 [ext_resource type="Texture2D" uid="uid://bv5dhsaui7r0u" path="res://sprites/UI/parallax_bg.png" id="7_qifi2"]
+[ext_resource type="AudioStream" uid="uid://cgc8ekwlv5o6b" path="res://sounds/sfx/button_click.wav" id="8_a8sje"]
+[ext_resource type="Texture2D" uid="uid://cdkf1qynmrgv0" path="res://sprites/UI/left_button.png" id="10_vwfca"]
+[ext_resource type="Texture2D" uid="uid://ck7xo3ulywrit" path="res://sprites/UI/right_button.png" id="11_niyus"]
 
 [sub_resource type="Animation" id="Animation_g3eks"]
 length = 0.001
@@ -147,18 +151,24 @@ libraries = {
 }
 autoplay = "background_scroll"
 
+[node name="Panels" type="Node2D" parent="."]
+
+[node name="Panel1" type="Sprite2D" parent="Panels"]
+position = Vector2(256, 128)
+texture = ExtResource("3_t622t")
+
+[node name="Panel2" type="Sprite2D" parent="Panels"]
+position = Vector2(768, 128)
+texture = ExtResource("4_vwfca")
+
+[node name="Panel3" type="Sprite2D" parent="Panels"]
+position = Vector2(1280, 128)
+texture = ExtResource("5_niyus")
+
 [node name="CreditsText" type="Sprite2D" parent="."]
 z_index = 2
 position = Vector2(258, 263)
 texture = ExtResource("3_jlst0")
-
-[node name="ControlBGPanel" type="Sprite2D" parent="."]
-position = Vector2(256, 126)
-texture = ExtResource("4_dloai")
-
-[node name="InstructionsText" type="Sprite2D" parent="."]
-position = Vector2(256, 126)
-texture = ExtResource("5_k6bol")
 
 [node name="TextureButton" type="TextureButton" parent="."]
 offset_left = 16.0
@@ -169,5 +179,25 @@ texture_normal = ExtResource("6_dloai")
 
 [node name="Cover" parent="." instance=ExtResource("7_k6bol")]
 position = Vector2(3, -2)
+metadata/_edit_lock_ = true
+
+[node name="Button" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_a8sje")
+
+[node name="left" type="TextureButton" parent="."]
+offset_left = 19.0
+offset_top = 118.0
+offset_right = 36.0
+offset_bottom = 135.0
+texture_normal = ExtResource("10_vwfca")
+
+[node name="right" type="TextureButton" parent="."]
+offset_left = 476.0
+offset_top = 117.0
+offset_right = 493.0
+offset_bottom = 134.0
+texture_normal = ExtResource("11_niyus")
 
 [connection signal="pressed" from="TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="pressed" from="left" to="." method="_on_left_pressed"]
+[connection signal="pressed" from="right" to="." method="_on_right_pressed"]
