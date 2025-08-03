@@ -1,10 +1,10 @@
 [gd_scene load_steps=7 format=3 uid="uid://dav7cfea6hwnc"]
 
 [ext_resource type="Script" uid="uid://bcdci8wo7nsex" path="res://scripts/blaster_bullet.gd" id="1_uw2es"]
-[ext_resource type="Texture2D" uid="uid://becuafk43s22g" path="res://sprites/Enemies/orange_bullet.png" id="2_ws26a"]
+[ext_resource type="Texture2D" uid="uid://byeuh4bcag2v0" path="res://sprites/Enemies/fat_red_bullet.png" id="2_obihn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_85g3d"]
-size = Vector2(10, 10)
+size = Vector2(12, 12)
 
 [sub_resource type="Animation" id="Animation_uw2es"]
 resource_name = "FadeOut"
@@ -50,7 +50,7 @@ collision_mask = 5
 script = ExtResource("1_uw2es")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_ws26a")
+texture = ExtResource("2_obihn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_85g3d")

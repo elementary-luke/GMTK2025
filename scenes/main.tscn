@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://8uep7tduvakb" path="res://sprites/Player/run_forward.png" id="3_tbgi4"]
 [ext_resource type="Script" uid="uid://eb2gj4txc8t" path="res://rope.gd" id="4_jyhfs"]
 [ext_resource type="Texture2D" uid="uid://bstju5ugihny4" path="res://sprites/UI/rope_ammo_bar.png" id="4_trceg"]
-[ext_resource type="FontFile" uid="uid://cyrm1nyigmmk0" path="res://fonts/FONT.ttf" id="5_a8y0u"]
+[ext_resource type="FontFile" uid="uid://vpdst6e78qc5" path="res://fonts/FONT.ttf" id="5_a8y0u"]
 [ext_resource type="Texture2D" uid="uid://c0oqh64skabm5" path="res://sprites/Player/idle_forward.png" id="5_choun"]
 [ext_resource type="Texture2D" uid="uid://dte5b7cepper4" path="res://sprites/Player/idle_back.png" id="5_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://dy4ts3jfre4q4" path="res://sprites/Player/run_back.png" id="5_tipki"]
@@ -679,6 +679,7 @@ size = Vector2(16, 15.75)
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_sugp2")
+metadata/_edit_horizontal_guides_ = [28.0]
 
 [node name="MapGenerator" type="Node2D" parent="."]
 script = ExtResource("2_o6xl0")
@@ -699,10 +700,10 @@ texture = ExtResource("4_trceg")
 [node name="AmmoHolder" type="Node2D" parent="UI"]
 
 [node name="AmmoLabel" type="RichTextLabel" parent="UI/AmmoHolder"]
-offset_left = 50.0
-offset_top = -125.0
-offset_right = 115.0
-offset_bottom = -114.0
+offset_left = 45.0
+offset_top = -123.0
+offset_right = 110.0
+offset_bottom = -112.0
 theme_override_fonts/normal_font = ExtResource("5_a8y0u")
 theme_override_font_sizes/normal_font_size = 8
 text = "100m"
@@ -712,9 +713,9 @@ vertical_alignment = 1
 [node name="ScoreHolder" type="Node2D" parent="UI"]
 
 [node name="ScoreLabel" type="RichTextLabel" parent="UI/ScoreHolder"]
-offset_left = -215.0
+offset_left = -208.0
 offset_top = -123.0
-offset_right = -150.0
+offset_right = -143.0
 offset_bottom = -112.0
 theme_override_fonts/normal_font = ExtResource("5_a8y0u")
 theme_override_font_sizes/normal_font_size = 8
@@ -729,7 +730,7 @@ position = Vector2(0, -6)
 polygon = PackedVector2Array(0, 0, 0, 11, 87, 11, 87, 0)
 
 [node name="ScoreGainLabel" parent="UI" instance=ExtResource("20_yc10j")]
-position = Vector2(-215, -106)
+position = Vector2(-208, -106)
 
 [node name="Player" type="CharacterBody2D" parent="." groups=["player"]]
 z_index = 4

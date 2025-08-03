@@ -309,7 +309,7 @@ position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_ie068")
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 2.0
 one_shot = true
 autostart = true
 

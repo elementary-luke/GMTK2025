@@ -9,8 +9,13 @@ var enemy_scene : PackedScene
 var max_enemies = 5
 
 				   #[blaster, carrot_blaster, peashooter, scissor mouse, spinshooter]
-var probabilities = [8,       8,              20,         40,            15]
-var cooldowns =     [10.0,     10.0,          4.0,        2.0,           4.0]
+var probabilities = [8,        8,             20,         40,            15]
+var cooldowns     = [10.0,     10.0,          4.0,        2.0,           4.0]
+var adjust        = [true,     true,          false,      false,         true]
+
+var difficulty = 1.0
+var difficulty_increase = 0.0001
+var max_difficulty = 3.0
 
 func _ready():
 	Global.Root = self
@@ -19,12 +24,12 @@ func _ready():
 	Global.rope_used = 0.0
 	Global.time_lived = 0.0
 	Global.score = 0.0
-	
 
 func _physics_process(delta: float) -> void:
 	if !game_ended:
 		$Player.update(delta)
 		$Rope.update(delta)
+		difficulty = min(difficulty + difficulty_increase, max_difficulty)
 	ui()
 
 func ui():
@@ -115,22 +120,31 @@ func multi_label(multiplier, pos):
 
 
 func _on_enemy_timer_timeout() -> void:
-	if $Enemies.get_child_count() > max_enemies:
+	if game_ended:
+		return
+		
+	if $Enemies.get_child_count() > max_enemies * difficulty:
 		$EnemyTimer.start(4.0)
 		return
+		
+	var adj_probabilities = probabilities.duplicate(true)
+	
+	for i in range(len(adjust)):
+		if adjust[i]:
+			adj_probabilities[i] = adj_probabilities[i] * difficulty
 	
 	var sum_probabilites = 0
-	for i in probabilities:
+	for i in adj_probabilities:
 		sum_probabilites += i
 	
 	var type = 0
 	var r = randi_range(0, sum_probabilites - 1)
 
-	for i in probabilities.size():
-		if r < probabilities[i]:
+	for i in adj_probabilities.size():
+		if r < adj_probabilities[i]:
 			type = i
 			break
-		r -= probabilities[i]
+		r -= adj_probabilities[i]
 	
 	if type == 0:
 		enemy_scene = preload("res://scenes/enemies/blaster.tscn")
@@ -144,8 +158,8 @@ func _on_enemy_timer_timeout() -> void:
 		enemy_scene = preload("res://scenes/enemies/spinshooter.tscn")
 		
 	var inst = enemy_scene.instantiate()
-	inst.global_position.x = $Player.global_position.x + randf_range(-100.0, 100.0)
-	inst.global_position.y = $Player.global_position.y + randf_range(-100.0, 100.0)
+	inst.global_position.x = $Player.global_position.x + randi_range(-100, 100)
+	inst.global_position.y = $Player.global_position.y + randi_range(-100, 100)
 	$Enemies.add_child(inst)
 	
-	$EnemyTimer.start(cooldowns[type])
+	$EnemyTimer.start(cooldowns[type] / difficulty)

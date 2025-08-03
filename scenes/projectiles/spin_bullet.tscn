@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://c3n88y2p4kmb7"]
 
 [ext_resource type="Script" uid="uid://bgnt1r4qxiriw" path="res://scripts/spin_bullet.gd" id="1_r7fmx"]
-[ext_resource type="Texture2D" uid="uid://ctyk4h383dnvc" path="res://sprites/Enemies/PeaShooter/pink_bullet.png" id="2_da0ks"]
+[ext_resource type="Texture2D" uid="uid://bge12dt8tasve" path="res://sprites/Enemies/blue_bullet.png" id="2_6vhcg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_8gdk0"]
 radius = 5.38516
@@ -50,7 +50,7 @@ collision_mask = 5
 script = ExtResource("1_r7fmx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_da0ks")
+texture = ExtResource("2_6vhcg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8gdk0")
