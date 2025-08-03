@@ -77,10 +77,13 @@ func handle_intersection():
 		if score_increase > 0:
 			Global.Root.score_gain_label(int(score_increase), len(bodies))
 		
+		$Bell.play()
+		
 		await get_tree().create_timer(0.4).timeout
 		if len(bodies) > 1:
 			var avg_pos = Vector2((x_bounds[0] + x_bounds[1]) / 2.0, (y_bounds[0] + y_bounds[1]) / 2.0)
 			Global.Root.multi_label(len(bodies), avg_pos)
+		$Cash.play()
 		
 
 func draw_rope():
