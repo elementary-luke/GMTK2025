@@ -9,7 +9,7 @@ const GREEN = Color8(255, 255, 255)
 const INCREASE_GREEN = Color8(87, 211, 49)
 
 
-var despawn_distance = 1024.0 # how far away a bullet or enemy is before it despawns
+var despawn_distance = 750.0 # how far away a bullet or enemy is before it despawns
 var score = 0.0
 var rope_used = 0.0
 var time_lived = 0.0

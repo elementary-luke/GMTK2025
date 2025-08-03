@@ -43,7 +43,7 @@ func _physics_process(delta: float) -> void:
 					if chew_dir == 1:
 						rotation += deg_to_rad(180.0)
 					global_position = segments[seg_index].pos
-					cut += delta * (1.0 + Global.Root.difficulty) / 2.0
+					cut += delta * (1.0 + Global.Root.difficulty) / 4.0
 					if cut > cut_time:
 						Global.Rope.cut(seg_index)
 						$Cut.play()

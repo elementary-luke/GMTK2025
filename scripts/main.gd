@@ -15,7 +15,7 @@ var adjust        = [true,     true,          false,      false,         true]
 
 var difficulty = 1.0
 var difficulty_increase = 0.00015
-var max_difficulty = 3.0
+var max_difficulty = 6.0
 
 func _ready():
 	$CoverLayer/Cover.get_node("AnimationPlayer").play("FadeIn")
@@ -132,7 +132,6 @@ func multi_label(multiplier, pos):
 
 
 func _on_enemy_timer_timeout() -> void:
-	print(difficulty)
 	if game_ended:
 		return
 		
@@ -178,7 +177,7 @@ func _on_enemy_timer_timeout() -> void:
 	
 	var space_state = get_world_2d().direct_space_state
 	var shape = CircleShape2D.new()
-	shape.radius = 24
+	shape.radius = 24.0
 	
 	for i in range(0, 100):
 		var shape_query = PhysicsShapeQueryParameters2D.new()
