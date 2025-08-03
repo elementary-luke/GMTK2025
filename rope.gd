@@ -3,7 +3,7 @@ var segments = []
 var seg_len = 10.0
 var start_nsegments = 10
 var start_pos = Vector2(0.0, 0.0)
-var segments_in_loop = 8
+var segments_in_loop = 5
 var rope_phy_iterations = 20
 var collision_radius = 2.0
 var intersection_counter = 0
@@ -55,7 +55,7 @@ func handle_intersection():
 		for b in bodies:
 			var body = b["collider"]
 			if body:
-				Global.score += body.rope_value * len(bodies)
+				Global.score += body.rope_value * len(bodies) * 100.0
 				body.die()
 		
 		$Line.clear_points()
@@ -126,7 +126,7 @@ func resolve_collisions():
 func apply_distance_constraints():
 	segments[0].pos = start_pos
 	if get_rope_length() > max_length():
-		Global.Player.global_position = segments[-1].pos + (Global.player_position - Global.Player.global_position)
+		Global.Player.global_position = segments[-1].pos
 	else:
 		segments[-1].pos = Global.Player.global_position
 	
@@ -186,8 +186,8 @@ func self_intersecting():
 			if i == 0 and j == seg_count - 1:
 				continue
 				
-			if segments[i].pos == segments[i].old_pos && segments[i + 1].pos == segments[i + 1].old_pos && segments[j].pos == segments[j].old_pos && segments[j + 1].pos == segments[j + 1].old_pos:
-				continue
+			#if segments[i].pos == segments[i].old_pos && segments[i + 1].pos == segments[i + 1].old_pos && segments[j].pos == segments[j].old_pos && segments[j + 1].pos == segments[j + 1].old_pos:
+				#continue
 			
 			var b1 = segments[j].pos
 			var b2 = segments[j + 1].pos

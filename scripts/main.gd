@@ -4,6 +4,7 @@ var scissor = preload("res://scenes/enemies/scissor.tscn")
 var hit_label_scn = preload("res://scenes/dissapearing_label.tscn")
 var rope_shown = 0.0
 var score_shown = 0.0
+var game_ended = false
 
 func _ready():
 	Global.Root = self
@@ -15,7 +16,7 @@ func _ready():
 	
 
 func _physics_process(delta: float) -> void:
-	if $Player.rope_left > 0:
+	if !game_ended:
 		$Player.update(delta)
 		$Rope.update(delta)
 	ui()
@@ -46,6 +47,8 @@ func ammo_red():
 	$UI/AmmoPivot/AmmoPoly.modulate = Color8(226, 54, 54)
 
 func end_game():
+	game_ended = true
+	$Player/AnimatedSprite2D.play("idle_forward")
 	Global.Rope.cut(Global.Rope.segments.size() - 1)
 	get_tree().call_group("Enemy", "die")
 	get_tree().call_group("Bullet", "die")

@@ -12,8 +12,8 @@ var stun_invincibility_dur = 0.5
 var can_be_stunned = true
 var last = Vector2(0, 0)
 var can_extend = false
-var rope_left = 150.0
-var max_rope = 150.0
+var rope_left = 150.0 # 150sda
+var max_rope = 150.0 # 150sda
 var min_rope_segments = 2
 
 var anim_name = "idle_forward"
@@ -23,6 +23,10 @@ func _ready():
 	Global.Player = self
 
 func update(delta: float) -> void:
+	if rope_left <= 0 && !casting_rope:
+		Global.Root.end_game()
+		return
+		
 	Global.time_lived += delta
 	
 	var intent = Vector2.ZERO
@@ -112,7 +116,10 @@ func play_anim(intent):
 
 func stun(time, rope_reduction):
 	if can_be_stunned:
-		
+		if rope_left <= 0:
+			Global.Root.end_game()
+			return
+			
 		Global.Root.ammo_red()
 		reduce_rope(rope_reduction)
 		Global.Root.hit_label(rope_reduction)
@@ -148,6 +155,3 @@ func add_rope(amount):
 func reduce_rope(amount):
 	rope_left -= amount
 	rope_left = max(rope_left, 0.0)
-	if rope_left == 0:
-		$AnimatedSprite2D.play("idle_forward")
-		Global.Root.end_game()
