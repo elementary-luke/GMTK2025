@@ -45,6 +45,7 @@ func _physics_process(delta: float) -> void:
 					cut += delta
 					if cut > cut_time:
 						Global.Rope.cut(seg_index)
+						$Cut.play()
 						reset()
 					else:
 						var progress = cut / cut_time

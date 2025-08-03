@@ -139,10 +139,13 @@ func stun(time, rope_reduction):
 		reduce_rope(rope_reduction)
 		Global.Root.hit_label(rope_reduction)
 		
-		$StunSound.play()
+		
 		
 		if time == 0.0:
+			$Bullet.play()
 			return
+		
+		$StunSound.play()
 			
 		can_be_stunned = false
 		stunned = true

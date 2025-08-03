@@ -1,4 +1,4 @@
-[gd_scene load_steps=119 format=3 uid="uid://be473fkjewddj"]
+[gd_scene load_steps=120 format=3 uid="uid://be473fkjewddj"]
 
 [ext_resource type="Script" uid="uid://00n4kvs1h3nt" path="res://scripts/player.gd" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://bfuu4c4qs8520" path="res://scripts/main.gd" id="1_sugp2"]
@@ -19,6 +19,7 @@
 [ext_resource type="AudioStream" uid="uid://dsjyasruj72uu" path="res://sounds/sfx/ice effects/Ice Attack 08.wav" id="16_0ld40"]
 [ext_resource type="AudioStream" uid="uid://dq717q6ttgf2i" path="res://sounds/sfx/grass_walking.wav" id="16_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://bv5b3w3yfsjto" path="res://sprites/SpawnAnimations/player_spawn.png" id="16_pm3ni"]
+[ext_resource type="AudioStream" uid="uid://bpdt0qifpgvom" path="res://sounds/sfx/bullet_hit.wav" id="20_2wyq8"]
 [ext_resource type="AudioStream" uid="uid://c754e2orbt8vr" path="res://sounds/sfx/bell.wav" id="20_jscy8"]
 [ext_resource type="Shader" uid="uid://c5pleyy5db8xe" path="res://shaders/cut.gdshader" id="20_og1vs"]
 [ext_resource type="PackedScene" uid="uid://cptu87em8m5eb" path="res://scenes/score_gain_label.tscn" id="20_yc10j"]
@@ -825,6 +826,10 @@ volume_db = 1.981
 [node name="StunSound" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("16_0ld40")
 volume_db = -2.0
+
+[node name="Bullet" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("20_2wyq8")
+volume_db = 3.569
 
 [node name="ShakeTimer" type="Timer" parent="Player"]
 wait_time = 0.05
