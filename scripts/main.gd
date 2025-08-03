@@ -32,24 +32,26 @@ func ui():
 	var percentage_left = $Player.rope_left / $Player.max_rope
 	var bar = $UI/AmmoPivot
 	bar.scale.x = lerp(bar.scale.x, percentage_left, 0.1)
-	var label = $UI/AmmoLabel
+	var label = $UI/AmmoHolder/AmmoLabel
 	#var amount_meters = ceil(lerp(0, 100, percentage_left))
 	rope_shown = lerp(rope_shown, $Player.rope_left , 0.1)
 	#print(percentage_left, rope_shown, amount_meters)
 	label.text = str(int(round(rope_shown))) + "m"
 	
 	score_shown = lerp(score_shown, Global.score, 0.1)
-	$UI/ScoreLabel.text = str(int(round(score_shown)))
-	$UI/AmmoPivot/AmmoPoly.modulate.r = lerp($UI/AmmoPivot/AmmoPoly.modulate.r, 1.0, 0.1)
-	$UI/AmmoPivot/AmmoPoly.modulate.g = lerp($UI/AmmoPivot/AmmoPoly.modulate.g, 1.0, 0.1)
-	$UI/AmmoPivot/AmmoPoly.modulate.b = lerp($UI/AmmoPivot/AmmoPoly.modulate.b, 1.0, 0.1)
+	$UI/ScoreHolder/ScoreLabel.text = str(int(round(score_shown)))
+	$UI/AmmoHolder.modulate = lerp($UI/AmmoHolder.modulate, Color(1.0, 1.0, 1.0), 0.1)
+	$UI/AmmoPivot/AmmoPoly.modulate = lerp($UI/AmmoPivot/AmmoPoly.modulate, Color(1.0, 1.0, 1.0), 0.1)
+	$UI/ScoreHolder.modulate = lerp($UI/ScoreHolder.modulate, Color(1.0, 1.0, 1.0), 0.1)
 
 
 func ammo_red():
 	$UI/AmmoPivot/AmmoPoly.modulate = Global.RED
+	$UI/AmmoHolder.modulate = Global.RED
 
 func ammo_green():
 	$UI/AmmoPivot/AmmoPoly.modulate = Global.GREEN
+	$UI/AmmoHolder.modulate = Global.GREEN
 
 func end_game():
 	game_ended = true
@@ -70,12 +72,11 @@ func _on_animated_sprite_2d_animation_finished() -> void:
 
 func hit_label(dmg):
 	var size = 1.0
-	size = lerp(1.0, 1.5, dmg / 10.0)
 	var inst = hit_label_scn.instantiate()
-	inst.global_position = $Player.global_position - Vector2(0.0, lerp(15, 25, dmg / 10.0))
+	inst.global_position = $Player.global_position - Vector2(0.0, 30)
 	inst.modulate = Global.RED
 	inst.scale = Vector2(size, size)
-	inst.get_node("Label").text = "-%s" % dmg
+	inst.get_node("Label").text = "-%s" % int(dmg)
 	add_child(inst)
 
 func gain_label(amount, pos):
@@ -85,5 +86,28 @@ func gain_label(amount, pos):
 	inst.global_position = pos - Vector2(0.0, lerp(15, 25, amount / 10.0))
 	inst.modulate = Global.GREEN
 	#inst.scale = Vector2(size, size)
-	inst.get_node("Holder/Label").text = "+%s" % amount
+	inst.get_node("Holder/Label").text = "+%s" % int(amount)
 	add_child(inst)
+
+func score_gain_label(amount, multiplier):
+	#var size = 1.0
+	#size = lerp(1.0, 1.5, amount / 10.0)
+	var inst = $UI/ScoreGainLabel
+	#inst.global_position = Vector2(42.0, 50.0)
+	inst.modulate = Global.GREEN
+	#inst.scale = Vector2(size, size)
+	#if multiplier > 1:
+		#inst.get_node("Holder/Label").text = "%s X%s" % [amount, multiplier]
+	#else:
+		#inst.get_node("Holder/Label").text = "%s" % [amount]
+	
+	inst.amount = amount
+	inst.multiplier = multiplier
+	inst.set_labels()
+		
+	inst.get_node("AnimationPlayer").play("Fade")
+	
+	#$UI.add_child(inst)
+	await get_tree().create_timer(0.95).timeout
+	Global.score += amount * multiplier
+	$UI/ScoreHolder.modulate = Global.GREEN

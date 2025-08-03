@@ -1,0 +1,164 @@
+[gd_scene load_steps=6 format=3 uid="uid://cptu87em8m5eb"]
+
+[ext_resource type="Script" uid="uid://m7ijpmm81tmf" path="res://scripts/score_gain_label.gd" id="1_f8mu7"]
+[ext_resource type="FontFile" uid="uid://cyrm1nyigmmk0" path="res://fonts/FONT.ttf" id="1_y8od2"]
+
+[sub_resource type="Animation" id="Animation_8tjp0"]
+resource_name = "Fade"
+step = 0.05
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AmountHolder:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.05, 0.0457969, 1, -0.05, -0.0441898, 0.25, 0, 1, -0.25, 0, 0.120233, -0.0749395, 0, -0.129767, 0.116331, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 0.800358, 0.987741)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AmountHolder:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.0496043, 23, -30, -0.0380166, 39.0247, 0.25, 0),
+"times": PackedFloat32Array(0.750358, 0.987741)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("MultiplierHolder:modulate:a")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.05, 0.0457969, 1, -0.05, -0.0441898, 0.25, 0, 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.1, 0.243944, 0.544837)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MultiplierHolder:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.0383034, 22.0101, -20, -0.0836124, 9.16993, 0.25, 0),
+"times": PackedFloat32Array(0.285243, 0.546206)
+}
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.491751),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"combine"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_k0ctd"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AmountHolder:modulate:a")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1)
+}
+tracks/2/type = "bezier"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AmountHolder:position:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("MultiplierHolder:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(1)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("MultiplierHolder:position:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k0ctd"]
+_data = {
+&"Fade": SubResource("Animation_8tjp0"),
+&"RESET": SubResource("Animation_k0ctd")
+}
+
+[node name="ScoreGainLabel" type="Node2D"]
+z_index = 6
+script = ExtResource("1_f8mu7")
+
+[node name="AmountHolder" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+
+[node name="Amount" type="RichTextLabel" parent="AmountHolder"]
+offset_top = -11.0
+offset_right = 185.0
+offset_bottom = 12.0
+theme_override_fonts/normal_font = ExtResource("1_y8od2")
+theme_override_font_sizes/normal_font_size = 8
+text = "100"
+vertical_alignment = 1
+
+[node name="MultiplierHolder" type="Node2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+
+[node name="Multiplier" type="RichTextLabel" parent="MultiplierHolder"]
+offset_left = 25.0
+offset_top = -11.0
+offset_right = 210.0
+offset_bottom = 12.0
+theme_override_fonts/normal_font = ExtResource("1_y8od2")
+theme_override_font_sizes/normal_font_size = 8
+text = "X2"
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_k0ctd")
+}

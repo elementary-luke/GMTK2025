@@ -141,7 +141,6 @@ func stun(time, rope_reduction):
 		can_be_stunned = true
 		
 		
-		
 func _on_shake_timer_timeout() -> void:
 	var random_vector = Vector2(randf_range(0,2), randf_range(0,2))
 	position += random_vector

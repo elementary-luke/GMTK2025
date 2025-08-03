@@ -54,16 +54,20 @@ func handle_intersection():
 		var bodies = query_bodies_in_polygon($Line.points.slice(i, j))
 		if len(bodies) > 0:
 			Global.Root.ammo_green()
-			
+		
+		var score_increase = 0
 		for b in bodies:
 			var body = b["collider"]
 			if body:
-				Global.score += body.rope_value * len(bodies) * 100.0
+				score_increase += body.rope_value * 100
 				body.die()
 		
 		$Line.clear_points()
 		
 		Global.Player.add_rope(j - i)
+		
+		if score_increase > 0:
+			Global.Root.score_gain_label(int(score_increase), len(bodies))
 		
 
 func draw_rope():

@@ -148,9 +148,9 @@ func predicted_player_position():
 	return player_pos + player_vel * t
 
 func die():
-	if Global.Player.rope_left > 0:
+	if !Global.Root.game_ended:
 		Global.Player.add_rope(rope_value)
-
+		Global.Root.gain_label(rope_value, global_position)
 	queue_free()
 
 

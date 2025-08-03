@@ -24,8 +24,9 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 		
 func die():
-	if Global.Player.rope_left > 0:
+	if !Global.Root.game_ended:
 		Global.Player.add_rope(rope_value)
+		Global.Root.gain_label(rope_value, global_position)
 	queue_free()
 
 

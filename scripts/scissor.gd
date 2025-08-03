@@ -101,8 +101,10 @@ func _on_look_timer_timeout() -> void:
 func die():
 	reset()
 	dead = true
-	if Global.Player.rope_left > 0:
+	if !Global.Root.game_ended:
 		Global.Player.add_rope(rope_value)
+		Global.Root.gain_label(rope_value, global_position)
+		
 	rotation = 0
 	$Sprite2D.play("death")
 	await get_tree().create_timer(0.6).timeout
