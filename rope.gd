@@ -83,7 +83,9 @@ func handle_intersection():
 		if len(bodies) > 1:
 			var avg_pos = Vector2((x_bounds[0] + x_bounds[1]) / 2.0, (y_bounds[0] + y_bounds[1]) / 2.0)
 			Global.Root.multi_label(len(bodies), avg_pos)
-		$Cash.play()
+		
+		if score_increase > 0:
+			$Cash.play()
 		
 
 func draw_rope():
