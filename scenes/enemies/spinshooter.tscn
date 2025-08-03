@@ -1,9 +1,10 @@
-[gd_scene load_steps=32 format=3 uid="uid://dn3q2af72x1yf"]
+[gd_scene load_steps=45 format=3 uid="uid://dn3q2af72x1yf"]
 
 [ext_resource type="Script" uid="uid://dom68l1d3454u" path="res://scripts/peashooterspin.gd" id="1_xb24s"]
 [ext_resource type="Texture2D" uid="uid://h7qneq0oy8cq" path="res://sprites/Enemies/SpinShooter/spinidle.png" id="2_0u7mo"]
 [ext_resource type="Texture2D" uid="uid://cv0nf5vrbso6k" path="res://sprites/Enemies/SpinShooter/death.png" id="2_17sd1"]
 [ext_resource type="Texture2D" uid="uid://bsokodmlcynrk" path="res://sprites/Enemies/SpinShooter/attack_spin.png" id="3_x1d2d"]
+[ext_resource type="Texture2D" uid="uid://c52txil1yeqfm" path="res://sprites/SpawnAnimations/spinshooter_spawn.png" id="4_8xcl5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8sohq"]
 atlas = ExtResource("2_17sd1")
@@ -72,6 +73,54 @@ region = Rect2(256, 0, 32, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_38nh0"]
 atlas = ExtResource("2_0u7mo")
 region = Rect2(288, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ot0i4"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2y4i"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3yr62"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm6mo"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5tma"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g3oi8"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m3iiu"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ycsna"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efqwq"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(256, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xupf0"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(288, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4oos"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(320, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5g2xu"]
+atlas = ExtResource("4_8xcl5")
+region = Rect2(352, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wehfo"]
 atlas = ExtResource("3_x1d2d")
@@ -170,6 +219,47 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ot0i4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2y4i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3yr62")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm6mo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5tma")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g3oi8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m3iiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ycsna")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_efqwq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xupf0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4oos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5g2xu")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 12.5
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_wehfo")
 }, {
 "duration": 1.0,
@@ -210,7 +300,9 @@ script = ExtResource("1_xb24s")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -22)
 sprite_frames = SubResource("SpriteFrames_ebij7")
-autoplay = "default"
+animation = &"spawn"
+autoplay = "spawn"
+frame_progress = 0.243091
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -9)
@@ -225,4 +317,5 @@ autostart = true
 z_index = 4
 position = Vector2(0, -7)
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

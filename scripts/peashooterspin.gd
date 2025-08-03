@@ -14,6 +14,9 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	if $AnimatedSprite2D.animation == "spawn":
+		return
+		
 	if !dead:
 		if $AnimatedSprite2D.animation != "spin":
 			if global_position.x > Global.player_position.x:
@@ -66,3 +69,8 @@ func _on_timer_timeout() -> void:
 		
 		$AnimatedSprite2D.play("default")
 	$Timer.start()
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "spawn":
+		$AnimatedSprite2D.play("default")

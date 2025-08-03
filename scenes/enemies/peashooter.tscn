@@ -1,8 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://buru8t84t8jlx"]
+[gd_scene load_steps=31 format=3 uid="uid://buru8t84t8jlx"]
 
 [ext_resource type="Texture2D" uid="uid://cxwltodmcgeil" path="res://sprites/Enemies/PeaShooter/attack_side.png" id="1_ie068"]
 [ext_resource type="Script" uid="uid://dfecyyar3qt8t" path="res://scripts/peashooter.gd" id="1_mjqhc"]
 [ext_resource type="Texture2D" uid="uid://cnnrfky0ivrgo" path="res://sprites/Enemies/PeaShooter/death.png" id="2_phtx6"]
+[ext_resource type="Texture2D" uid="uid://be1cmghdxrcii" path="res://sprites/SpawnAnimations/peashooter_spawn.png" id="4_ruxbe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ebij7"]
 atlas = ExtResource("2_phtx6")
@@ -52,6 +53,54 @@ region = Rect2(84, 0, 28, 25)
 atlas = ExtResource("1_ie068")
 region = Rect2(112, 0, 28, 25)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_hw7c4"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xv0vv"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u03gt"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2r7xi"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7rii"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_srdeg"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xbhg"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbrgk"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0tjq5"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(256, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_k6yof"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(288, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fes44"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(320, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i1dqh"]
+atlas = ExtResource("4_ruxbe")
+region = Rect2(352, 0, 32, 48)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ebij7"]
 animations = [{
 "frames": [{
@@ -99,6 +148,47 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hw7c4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xv0vv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u03gt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2r7xi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7rii")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_srdeg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xbhg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbrgk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0tjq5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k6yof")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fes44")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i1dqh")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 12.5
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ie068"]
@@ -112,7 +202,8 @@ script = ExtResource("1_mjqhc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3, -9.5)
 sprite_frames = SubResource("SpriteFrames_ebij7")
-autoplay = "default"
+animation = &"spawn"
+autoplay = "spawn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1, -7.5)
@@ -120,3 +211,5 @@ shape = SubResource("RectangleShape2D_ie068")
 
 [node name="ShootPos" type="Node2D" parent="."]
 position = Vector2(0, -7)
+
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

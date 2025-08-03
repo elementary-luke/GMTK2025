@@ -23,6 +23,9 @@ func _ready():
 	Global.Player = self
 
 func update(delta: float) -> void:
+	if $AnimatedSprite2D.animation == "spawn":
+		return
+	
 	if rope_left <= 0 && !casting_rope:
 		Global.Root.end_game()
 		return

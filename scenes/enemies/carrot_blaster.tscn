@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://c1ae22bap0hcf"]
+[gd_scene load_steps=67 format=3 uid="uid://c1ae22bap0hcf"]
 
 [ext_resource type="Script" uid="uid://dlyd2m2tfcc5w" path="res://scripts/carrot_blaster.gd" id="1_7l2yr"]
 [ext_resource type="Texture2D" uid="uid://bpxlrpum2k0kc" path="res://sprites/Enemies/CarrotBlaster/attack_back.png" id="2_7l2yr"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dpfrdj48op1cf" path="res://sprites/Enemies/CarrotBlaster/walk_back.png" id="5_quwei"]
 [ext_resource type="Texture2D" uid="uid://cufm27qh5lwki" path="res://sprites/Enemies/CarrotBlaster/walk_front.png" id="6_f5mvt"]
 [ext_resource type="Texture2D" uid="uid://cf51dpuojggek" path="res://sprites/Enemies/CarrotBlaster/walk_side.png" id="7_mib14"]
+[ext_resource type="Texture2D" uid="uid://bphx4a5770f0j" path="res://sprites/SpawnAnimations/carrotblaster_spawn.png" id="9_gvh7j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i8q3o"]
 atlas = ExtResource("2_7l2yr")
@@ -181,6 +182,54 @@ region = Rect2(128, 0, 32, 32)
 atlas = ExtResource("7_mib14")
 region = Rect2(160, 0, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfn7q"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kf5t1"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sj11i"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dpl83"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bh3wa"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecogp"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7841n"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m0sn4"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6wc6i"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(256, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8idev"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(288, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2ccoy"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(320, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pv7rv"]
+atlas = ExtResource("9_gvh7j")
+region = Rect2(352, 0, 32, 48)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ebij7"]
 animations = [{
 "frames": [{
@@ -346,6 +395,47 @@ animations = [{
 "loop": true,
 "name": &"run_side",
 "speed": 12.5
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfn7q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kf5t1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sj11i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dpl83")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bh3wa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecogp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7841n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m0sn4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6wc6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8idev")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2ccoy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pv7rv")
+}],
+"loop": false,
+"name": &"spawn",
+"speed": 12.5
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ie068"]
@@ -360,8 +450,8 @@ script = ExtResource("1_7l2yr")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_ebij7")
-animation = &"run_back"
-autoplay = "run_forward"
+animation = &"run_forward"
+autoplay = "spawn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
@@ -378,6 +468,7 @@ autostart = true
 [node name="ShootPos" type="Node2D" parent="."]
 position = Vector2(0, -12)
 
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
 [connection signal="frame_changed" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_frame_changed"]
 [connection signal="timeout" from="AttackTimer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="DirectionTimer" to="." method="_on_direction_timer_timeout"]

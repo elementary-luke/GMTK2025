@@ -84,6 +84,7 @@ func handle_intersection():
 			var avg_pos = Vector2((x_bounds[0] + x_bounds[1]) / 2.0, (y_bounds[0] + y_bounds[1]) / 2.0)
 			Global.Root.multi_label(len(bodies), avg_pos)
 		
+		await get_tree().create_timer(0.25).timeout
 		if score_increase > 0:
 			$Cash.play()
 		

@@ -1,11 +1,12 @@
 extends Node2D
 
-var scissor = preload("res://scenes/enemies/scissor.tscn")
 var hit_label_scn = preload("res://scenes/hit_label.tscn")
 var gain_label_scn = preload("res://scenes/gain_label.tscn")
 var rope_shown = 0.0
 var score_shown = 0.0
 var game_ended = false
+var enemy_scene : PackedScene
+var max_enemies = 5
 
 func _ready():
 	Global.Root = self
@@ -21,12 +22,6 @@ func _physics_process(delta: float) -> void:
 		$Player.update(delta)
 		$Rope.update(delta)
 	ui()
-	
-func _on_scissor_timer_timeout() -> void:
-	var inst = scissor.instantiate()
-	inst.global_position.x = $Player.global_position.x + randf_range(-50.0, 50.0)
-	inst.global_position.y = $Player.global_position.y + randf_range(-50.0, 50.0)
-	add_child(inst)
 
 func ui():
 	var percentage_left = $Player.rope_left / $Player.max_rope
@@ -67,8 +62,10 @@ func end_game():
 	$Player/AnimatedSprite2D.play("death")
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if $Player.rope_left <= 0:
+	if $Player/AnimatedSprite2D.animation == "death":
 		get_tree().change_scene_to_file("res://scenes/end_screen.tscn")
+	elif $Player/AnimatedSprite2D.animation == "spawn":
+		$Player/AnimatedSprite2D.play("idle_forward")
 
 func hit_label(dmg):
 	var size = 1.0
@@ -111,3 +108,23 @@ func multi_label(multiplier, pos):
 	inst.scale = Vector2(2.0, 2.0)
 	inst.get_node("Holder/Label").text = "X%s" % int(multiplier)
 	add_child(inst)
+
+
+func _on_enemy_timer_timeout() -> void:
+	if $Enemies.get_child_count() < max_enemies:
+		var type = randi_range(0, 4)
+		if type == 0:
+			enemy_scene = preload("res://scenes/enemies/blaster.tscn")
+		elif type == 1:
+			enemy_scene = preload("res://scenes/enemies/carrot_blaster.tscn")
+		elif type == 2:
+			enemy_scene = preload("res://scenes/enemies/peashooter.tscn")
+		elif type == 3:
+			enemy_scene = preload("res://scenes/enemies/scissor.tscn")
+		elif type == 4:
+			enemy_scene = preload("res://scenes/enemies/spinshooter.tscn")
+			
+		var inst = enemy_scene.instantiate()
+		inst.global_position.x = $Player.global_position.x + randf_range(-100.0, 100.0)
+		inst.global_position.y = $Player.global_position.y + randf_range(-100.0, 100.0)
+		$Enemies.add_child(inst)

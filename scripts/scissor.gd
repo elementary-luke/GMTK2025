@@ -21,15 +21,15 @@ func _ready():
 	elif type == 2:
 		$Sprite2D.sprite_frames = preload("res://spriteframe/brown_scissor_sprite_frames.tres")
 	
-	$Sprite2D.play("default")
-		
 	if randi_range(0, 1) == 0:
 		chew_dir = -1
 	
 	reset()
+	rotation = 0
+	$Sprite2D.play("spawn")
 	
 func _physics_process(delta: float) -> void:
-	if dead:
+	if dead || $Sprite2D.animation == "spawn":
 		return
 	
 	var segments = Global.Rope.segments
@@ -122,3 +122,8 @@ func die():
 	if !Global.Root.game_ended:
 		Global.Root.gain_label(rope_value, global_position)
 	queue_free()
+
+
+func _on_sprite_2d_animation_finished() -> void:
+	if $Sprite2D.animation == "spawn":
+		$Sprite2D.play("default")

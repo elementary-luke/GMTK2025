@@ -14,6 +14,9 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	if $AnimatedSprite2D.animation == "spawn":
+		return
+	
 	var current_frame = $AnimatedSprite2D.frame
 
 	if current_frame == 4 and previous_frame != 4:
@@ -45,3 +48,8 @@ func die():
 		Global.Root.gain_label(rope_value, global_position)
 		
 	queue_free()
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	if $AnimatedSprite2D.animation == "spawn":
+		$AnimatedSprite2D.play("default")

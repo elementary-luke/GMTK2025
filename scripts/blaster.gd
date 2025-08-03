@@ -14,7 +14,7 @@ func _ready() -> void:
 	focus_point = Global.player_position
 
 func _physics_process(delta: float) -> void:
-	if dead:
+	if dead || $Sprite2D.animation == "spawn":
 		return
 		
 	if charging_up:
@@ -165,8 +165,6 @@ func die():
 
 
 func _on_sprite_2d_animation_finished() -> void:
-	if $Sprite2D.animation not in ["attack_back", "attack_front", "attack_side"]:
-		return
-	
-	$Sprite2D.play("idle_front")
+	if $Sprite2D.animation in ["attack_back", "attack_front", "attack_side", "spawn"]:
+		$Sprite2D.play("idle_front")
 		

@@ -16,7 +16,7 @@ func _ready() -> void:
 	update_random_direction()
 
 func _physics_process(delta: float) -> void:
-	if attacking:
+	if attacking || $AnimatedSprite2D.animation == "spawn":
 		return
 	
 	dir = true_dir
@@ -103,3 +103,7 @@ func _on_direction_timer_timeout() -> void:
 func update_random_direction():
 	var offset = Vector2(randf_range(-0.5, 0.5), randf_range(-0.5, 0.5)) * 100.0
 	true_dir = (Global.player_position + offset - global_position).normalized()
+
+
+func _on_animated_sprite_2d_animation_finished() -> void:
+	$AnimatedSprite2D.play("run_forward")

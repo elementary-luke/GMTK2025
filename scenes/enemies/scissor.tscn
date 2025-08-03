@@ -115,6 +115,7 @@ one_shot = true
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-7.86806e-07, -9)
 sprite_frames = ExtResource("2_3h4ne")
+autoplay = "spawn"
 
 [node name="ProgressBar" type="AnimatedSprite2D" parent="."]
 position = Vector2(8, 6)
@@ -122,3 +123,4 @@ sprite_frames = SubResource("SpriteFrames_qj2wl")
 
 [connection signal="timeout" from="LookTimer" to="." method="_on_look_timer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="animation_finished" from="Sprite2D" to="." method="_on_sprite_2d_animation_finished"]
