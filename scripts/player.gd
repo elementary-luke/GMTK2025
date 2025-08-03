@@ -24,7 +24,6 @@ func _ready():
 
 func update(delta: float) -> void:
 	Global.time_lived += delta
-	Global.player_position = global_position
 	
 	var intent = Vector2.ZERO
 	
@@ -72,7 +71,7 @@ func update(delta: float) -> void:
 	velocity = move_step
 	
 	move_and_slide() 
-	
+	Global.player_position = $CollisionShape2D.global_position
 
 func play_anim(intent):
 	if !stunned:

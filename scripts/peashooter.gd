@@ -19,7 +19,7 @@ func _physics_process(delta: float) -> void:
 	if current_frame == 4 and previous_frame != 4:
 		if (Global.player_position - global_position).length() < 300.0:
 			var bullet = bullet_scn.instantiate()
-			bullet.global_position = global_position
+			bullet.global_position = $ShootPos.global_position
 			bullet.dir = (Global.player_position - global_position).angle()
 			get_tree().current_scene.add_child(bullet)
 			

@@ -44,6 +44,7 @@ _data = {
 }
 
 [node name="Bullet" type="CharacterBody2D" groups=["Bullet"]]
+z_index = 4
 collision_layer = 8
 collision_mask = 5
 script = ExtResource("1_uw2es")

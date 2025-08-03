@@ -42,7 +42,7 @@ func _on_timer_timeout() -> void:
 		
 		for i in range(0, 8):
 			var bullet = bullet_scn.instantiate()
-			bullet.global_position = global_position
+			bullet.global_position = $ShootPos.global_position
 			bullet.dir = dir
 			get_tree().current_scene.add_child(bullet)
 			

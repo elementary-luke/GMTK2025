@@ -226,7 +226,7 @@ animations = [{
 }]
 
 [node name="Scissor" type="CharacterBody2D" groups=["Enemy", "scissor"]]
-z_index = 4
+z_index = 3
 y_sort_enabled = true
 rotation = 3.14159
 collision_layer = 2
@@ -248,10 +248,7 @@ one_shot = true
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-7.86806e-07, -9)
 sprite_frames = SubResource("SpriteFrames_sydhx")
-animation = &"death"
 autoplay = "default"
-frame = 6
-frame_progress = 0.760998
 
 [node name="ProgressBar" type="AnimatedSprite2D" parent="."]
 position = Vector2(8, 6)

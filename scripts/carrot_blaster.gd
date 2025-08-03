@@ -87,7 +87,7 @@ func _on_animated_sprite_2d_frame_changed() -> void:
 		for i in range(0, 3):
 			var bullet = bullet_scn.instantiate()
 			bullet.dir = ang
-			bullet.global_position = global_position
+			bullet.global_position = $ShootPos.global_position
 			get_tree().current_scene.add_child(bullet)
 			ang += spread_ang / 3.0
 

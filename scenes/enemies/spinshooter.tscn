@@ -147,22 +147,30 @@ animations = [{
 size = Vector2(8, 18)
 
 [node name="SpinShooter" type="CharacterBody2D" groups=["Enemy"]]
-z_index = 5
+z_index = 4
 collision_layer = 2
+collision_mask = 0
 script = ExtResource("1_xb24s")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -13)
+position = Vector2(0, -22)
 sprite_frames = SubResource("SpriteFrames_ebij7")
 animation = &"spin"
 autoplay = "default"
+frame = 3
+frame_progress = 0.711236
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
 shape = SubResource("RectangleShape2D_ie068")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 4.0
 one_shot = true
 autostart = true
+
+[node name="ShootPos" type="Node2D" parent="."]
+z_index = 4
+position = Vector2(0, -7)
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

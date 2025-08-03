@@ -105,14 +105,18 @@ animations = [{
 size = Vector2(8, 18)
 
 [node name="PeaShooter" type="CharacterBody2D" groups=["Enemy"]]
+z_index = 4
 collision_layer = 2
 script = ExtResource("1_mjqhc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-2, -2)
+position = Vector2(-3, -9.5)
 sprite_frames = SubResource("SpriteFrames_ebij7")
-animation = &"death"
 autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, -7.5)
 shape = SubResource("RectangleShape2D_ie068")
+
+[node name="ShootPos" type="Node2D" parent="."]
+position = Vector2(0, -7)

@@ -19,7 +19,7 @@ func max_length():
 func add_segment():
 	Global.rope_used += 1
 	var inst = Segment.new()
-	inst.initialise(Global.Player.global_position)
+	inst.initialise(Global.player_position)
 	segments.append(inst)
 	
 func update(delta: float) -> void:
@@ -126,13 +126,13 @@ func resolve_collisions():
 func apply_distance_constraints():
 	segments[0].pos = start_pos
 	if get_rope_length() > max_length():
-		Global.Player.global_position = segments[-1].pos
+		Global.Player.global_position = segments[-1].pos + (Global.player_position - Global.Player.global_position)
 	else:
 		segments[-1].pos = Global.Player.global_position
 	
-	#if segments[-1].pos.distance_to(Global.Player.global_position) > seg_len:
-		#var offset = (segments[-1].pos - Global.Player.global_position).normalized() * seg_len
-		#segments[-1].pos = Global.Player.global_position + offset
+	#if segments[-1].pos.distance_to(Global.player_position) > seg_len:
+		#var offset = (segments[-1].pos - Global.player_position).normalized() * seg_len
+		#segments[-1].pos = Global.player_position + offset
 	
 	for i in range(len(segments) - 2, -1, -1 ):
 		var a = segments[i]
