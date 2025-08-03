@@ -71,11 +71,11 @@ func end_game():
 	$Player/RectContainer/ColorRect.material.set_shader_parameter("holeCenter", Global.player_position - Vector2(0, 10))
 	await get_tree().create_timer(1).timeout
 	get_tree().create_tween()
-	var tween = get_tree().create_tween()
-	tween.tween_property($Player/Shadow, "scale", Vector2(0, 0), 0.2)
 	$Player/RectContainer/ColorRect/AnimationPlayer.play("GoIn")
 	await get_tree().create_timer(0.5).timeout
 	$Player/AnimatedSprite2D.play("death")
+	var tween = get_tree().create_tween()
+	tween.tween_property($Player/Shadow, "scale", Vector2(0, 0), 0.2)
 	await get_tree().create_timer(1).timeout
 	$Player/RectContainer/ColorRect/AnimationPlayer.play("GoIn2")
 	await get_tree().create_timer(1).timeout
@@ -168,8 +168,27 @@ func _on_enemy_timer_timeout() -> void:
 		enemy_scene = preload("res://scenes/enemies/spinshooter.tscn")
 		
 	var inst = enemy_scene.instantiate()
-	inst.global_position.x = $Player.global_position.x + randi_range(-100, 100)
-	inst.global_position.y = $Player.global_position.y + randi_range(-100, 100)
+	
+	var pos  = Vector2(0, 0)
+	pos.x = $Player.global_position.x + randi_range(-200, 200)
+	pos.y = $Player.global_position.y + randi_range(-100, 100)
+	
+	var space_state = get_world_2d().direct_space_state
+	var shape = CircleShape2D.new()
+	shape.radius = 16
+	
+	for i in range(0, 100):
+		var shape_query = PhysicsShapeQueryParameters2D.new()
+		shape_query.shape = shape
+		shape_query.transform.origin = pos
+		shape_query.collision_mask = 1 << 2  # Use your wall layer
+		
+		var result = space_state.intersect_shape(shape_query)
+		if !result:
+			break
+		
+	inst.global_position = pos
+	
 	$Enemies.add_child(inst)
 	
 	$EnemyTimer.start(cooldowns[type] / difficulty)

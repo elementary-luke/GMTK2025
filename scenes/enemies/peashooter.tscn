@@ -130,7 +130,7 @@ animations = [{
 "speed": 10.0
 }, {
 "frames": [{
-"duration": 1.0,
+"duration": 2.0,
 "texture": SubResource("AtlasTexture_mjqhc")
 }, {
 "duration": 1.0,
@@ -202,7 +202,6 @@ script = ExtResource("1_mjqhc")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(-3, -9.5)
 sprite_frames = SubResource("SpriteFrames_ebij7")
-animation = &"spawn"
 autoplay = "spawn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
