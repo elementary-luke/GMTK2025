@@ -26,6 +26,6 @@ func show_cut_line(points):
 
 func show_loop_line(points):
 	var inst = cut_line.instantiate()
-	inst.default_color = GREEN
+	inst.default_color = INCREASE_GREEN
 	inst.points = points
 	Root.add_child(inst)

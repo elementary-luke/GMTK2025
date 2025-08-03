@@ -44,8 +44,8 @@ func handle_intersection():
 		Global.show_loop_line($Line.points.slice(i, j))
 		#Global.show_cut_line($Line.points.slice(0, i + 1) + $Line.points.slice(j))
 		
-		var x_bounds = [0.0, 0.0]
-		var y_bounds = [0.0, 0.0]
+		var x_bounds = [INF, -INF]
+		var y_bounds = [INF, -INF]
 		for s in segments:
 			x_bounds[0] = min(x_bounds[0], s.pos.x)
 			x_bounds[1] = max(x_bounds[1], s.pos.x)
@@ -70,16 +70,17 @@ func handle_intersection():
 				score_increase += body.rope_value * 100
 				body.die()
 		
-		if len(bodies) > 1:
-			var avg_pos = Vector2((x_bounds[0] + x_bounds[1]) / 2.0, (y_bounds[0] + y_bounds[1]) / 2.0)
-			Global.Root.multi_label(len(bodies), avg_pos)
-		
 		$Line.clear_points()
 		
 		Global.Player.add_rope(j - i)
 		
 		if score_increase > 0:
 			Global.Root.score_gain_label(int(score_increase), len(bodies))
+		
+		await get_tree().create_timer(0.4).timeout
+		if len(bodies) > 1:
+			var avg_pos = Vector2((x_bounds[0] + x_bounds[1]) / 2.0, (y_bounds[0] + y_bounds[1]) / 2.0)
+			Global.Root.multi_label(len(bodies), avg_pos)
 		
 
 func draw_rope():
