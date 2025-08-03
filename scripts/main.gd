@@ -1,7 +1,8 @@
 extends Node2D
 
 var scissor = preload("res://scenes/enemies/scissor.tscn")
-var hit_label_scn = preload("res://scenes/dissapearing_label.tscn")
+var hit_label_scn = preload("res://scenes/hit_label.tscn")
+var gain_label_scn = preload("res://scenes/gain_label.tscn")
 var rope_shown = 0.0
 var score_shown = 0.0
 var game_ended = false
@@ -72,7 +73,17 @@ func hit_label(dmg):
 	size = lerp(1.0, 1.5, dmg / 10.0)
 	var inst = hit_label_scn.instantiate()
 	inst.global_position = $Player.global_position - Vector2(0.0, lerp(15, 25, dmg / 10.0))
-	inst.modulate = Color8(226, 54, 54)
+	inst.modulate = Global.RED
 	inst.scale = Vector2(size, size)
 	inst.get_node("Label").text = "-%s" % dmg
+	add_child(inst)
+
+func gain_label(amount, pos):
+	#var size = 1.0
+	#size = lerp(1.0, 1.5, amount / 10.0)
+	var inst = gain_label_scn.instantiate()
+	inst.global_position = pos - Vector2(0.0, lerp(15, 25, amount / 10.0))
+	inst.modulate = Global.GREEN
+	#inst.scale = Vector2(size, size)
+	inst.get_node("Holder/Label").text = "+%s" % amount
 	add_child(inst)

@@ -106,4 +106,5 @@ func die():
 	rotation = 0
 	$Sprite2D.play("death")
 	await get_tree().create_timer(0.6).timeout
+	Global.Root.gain_label(rope_value, global_position)
 	queue_free()
