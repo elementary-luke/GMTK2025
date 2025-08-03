@@ -50,8 +50,8 @@ func ammo_red():
 	$UI/AmmoHolder.modulate = Global.RED
 
 func ammo_green():
-	$UI/AmmoPivot/AmmoPoly.modulate = Global.GREEN
-	$UI/AmmoHolder.modulate = Global.GREEN
+	$UI/AmmoPivot/AmmoPoly.modulate = Global.INCREASE_GREEN
+	$UI/AmmoHolder.modulate = Global.INCREASE_GREEN
 
 func end_game():
 	game_ended = true
@@ -102,7 +102,7 @@ func score_gain_label(amount, multiplier):
 	#$UI.add_child(inst)
 	await get_tree().create_timer(0.95).timeout
 	Global.score += amount * multiplier
-	$UI/ScoreHolder.modulate = Global.GREEN
+	$UI/ScoreHolder.modulate = Global.INCREASE_GREEN
 
 func multi_label(multiplier, pos):
 	var inst = gain_label_scn.instantiate()

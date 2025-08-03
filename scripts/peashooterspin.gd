@@ -35,6 +35,7 @@ func die():
 	
 	if !Global.Root.game_ended:
 		Global.Root.gain_label(rope_value, global_position)
+		
 	queue_free()
 
 

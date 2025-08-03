@@ -38,6 +38,10 @@ func spawn_room(coords: Vector2i):
 		room_scene = preload("res://scenes/rooms/room2.tscn")
 	if rand == 3:
 		room_scene = preload("res://scenes/rooms/room3.tscn")
+	if rand == 4:
+		room_scene = preload("res://scenes/rooms/room4.tscn")
+	if rand == 5:
+		room_scene = preload("res://scenes/rooms/room5.tscn")
 	
 	var room = room_scene.instantiate()
 	room.position = coords * room_size

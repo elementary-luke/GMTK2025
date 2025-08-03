@@ -54,7 +54,7 @@ func die():
 		
 	$AnimatedSprite2D.play("death")
 	
-	await get_tree().create_timer(0.6).timeout
+	await get_tree().create_timer(0.4).timeout
 	
 	if !Global.Root.game_ended:
 		Global.Root.gain_label(rope_value, global_position)

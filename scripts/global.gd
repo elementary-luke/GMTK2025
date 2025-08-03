@@ -4,8 +4,9 @@ var Root
 var Player
 var Rope
 
-const RED = Color8(226, 54, 54)
-const GREEN = Color8(54, 255, 111)
+const RED = Color8(255, 23, 0)
+const GREEN = Color8(255, 255, 255)
+const INCREASE_GREEN = Color8(87, 211, 49)
 
 
 var despawn_distance = 1024.0 # how far away a bullet or enemy is before it despawns
