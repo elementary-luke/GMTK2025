@@ -14,18 +14,17 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	if $AnimatedSprite2D.animation == "spawn":
+	if $AnimatedSprite2D.animation == "spawn" || dead:
 		return
 		
-	if !dead:
-		if $AnimatedSprite2D.animation != "spin":
-			if global_position.x > Global.player_position.x:
-				$AnimatedSprite2D.flip_h = true
-			else:
-				$AnimatedSprite2D.flip_h = false
-		
-		if global_position.distance_to(Global.player_position) > Global.despawn_distance:
-			queue_free()
+	if $AnimatedSprite2D.animation != "spin":
+		if global_position.x > Global.player_position.x:
+			$AnimatedSprite2D.flip_h = true
+		else:
+			$AnimatedSprite2D.flip_h = false
+	
+	if global_position.distance_to(Global.player_position) > Global.despawn_distance:
+		queue_free()
 		
 func die():
 	dead = true

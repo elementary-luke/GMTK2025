@@ -8,6 +8,10 @@ var game_ended = false
 var enemy_scene : PackedScene
 var max_enemies = 5
 
+				   #[blaster, carrot_blaster, peashooter, scissor mouse, spinshooter]
+var probabilities = [8,       8,              20,         40,            15]
+var cooldowns =     [10.0,     10.0,          4.0,        2.0,           4.0]
+
 func _ready():
 	Global.Root = self
 	$Player.segments = $Rope.segments
@@ -111,20 +115,37 @@ func multi_label(multiplier, pos):
 
 
 func _on_enemy_timer_timeout() -> void:
-	if $Enemies.get_child_count() < max_enemies:
-		var type = randi_range(0, 4)
-		if type == 0:
-			enemy_scene = preload("res://scenes/enemies/blaster.tscn")
-		elif type == 1:
-			enemy_scene = preload("res://scenes/enemies/carrot_blaster.tscn")
-		elif type == 2:
-			enemy_scene = preload("res://scenes/enemies/peashooter.tscn")
-		elif type == 3:
-			enemy_scene = preload("res://scenes/enemies/scissor.tscn")
-		elif type == 4:
-			enemy_scene = preload("res://scenes/enemies/spinshooter.tscn")
-			
-		var inst = enemy_scene.instantiate()
-		inst.global_position.x = $Player.global_position.x + randf_range(-100.0, 100.0)
-		inst.global_position.y = $Player.global_position.y + randf_range(-100.0, 100.0)
-		$Enemies.add_child(inst)
+	if $Enemies.get_child_count() > max_enemies:
+		$EnemyTimer.start(4.0)
+		return
+	
+	var sum_probabilites = 0
+	for i in probabilities:
+		sum_probabilites += i
+	
+	var type = 0
+	var r = randi_range(0, sum_probabilites - 1)
+
+	for i in probabilities.size():
+		if r < probabilities[i]:
+			type = i
+			break
+		r -= probabilities[i]
+	
+	if type == 0:
+		enemy_scene = preload("res://scenes/enemies/blaster.tscn")
+	elif type == 1:
+		enemy_scene = preload("res://scenes/enemies/carrot_blaster.tscn")
+	elif type == 2:
+		enemy_scene = preload("res://scenes/enemies/peashooter.tscn")
+	elif type == 3:
+		enemy_scene = preload("res://scenes/enemies/scissor.tscn")
+	elif type == 4:
+		enemy_scene = preload("res://scenes/enemies/spinshooter.tscn")
+		
+	var inst = enemy_scene.instantiate()
+	inst.global_position.x = $Player.global_position.x + randf_range(-100.0, 100.0)
+	inst.global_position.y = $Player.global_position.y + randf_range(-100.0, 100.0)
+	$Enemies.add_child(inst)
+	
+	$EnemyTimer.start(cooldowns[type])

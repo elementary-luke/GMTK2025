@@ -16,7 +16,7 @@ func _ready() -> void:
 	update_random_direction()
 
 func _physics_process(delta: float) -> void:
-	if attacking || $AnimatedSprite2D.animation == "spawn":
+	if attacking || $AnimatedSprite2D.animation == "spawn" || dead:
 		return
 	
 	dir = true_dir

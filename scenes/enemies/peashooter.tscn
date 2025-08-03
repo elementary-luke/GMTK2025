@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://cxwltodmcgeil" path="res://sprites/Enemies/PeaShooter/attack_side.png" id="1_ie068"]
 [ext_resource type="Script" uid="uid://dfecyyar3qt8t" path="res://scripts/peashooter.gd" id="1_mjqhc"]
 [ext_resource type="Texture2D" uid="uid://cnnrfky0ivrgo" path="res://sprites/Enemies/PeaShooter/death.png" id="2_phtx6"]
-[ext_resource type="Texture2D" uid="uid://be1cmghdxrcii" path="res://sprites/SpawnAnimations/peashooter_spawn.png" id="4_ruxbe"]
+[ext_resource type="Texture2D" uid="uid://ddh8u0ogqfula" path="res://sprites/SpawnAnimations/peashooter_spawn.png" id="4_ruxbe"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ebij7"]
 atlas = ExtResource("2_phtx6")

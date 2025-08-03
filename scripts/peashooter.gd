@@ -14,7 +14,7 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	if $AnimatedSprite2D.animation == "spawn":
+	if $AnimatedSprite2D.animation == "spawn" || dead:
 		return
 	
 	var current_frame = $AnimatedSprite2D.frame

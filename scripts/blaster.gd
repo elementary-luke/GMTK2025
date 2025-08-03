@@ -53,6 +53,9 @@ func _physics_process(delta: float) -> void:
 		queue_free()
 
 func _on_charge_up_timer_timeout() -> void:
+	if dead:
+		return
+	
 	$Line2D.default_color = Color(1.0, 0.0, 0.0)
 	charging_up = false
 
@@ -79,14 +82,14 @@ func _on_charge_up_timer_timeout() -> void:
 		else:
 			$Sprite2D.play("attack_back")
 	
-	await get_tree().create_timer(warning_time / 4.0).timeout
-	$Line2D.hide()
-	await get_tree().create_timer(warning_time / 4.0).timeout
-	$Line2D.show()
-	await get_tree().create_timer(warning_time / 4.0).timeout
-	$Line2D.hide()
-	await get_tree().create_timer(warning_time / 4.0).timeout
-	$Line2D.show()
+	for i in range(0, 2):
+		await get_tree().create_timer(warning_time / 4.0).timeout
+		$Line2D.hide()
+		if dead:
+			return
+		await get_tree().create_timer(warning_time / 4.0).timeout
+		$Line2D.show()
+		
 
 	
 	var inst = bullet_scn.instantiate()
