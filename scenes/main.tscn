@@ -847,6 +847,7 @@ libraries = {
 
 [node name="RopeNoise" type="AudioStreamPlayer" parent="Player"]
 stream = ExtResource("21_og1vs")
+volume_db = -7.0
 
 [node name="Rope" type="Node2D" parent="."]
 z_index = 1
