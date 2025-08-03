@@ -18,7 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://de80c1b2be8o" path="res://sprites/Player/player_shadow.png" id="8_85g3d"]
 [ext_resource type="AudioStream" uid="uid://dsjyasruj72uu" path="res://sounds/sfx/ice effects/Ice Attack 08.wav" id="16_0ld40"]
 [ext_resource type="AudioStream" uid="uid://dq717q6ttgf2i" path="res://sounds/sfx/grass_walking.wav" id="16_jbj1t"]
-[ext_resource type="Texture2D" uid="uid://4r1rh50m0epa" path="res://sprites/SpawnAnimations/player_spawn.png" id="16_pm3ni"]
+[ext_resource type="Texture2D" uid="uid://bv5b3w3yfsjto" path="res://sprites/SpawnAnimations/player_spawn.png" id="16_pm3ni"]
 [ext_resource type="AudioStream" uid="uid://c754e2orbt8vr" path="res://sounds/sfx/bell.wav" id="20_jscy8"]
 [ext_resource type="PackedScene" uid="uid://cptu87em8m5eb" path="res://scenes/score_gain_label.tscn" id="20_yc10j"]
 [ext_resource type="AudioStream" uid="uid://bp6ubq1t0l7jv" path="res://sounds/sfx/money.mp3" id="21_pm3ni"]

@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dpfrdj48op1cf" path="res://sprites/Enemies/CarrotBlaster/walk_back.png" id="5_quwei"]
 [ext_resource type="Texture2D" uid="uid://cufm27qh5lwki" path="res://sprites/Enemies/CarrotBlaster/walk_front.png" id="6_f5mvt"]
 [ext_resource type="Texture2D" uid="uid://cf51dpuojggek" path="res://sprites/Enemies/CarrotBlaster/walk_side.png" id="7_mib14"]
-[ext_resource type="Texture2D" uid="uid://bphx4a5770f0j" path="res://sprites/SpawnAnimations/carrotblaster_spawn.png" id="9_gvh7j"]
+[ext_resource type="Texture2D" uid="uid://c8w74epnq324k" path="res://sprites/SpawnAnimations/carrotblaster_spawn.png" id="9_gvh7j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i8q3o"]
 atlas = ExtResource("2_7l2yr")

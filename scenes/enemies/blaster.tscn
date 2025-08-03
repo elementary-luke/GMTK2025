@@ -9,7 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://dvkw5s6dc1h0k" path="res://sprites/Enemies/MushroomBlaster/death.png" id="5_dmvte"]
 [ext_resource type="Texture2D" uid="uid://dmpp4pvb458d" path="res://sprites/Enemies/MushroomBlaster/idle_front.png" id="6_it2ps"]
 [ext_resource type="Texture2D" uid="uid://ccp3rikerpwmf" path="res://sprites/Enemies/MushroomBlaster/idle_side.png" id="7_22vg5"]
-[ext_resource type="Texture2D" uid="uid://dm4odndskqr88" path="res://sprites/SpawnAnimations/mushroomblaster_spawn.png" id="9_4qpto"]
+[ext_resource type="Texture2D" uid="uid://c2tqghckj214g" path="res://sprites/SpawnAnimations/mushroomblaster_spawn.png" id="9_4qpto"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_f0fgp"]
 atlas = ExtResource("2_3tnlx")

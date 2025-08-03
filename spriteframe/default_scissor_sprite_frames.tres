@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c8p3p38pxbeuf" path="res://sprites/Enemies/MouseSnipper/mouse_death.png" id="1_plpck"]
 [ext_resource type="Texture2D" uid="uid://0q1t131w76bw" path="res://sprites/Enemies/MouseSnipper/mouse_snipper_spritesheet.png" id="2_fjag8"]
-[ext_resource type="Texture2D" uid="uid://mdlbjxv4x8ay" path="res://sprites/SpawnAnimations/grey_mouse_spawn.png" id="3_fjag8"]
+[ext_resource type="Texture2D" uid="uid://bqufyqlx31r02" path="res://sprites/SpawnAnimations/grey_mouse_spawn.png" id="3_fjag8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27fx8"]
 atlas = ExtResource("1_plpck")

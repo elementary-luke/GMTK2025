@@ -54,7 +54,7 @@ func end_game():
 	Global.Rope.cut(Global.Rope.segments.size() - 1)
 	get_tree().call_group("Enemy", "die")
 	get_tree().call_group("Bullet", "die")
-	$ScissorTimer.stop()
+	$EnemyTimer.stop()
 	await get_tree().create_timer(1.0).timeout
 	get_tree().create_tween()
 	var tween = get_tree().create_tween()

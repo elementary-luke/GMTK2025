@@ -55,7 +55,7 @@ texture = ExtResource("2_da0ks")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_8gdk0")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." groups=["Bullet"]]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_ws26a")
 }
