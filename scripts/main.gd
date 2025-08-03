@@ -10,11 +10,11 @@ var max_enemies = 5
 
 				   #[blaster, carrot_blaster, peashooter, scissor mouse, spinshooter]
 var probabilities = [8,        8,             20,         50,            15]
-var cooldowns     = [8.0,     8.0,            4.0,        1.0,         4.0]
+var cooldowns     = [10.0,     10.0,            6.0,        2.0,         6.0]
 var adjust        = [true,     true,          false,      false,         true]
 
 var difficulty = 1.0
-var difficulty_increase = 0.0002
+var difficulty_increase = 0.00015
 var max_difficulty = 3.0
 
 func _ready():
@@ -132,6 +132,7 @@ func multi_label(multiplier, pos):
 
 
 func _on_enemy_timer_timeout() -> void:
+	print(difficulty)
 	if game_ended:
 		return
 		
@@ -177,7 +178,7 @@ func _on_enemy_timer_timeout() -> void:
 	
 	var space_state = get_world_2d().direct_space_state
 	var shape = CircleShape2D.new()
-	shape.radius = 16
+	shape.radius = 24
 	
 	for i in range(0, 100):
 		var shape_query = PhysicsShapeQueryParameters2D.new()

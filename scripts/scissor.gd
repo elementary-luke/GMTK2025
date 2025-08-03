@@ -5,7 +5,7 @@ var seg_index = null
 var attached = false
 var speed = 40.0
 var cut = 0.0
-var cut_time = 3.0
+var cut_time = 4.0
 var chew_dir = 1
 var idling = false
 var idle_dir = Vector2(0, 0)
@@ -32,6 +32,7 @@ func _physics_process(delta: float) -> void:
 	if dead || $Sprite2D.animation == "spawn":
 		return
 	
+	speed = 40.0 * (1.0 + Global.Root.difficulty) / 2.0
 	var segments = Global.Rope.segments
 	if Global.Player.casting_rope:
 		if seg_index != null:
@@ -42,7 +43,7 @@ func _physics_process(delta: float) -> void:
 					if chew_dir == 1:
 						rotation += deg_to_rad(180.0)
 					global_position = segments[seg_index].pos
-					cut += delta
+					cut += delta * (1.0 + Global.Root.difficulty) / 2.0
 					if cut > cut_time:
 						Global.Rope.cut(seg_index)
 						$Cut.play()
