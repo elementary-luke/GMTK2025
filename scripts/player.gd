@@ -84,7 +84,7 @@ func update(delta: float) -> void:
 	
 	
 	frames_without_extension += 1
-	if frames_without_extension > 60 && $RopeNoise.playing:
+	if (!casting_rope || frames_without_extension > 30) && $RopeNoise.playing:
 		$RopeNoise.stop()
 		
 	velocity = move_step
@@ -139,7 +139,7 @@ func stun(time, rope_reduction):
 		reduce_rope(rope_reduction)
 		Global.Root.hit_label(rope_reduction)
 		
-		$AudioStreamPlayer2D.play()
+		$StunSound.play()
 		
 		if time == 0.0:
 			return

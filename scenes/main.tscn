@@ -822,9 +822,9 @@ texture = ExtResource("8_85g3d")
 stream = ExtResource("16_jbj1t")
 volume_db = 1.981
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="Player"]
+[node name="StunSound" type="AudioStreamPlayer2D" parent="Player"]
 stream = ExtResource("16_0ld40")
-volume_db = -0.315
+volume_db = -2.0
 
 [node name="ShakeTimer" type="Timer" parent="Player"]
 wait_time = 0.05
@@ -861,11 +861,11 @@ end_cap_mode = 2
 
 [node name="Bell" type="AudioStreamPlayer" parent="Rope"]
 stream = ExtResource("20_jscy8")
-volume_db = -5.0
+volume_db = -3.0
 
 [node name="Cash" type="AudioStreamPlayer" parent="Rope"]
 stream = ExtResource("21_pm3ni")
-volume_db = -15.0
+volume_db = -7.0
 
 [node name="EnemyTimer" type="Timer" parent="."]
 wait_time = 4.0
