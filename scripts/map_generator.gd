@@ -10,7 +10,7 @@ var room_num = 3
 var spawned_rooms := {}
 var last_room := Vector2i(-9999, -9999)  # ensure first spawn triggers
 
-func _process(_delta):
+func _physics_process(delta: float) -> void:
 	if Global.player_position == null:
 		return
 

@@ -7,6 +7,7 @@ var scale_mag = 0.05 # Max scale change from original
 const p = 10
 
 func _ready() -> void:
+	$Cover.get_node("AnimationPlayer").play("FadeIn")
 	var remaining = int(Global.time_lived)
 	var hours = remaining / (60 * 60)
 	remaining = remaining % (60 * 60)
@@ -38,7 +39,11 @@ func _process(delta: float) -> void:
 	$StatsText.rotation = mag / 10 * cos(f * t + p)
 
 func _on_button_button_down() -> void:
+	$Cover.get_node("AnimationPlayer").play("FadeOut")
+	await get_tree().create_timer(0.3).timeout
 	get_tree().change_scene_to_file("res://scenes/menu.tscn")
 
 func _on_play_button_button_down() -> void:
+	$Cover.get_node("AnimationPlayer").play("FadeOut")
+	await get_tree().create_timer(0.3).timeout
 	get_tree().change_scene_to_file("res://scenes/main.tscn")

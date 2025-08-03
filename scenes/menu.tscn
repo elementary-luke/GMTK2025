@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://de830wxqptahi"]
+[gd_scene load_steps=25 format=3 uid="uid://de830wxqptahi"]
 
 [ext_resource type="Script" uid="uid://b0pd1k0vy8mve" path="res://scripts/menu.gd" id="1_vjb58"]
 [ext_resource type="Texture2D" uid="uid://qetl0t6uspmt" path="res://sprites/UI/logo_pixelated.png" id="2_con2f"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bqcs165u45g18" path="res://sprites/UI/controls_button_pressed.png" id="6_ufwb2"]
 [ext_resource type="Texture2D" uid="uid://b1gy61cfgx3j4" path="res://sprites/UI/splash_screen_logo_two_tone.png" id="8_13sgg"]
 [ext_resource type="Texture2D" uid="uid://c5od1or6yp2a5" path="res://sprites/Player/run_side.png" id="9_i6lef"]
+[ext_resource type="PackedScene" uid="uid://ks4j05jgr3ky" path="res://scenes/cover.tscn" id="12_ufwb2"]
 
 [sub_resource type="Animation" id="Animation_g3eks"]
 length = 0.001
@@ -271,6 +272,9 @@ position = Vector2(4, 199)
 sprite_frames = SubResource("SpriteFrames_3dmrc")
 animation = &"run"
 autoplay = "run"
+
+[node name="Cover" parent="." instance=ExtResource("12_ufwb2")]
+modulate = Color(1, 1, 1, 1)
 
 [connection signal="pressed" from="PlayButtonHolder/PlayButton" to="." method="_on_texture_button_pressed"]
 [connection signal="pressed" from="ControlButtonHolder/ControlButton" to="." method="_on_control_button_pressed"]

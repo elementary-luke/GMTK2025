@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c0nt6gtupcods"]
+[gd_scene load_steps=12 format=3 uid="uid://c0nt6gtupcods"]
 
 [ext_resource type="Script" uid="uid://d2imit610bjrb" path="res://scripts/end_screen.gd" id="1_6e1uj"]
 [ext_resource type="Texture2D" uid="uid://bv5dhsaui7r0u" path="res://sprites/UI/parallax_bg.png" id="2_plosh"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://bq28c83v74yiy" path="res://sprites/UI/menu_button.png" id="4_vj8vg"]
 [ext_resource type="Texture2D" uid="uid://b2yojn1mjyw75" path="res://sprites/UI/play_button.png" id="5_vj8vg"]
 [ext_resource type="Texture2D" uid="uid://cgifymdwjabqx" path="res://sprites/UI/you_died.png" id="7_plosh"]
+[ext_resource type="PackedScene" uid="uid://ks4j05jgr3ky" path="res://scenes/cover.tscn" id="8_4j4el"]
 
 [sub_resource type="Animation" id="Animation_g3eks"]
 length = 0.001
@@ -214,6 +215,9 @@ vertical_alignment = 1
 position = Vector2(256, 49)
 scale = Vector2(2, 2)
 texture = ExtResource("7_plosh")
+
+[node name="Cover" parent="." instance=ExtResource("8_4j4el")]
+position = Vector2(-3, -1)
 
 [connection signal="button_down" from="MenuButtonHolder/MenuButton" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="PlayButtonHolder/PlayButton" to="." method="_on_play_button_button_down"]

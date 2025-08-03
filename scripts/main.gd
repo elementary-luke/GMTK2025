@@ -18,12 +18,14 @@ var difficulty_increase = 0.0001
 var max_difficulty = 3.0
 
 func _ready():
+	$CoverLayer/Cover.get_node("AnimationPlayer").play("FadeIn")
 	Global.Root = self
 	$Player.segments = $Rope.segments
 	rope_shown = $Player.rope_left
 	Global.rope_used = 0.0
 	Global.time_lived = 0.0
 	Global.score = 0.0
+	
 	
 	$Player/RectContainer.hide()
 

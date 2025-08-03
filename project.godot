@@ -13,6 +13,7 @@ config_version=5
 config/name="GMTK2025"
 run/main_scene="uid://de830wxqptahi"
 config/features=PackedStringArray("4.4", "Forward Plus")
+boot_splash/bg_color=Color(0, 0, 0, 1)
 boot_splash/image="uid://571doqyics0t"
 config/icon="res://icon.svg"
 
@@ -88,4 +89,4 @@ main_action={
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
-environment/defaults/default_clear_color=Color(0.576471, 0.690196, 0.321569, 1)
+environment/defaults/default_clear_color=Color(0, 0, 0, 1)
