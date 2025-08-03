@@ -103,10 +103,12 @@ func die():
 	dead = true
 	if !Global.Root.game_ended:
 		Global.Player.add_rope(rope_value)
-		Global.Root.gain_label(rope_value, global_position)
 		
 	rotation = 0
 	$Sprite2D.play("death")
-	await get_tree().create_timer(0.6).timeout
-	Global.Root.gain_label(rope_value, global_position)
+	
+	await get_tree().create_timer(0.4).timeout
+	
+	if !Global.Root.game_ended:
+		Global.Root.gain_label(rope_value, global_position)
 	queue_free()

@@ -8,11 +8,15 @@ var pred_move_speed = 10.0
 var focus_point = Vector2(0, 0)
 var attack_range = 500.0
 var rope_value = 10.0
+var dead = false
 
 func _ready() -> void:
 	focus_point = Global.player_position
 
 func _physics_process(delta: float) -> void:
+	if dead:
+		return
+		
 	if charging_up:
 		var future_player_pos = predicted_player_position()
 		
@@ -148,9 +152,15 @@ func predicted_player_position():
 	return player_pos + player_vel * t
 
 func die():
+	dead = true
 	if !Global.Root.game_ended:
 		Global.Player.add_rope(rope_value)
+	
+	$Sprite2D.play("death")
+	await get_tree().create_timer(0.4).timeout
+	if !Global.Root.game_ended:
 		Global.Root.gain_label(rope_value, global_position)
+		
 	queue_free()
 
 

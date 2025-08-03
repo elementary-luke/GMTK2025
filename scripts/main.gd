@@ -90,16 +90,8 @@ func gain_label(amount, pos):
 	add_child(inst)
 
 func score_gain_label(amount, multiplier):
-	#var size = 1.0
-	#size = lerp(1.0, 1.5, amount / 10.0)
 	var inst = $UI/ScoreGainLabel
-	#inst.global_position = Vector2(42.0, 50.0)
 	inst.modulate = Global.GREEN
-	#inst.scale = Vector2(size, size)
-	#if multiplier > 1:
-		#inst.get_node("Holder/Label").text = "%s X%s" % [amount, multiplier]
-	#else:
-		#inst.get_node("Holder/Label").text = "%s" % [amount]
 	
 	inst.amount = amount
 	inst.multiplier = multiplier
@@ -111,3 +103,11 @@ func score_gain_label(amount, multiplier):
 	await get_tree().create_timer(0.95).timeout
 	Global.score += amount * multiplier
 	$UI/ScoreHolder.modulate = Global.GREEN
+
+func multi_label(multiplier, pos):
+	var inst = gain_label_scn.instantiate()
+	inst.global_position = pos
+	inst.modulate = Global.GREEN
+	inst.scale = Vector2(2.0, 2.0)
+	inst.get_node("Holder/Label").text = "X%s" % int(multiplier)
+	add_child(inst)

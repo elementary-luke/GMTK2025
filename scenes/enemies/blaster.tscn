@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://dodsjfh46pl6o"]
+[gd_scene load_steps=54 format=3 uid="uid://dodsjfh46pl6o"]
 
 [ext_resource type="Script" uid="uid://d3n6utwhe0sgp" path="res://scripts/blaster.gd" id="1_2f31d"]
 [ext_resource type="Texture2D" uid="uid://brq3ubijwdg21" path="res://sprites/Enemies/MushroomBlaster/attack_back.png" id="2_3tnlx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://ea05hjqk0yr6" path="res://sprites/dashed_line.png" id="3_towk8"]
 [ext_resource type="Texture2D" uid="uid://can5jg5ivsx6s" path="res://sprites/Enemies/MushroomBlaster/attack_side.png" id="4_dmvte"]
 [ext_resource type="Texture2D" uid="uid://bntwq3cjjlorv" path="res://sprites/Enemies/MushroomBlaster/idle_back.png" id="5_4qpto"]
+[ext_resource type="Texture2D" uid="uid://dvkw5s6dc1h0k" path="res://sprites/Enemies/MushroomBlaster/death.png" id="5_dmvte"]
 [ext_resource type="Texture2D" uid="uid://dmpp4pvb458d" path="res://sprites/Enemies/MushroomBlaster/idle_front.png" id="6_it2ps"]
 [ext_resource type="Texture2D" uid="uid://ccp3rikerpwmf" path="res://sprites/Enemies/MushroomBlaster/idle_side.png" id="7_22vg5"]
 
@@ -80,6 +81,42 @@ region = Rect2(128, 0, 32, 48)
 [sub_resource type="AtlasTexture" id="AtlasTexture_np0ap"]
 atlas = ExtResource("4_dmvte")
 region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4qpto"]
+atlas = ExtResource("5_dmvte")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_it2ps"]
+atlas = ExtResource("5_dmvte")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_22vg5"]
+atlas = ExtResource("5_dmvte")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qvtw"]
+atlas = ExtResource("5_dmvte")
+region = Rect2(96, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ii0ly"]
+atlas = ExtResource("5_dmvte")
+region = Rect2(128, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_poxdx"]
+atlas = ExtResource("5_dmvte")
+region = Rect2(160, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ujpyc"]
+atlas = ExtResource("5_dmvte")
+region = Rect2(192, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6705a"]
+atlas = ExtResource("5_dmvte")
+region = Rect2(224, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1si83"]
+atlas = ExtResource("5_dmvte")
+region = Rect2(256, 0, 32, 48)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t4qwx"]
 atlas = ExtResource("5_4qpto")
@@ -214,6 +251,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_4qpto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_it2ps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_22vg5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qvtw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ii0ly")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_poxdx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ujpyc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6705a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1si83")
+}],
+"loop": true,
+"name": &"death",
+"speed": 12.5
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_t4qwx")
 }, {
 "duration": 1.0,
@@ -293,7 +362,7 @@ one_shot = true
 [node name="Sprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -23)
 sprite_frames = SubResource("SpriteFrames_k1sea")
-animation = &"idle_front"
+animation = &"death"
 autoplay = "idle_front"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

@@ -7,30 +7,41 @@ const JUMP_VELOCITY = -400.0
 var previous_frame = -1
 
 var rope_value = 10.0
+var dead = false
 
 
 func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	
-	if $AnimatedSprite2D.animation != "spin":
-		if global_position.x > Global.player_position.x:
-			$AnimatedSprite2D.flip_h = true
-		else:
-			$AnimatedSprite2D.flip_h = false
-	
-	if global_position.distance_to(Global.player_position) > Global.despawn_distance:
-		queue_free()
+	if !dead:
+		if $AnimatedSprite2D.animation != "spin":
+			if global_position.x > Global.player_position.x:
+				$AnimatedSprite2D.flip_h = true
+			else:
+				$AnimatedSprite2D.flip_h = false
+		
+		if global_position.distance_to(Global.player_position) > Global.despawn_distance:
+			queue_free()
 		
 func die():
+	dead = true
 	if !Global.Root.game_ended:
 		Global.Player.add_rope(rope_value)
+		
+	$AnimatedSprite2D.play("death")
+	
+	await get_tree().create_timer(0.4).timeout
+	
+	if !Global.Root.game_ended:
 		Global.Root.gain_label(rope_value, global_position)
 	queue_free()
 
 
 func _on_timer_timeout() -> void:
+	if dead:
+		return
+		
 	if (Global.player_position - global_position).length() < 300.0:
 		var dir = 0.0
 		$AnimatedSprite2D.play("spin")
