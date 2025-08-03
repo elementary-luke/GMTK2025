@@ -13,6 +13,16 @@ var rope_value = 1.0
 var dead = false
 
 func _ready():
+	var type = randi_range(0, 2)
+	if type == 0:
+		$Sprite2D.sprite_frames = preload("res://spriteframe/default_scissor_sprite_frames.tres")
+	if type == 1:
+		$Sprite2D.sprite_frames = preload("res://spriteframe/blue_scissor_sprite_frames.tres")
+	elif type == 2:
+		$Sprite2D.sprite_frames = preload("res://spriteframe/brown_scissor_sprite_frames.tres")
+	
+	$Sprite2D.play("default")
+		
 	if randi_range(0, 1) == 0:
 		chew_dir = -1
 	
@@ -47,7 +57,7 @@ func _physics_process(delta: float) -> void:
 				if seg_index < segments.size():
 					look_at(segments[seg_index].pos)
 					var diff = segments[seg_index].pos - global_position
-					if diff.length() < 5.0 && segments[seg_index].scissor == null:
+					if diff.length() < 3.0 && segments[seg_index].scissor == null:
 						attached = true
 						segments[seg_index].scissor = self
 					else:
