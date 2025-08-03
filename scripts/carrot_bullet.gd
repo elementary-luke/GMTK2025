@@ -3,9 +3,9 @@ extends CharacterBody2D
 var starting_position : Vector2
 var dir : float
 var stun_time = 0.0
-var rope_dmg = 5
+var rope_dmg = 7
 
-var bullet_speed = 1.0
+var bullet_speed = 1.4
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

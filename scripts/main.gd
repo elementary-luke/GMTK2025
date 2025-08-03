@@ -9,12 +9,12 @@ var enemy_scene : PackedScene
 var max_enemies = 5
 
 				   #[blaster, carrot_blaster, peashooter, scissor mouse, spinshooter]
-var probabilities = [8,        8,             20,         40,            15]
-var cooldowns     = [10.0,     10.0,          4.0,        2.0,           4.0]
+var probabilities = [8,        8,             20,         50,            15]
+var cooldowns     = [8.0,     8.0,            4.0,        1.0,         4.0]
 var adjust        = [true,     true,          false,      false,         true]
 
 var difficulty = 1.0
-var difficulty_increase = 0.0001
+var difficulty_increase = 0.0002
 var max_difficulty = 3.0
 
 func _ready():
