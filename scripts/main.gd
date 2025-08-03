@@ -24,6 +24,8 @@ func _ready():
 	Global.rope_used = 0.0
 	Global.time_lived = 0.0
 	Global.score = 0.0
+	
+	$Player/RectContainer.hide()
 
 func _physics_process(delta: float) -> void:
 	if !game_ended:
@@ -64,16 +66,24 @@ func end_game():
 	get_tree().call_group("Enemy", "die")
 	get_tree().call_group("Bullet", "die")
 	$EnemyTimer.stop()
-	await get_tree().create_timer(1.0).timeout
+	
+	$Player/RectContainer.show()
+	$Player/RectContainer/ColorRect.material.set_shader_parameter("holeCenter", Global.player_position - Vector2(0, 10))
+	await get_tree().create_timer(1).timeout
 	get_tree().create_tween()
 	var tween = get_tree().create_tween()
 	tween.tween_property($Player/Shadow, "scale", Vector2(0, 0), 0.2)
+	$Player/RectContainer/ColorRect/AnimationPlayer.play("GoIn")
+	await get_tree().create_timer(0.5).timeout
 	$Player/AnimatedSprite2D.play("death")
+	await get_tree().create_timer(1).timeout
+	$Player/RectContainer/ColorRect/AnimationPlayer.play("GoIn2")
+	await get_tree().create_timer(1).timeout
+	get_tree().change_scene_to_file("res://scenes/end_screen.tscn")
+	
 
 func _on_animated_sprite_2d_animation_finished() -> void:
-	if $Player/AnimatedSprite2D.animation == "death":
-		get_tree().change_scene_to_file("res://scenes/end_screen.tscn")
-	elif $Player/AnimatedSprite2D.animation == "spawn":
+	if $Player/AnimatedSprite2D.animation == "spawn":
 		$Player/AnimatedSprite2D.play("idle_forward")
 
 func hit_label(dmg):

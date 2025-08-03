@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://be473fkjewddj"]
+[gd_scene load_steps=117 format=3 uid="uid://be473fkjewddj"]
 
 [ext_resource type="Script" uid="uid://00n4kvs1h3nt" path="res://scripts/player.gd" id="1_0wfyh"]
 [ext_resource type="Script" uid="uid://bfuu4c4qs8520" path="res://scripts/main.gd" id="1_sugp2"]
@@ -20,6 +20,7 @@
 [ext_resource type="AudioStream" uid="uid://dq717q6ttgf2i" path="res://sounds/sfx/grass_walking.wav" id="16_jbj1t"]
 [ext_resource type="Texture2D" uid="uid://bv5b3w3yfsjto" path="res://sprites/SpawnAnimations/player_spawn.png" id="16_pm3ni"]
 [ext_resource type="AudioStream" uid="uid://c754e2orbt8vr" path="res://sounds/sfx/bell.wav" id="20_jscy8"]
+[ext_resource type="Shader" uid="uid://c5pleyy5db8xe" path="res://shaders/cut.gdshader" id="20_og1vs"]
 [ext_resource type="PackedScene" uid="uid://cptu87em8m5eb" path="res://scenes/score_gain_label.tscn" id="20_yc10j"]
 [ext_resource type="AudioStream" uid="uid://bp6ubq1t0l7jv" path="res://sounds/sfx/money.mp3" id="21_pm3ni"]
 
@@ -676,6 +677,64 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
 size = Vector2(16, 15.75)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y6deb"]
+shader = ExtResource("20_og1vs")
+shader_parameter/holeCenter = Vector2(0, -11.69)
+shader_parameter/holeRadius = 400.0
+
+[sub_resource type="Animation" id="Animation_og1vs"]
+resource_name = "GoIn"
+length = 0.8
+step = 0.1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/holeRadius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(400, -0.25, 0, 0.25, 0, 27, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.8)
+}
+
+[sub_resource type="Animation" id="Animation_2wyq8"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/holeRadius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(400, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_pm3ni"]
+resource_name = "GoIn2"
+length = 0.4
+step = 0.1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/holeRadius")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(27, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.4)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_vxglm"]
+_data = {
+&"GoIn": SubResource("Animation_og1vs"),
+&"GoIn2": SubResource("Animation_pm3ni"),
+&"RESET": SubResource("Animation_2wyq8")
+}
+
 [node name="Game" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_sugp2")
@@ -745,7 +804,7 @@ position_smoothing_speed = 3.0
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 position = Vector2(0, -21)
 sprite_frames = SubResource("SpriteFrames_a8y0u")
-animation = &"spawn"
+animation = &"death"
 autoplay = "spawn"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
@@ -767,6 +826,22 @@ volume_db = -0.315
 
 [node name="ShakeTimer" type="Timer" parent="Player"]
 wait_time = 0.05
+
+[node name="RectContainer" type="Node2D" parent="Player"]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Player/RectContainer"]
+material = SubResource("ShaderMaterial_y6deb")
+offset_left = -519.0
+offset_top = -271.0
+offset_right = 481.0
+offset_bottom = 229.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/RectContainer/ColorRect"]
+libraries = {
+&"": SubResource("AnimationLibrary_vxglm")
+}
 
 [node name="Rope" type="Node2D" parent="."]
 z_index = 1
