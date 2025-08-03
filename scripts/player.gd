@@ -14,7 +14,7 @@ var last = Vector2(0, 0)
 var can_extend = false
 var rope_left = 150.0 # 150sda
 var max_rope = 150.0 # 150sda
-var min_rope_segments = 2
+var min_rope_segments = 3
 var frames_without_extension = 0
 
 var anim_name = "idle_forward"
