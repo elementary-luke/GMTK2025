@@ -41,8 +41,8 @@ func handle_intersection():
 	var j = ip[1] + 2
 	if j - i > segments_in_loop:
 		Global.Player.casting_rope = false
-		Global.show_cut_line($Line.points.slice(i, j + 1))
-		Global.show_cut_line($Line.points.slice(0, i + 1) + $Line.points.slice(j))
+		Global.show_loop_line($Line.points.slice(i, j))
+		#Global.show_cut_line($Line.points.slice(0, i + 1) + $Line.points.slice(j))
 		
 		for s in segments:
 			if s.scissor != null:
@@ -52,6 +52,9 @@ func handle_intersection():
 		
 		
 		var bodies = query_bodies_in_polygon($Line.points.slice(i, j))
+		if len(bodies) > 0:
+			Global.Root.ammo_green()
+			
 		for b in bodies:
 			var body = b["collider"]
 			if body:

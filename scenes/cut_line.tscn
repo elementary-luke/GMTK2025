@@ -53,7 +53,6 @@ _data = {
 modulate = Color(1, 1, 1, 0)
 z_index = 5
 width = 2.0
-default_color = Color(0, 0, 1, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
